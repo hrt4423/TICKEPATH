@@ -108,8 +108,8 @@ CREATE TABLE booking_detail(
 
     PRIMARY KEY(booking_detail_id,booking_id),
 
-    FOREIGN KEY booking_fk_1(booking_id)REFERENCES booking(booking_id)
+    FOREIGN KEY booking_detail_fk_1(booking_detail_id)REFERENCES booking(booking_id)
         ON DELETE RESTRICT ON UPDATE CASCADE,
-    FOREIGN KEY booking_fk_2(seat_id)REFERENCES seat(seat_id)
+    FOREIGN KEY booking_detail_fk_2(seat_id)REFERENCES seat(seat_id)
         ON DELETE RESTRICT ON UPDATE CASCADE
 );
