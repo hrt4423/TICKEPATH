@@ -7,6 +7,6 @@
     <title>演習ファイル</title>
 </head>
 <body>
-    
+  shiraki   ahahahah
 </body>
 </html>
