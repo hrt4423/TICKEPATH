@@ -10,22 +10,15 @@
 <body>
     <div name="maindiv" class="container">
         <div class="row">
-        <div class="col-sm-8">
-            <div class="card">
-                <div class="card-body">
-                    <p class="text-left">マイページ</p><br>
-                </div> 
-        </div>
-            </div>
-                    <p class="text-left">登録情報</p><br>
-                    <p class="text-left">閲覧履歴</p></br>
-                    <p class="text-left">予約照会</p><br>
-                    <p class="text-left">ログアウト</p>
-                </div>
-            </div>
+            <ul class="list-group">
+                <li class="list-group-item">マイページ</li><br>
+                <li class="list-group-item">登録情報</li>
+                <li class="list-group-item">閲覧履歴</li>
+                <li class="list-group-item">予約照会</li>
+                <li class="list-group-item">ログアウト</li>
+            </ul>
         </div>
     </div>
-
     <?php
 
     ?>
