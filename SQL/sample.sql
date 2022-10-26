@@ -1,0 +1,13 @@
+CREATE TABLE category_list (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    category VARCHAR(100) UNIQUE KEY NOT NULL
+);
+
+CREATE TABLE blog (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(100) NOT NULL,
+    text TEXT NOT NULL,
+    date DATETIME,
+    category_id INT NOT NULL,
+    FOREIGN KEY (category_id) REFERENCES category_list(id) ON DELETE RESTRICT ON UPDATE CASCADE
+);
