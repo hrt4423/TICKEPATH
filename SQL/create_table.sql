@@ -21,7 +21,8 @@ CREATE TABLE performance(
     place VARCHAR(128) NOT NULL,
     performance_date DATE NOT NULL,    
     open_time TIME NOT NULL,
-    start_time TIME NOT NULL
+    start_time TIME NOT NULL,
+    image_path VARCHAR(128) NOT NULL
 
     PRIMARY KEY(performance_id)
 );
