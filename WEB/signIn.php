@@ -48,7 +48,7 @@ function registClick(){
 
 
 <!-- bootstarapのcss読み込み -->
-<link href="css/bootstrap.min.css" rel="stylesheet" />
+<link href="../Example/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -105,7 +105,7 @@ function registClick(){
         </div>
         
         <!-- bootstrapのjs読み込み -->
-        <script src="js/bootstrap.min.js"></script>
+        <script src="../Example/js/bootstrap.min.js"></script>
 </body>
 
 </html>
