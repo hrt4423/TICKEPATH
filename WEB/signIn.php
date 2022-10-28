@@ -48,7 +48,7 @@ function registClick(){
 
 
 <!-- bootstarapのcss読み込み -->
-<link href="css/bootstrap.min.css" rel="stylesheet" />
+<link href="../Example/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -83,7 +83,7 @@ function registClick(){
             <div class="row">
                 <div class="col-md-12 mt-3">
                     <div class="d-grid gap-2">
-                        <button class="btn text-white" style="background-color:#64BCFC;" type="button" onclick="registClick()">ログイン</button>
+                        <button class="btn text-white" style="background-color:#68C5F3;" type="button" onclick="registClick()">ログイン</button>
                     </div>
                 </div>
             </div>
@@ -99,13 +99,13 @@ function registClick(){
         <div class="row">
             <div class="col-md-12 mt-4">
                 <div class="d-grid gap-2">
-                    <button class="btn text-white" style="background-color:#64BCFC;" type="button">新規登録</button>
+                    <button class="btn text-white" style="background-color:#68C5F3;" type="button">新規登録</button>
                 </div>
             </div>
         </div>
         
         <!-- bootstrapのjs読み込み -->
-        <script src="js/bootstrap.min.js"></script>
+        <script src="../Example/js/bootstrap.min.js"></script>
 </body>
 
 </html>
