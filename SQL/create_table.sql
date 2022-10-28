@@ -1,5 +1,5 @@
 CREATE TABLE seat_value(
-    seat_value_id INTEGER NOT NULL,
+    seat_value_id INTEGER AUTO_INCREMENT NOT NULL,
     seat_name VARCHAR(128) NOT NULL,
 
     PRIMARY KEY(seat_value_id)
@@ -7,7 +7,7 @@ CREATE TABLE seat_value(
 
 
 CREATE TABLE artist(
-    artist_id INTEGER NOT NULL,
+    artist_id INTEGER AUTO_INCREMENT NOT NULL,
     artist_name VARCHAR(128) NOT NULL,
 
     PRIMARY KEY(artist_id)
@@ -15,7 +15,7 @@ CREATE TABLE artist(
 
 
 CREATE TABLE performance(
-    performance_id INTEGER NOT NULL,
+    performance_id INTEGER AUTO_INCREMENT NOT NULL,
     performance_name VARCHAR(128) NOT NULL,    
     artist_name VARCHAR(128) NOT NULL,
     place VARCHAR(128) NOT NULL,
@@ -29,7 +29,7 @@ CREATE TABLE performance(
 
 
 CREATE TABLE client(
-    client_id INTEGER NOT NULL,
+    client_id INTEGER AUTO_INCREMENT NOT NULL,
     client_password VARCHAR(128) NOT NULL,
     family_name VARCHAR(128) NOT NULL,
     first_name VARCHAR(128) NOT NULL,

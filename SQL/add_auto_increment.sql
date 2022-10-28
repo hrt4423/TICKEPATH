@@ -1,0 +1,1 @@
+ALTER TABLE performance MODIFY COLUMN performance_id integer auto_increment;
