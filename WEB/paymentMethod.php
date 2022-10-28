@@ -84,32 +84,33 @@
                             <div class="text-center">
                                 コンビニエンスストアで代金をお支払いいただけます。
                             </div>
+
+                            <div class="row mt-3">
+                                <div class="col-6">
+                                    <button type="submit" class="btn btn-ligh text-dark" style="background-color: #DFDFDF;">
+                                        戻る
+                                    </button>
+                                </div>
+                
+                                <div class="col-6">
+                                    <a href=""><!--  -->
+                                        <button type="submit" class="btn btn-info text-white" 
+                                            form="payment_method_form">
+                                            申込み
+                                        </button>
+                                    </a>
+                                </div>
+                            </div><!-- row -->
+
                         </form>
     
                     </div><!-- card-body -->
                 </div><!-- card -->
             </div><!-- カード位置　調整 -->
 
-            <div class="row">
-                <div class="col-6">
-                    <button type="submit" class="btn btn-info">
-                        戻る
-                    </button>
-                </div>
-
-                <div class="col-6">
-                    <a href=""><!--  -->
-                        <button type="submit" class="btn btn-info" 
-                            form="payment_method_form">
-                            申込み
-                        </button>
-                    </a>
-                </div>
-
-            </div><!-- row -->
-</form>
         </div><!-- row -->
-    </div>
+    </div><!-- container -->
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
 </html>
