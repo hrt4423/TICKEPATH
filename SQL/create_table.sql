@@ -46,8 +46,8 @@ CREATE TABLE client(
 );
 
 
-CREATE TABLE booking(
-    booking_id INTEGER NOT NULL,
+CREATE TABLE booking( 
+    booking_id INTEGER AUTO_INCREMENT NOT NULL,
     booking_date DATE NOT NULL,
     client_id INTEGER NOT NULL,
 
@@ -84,14 +84,14 @@ CREATE TABLE history(
 );
 
 
-CREATE TABLE seat(
-    seat_id INTEGER NOT NULL,
+CREATE TABLE seat( 
+    seat_id INTEGER AUTO_INCREMENT NOT NULL,
     performance_id INTEGER NOT NULL,
     seat_value_id INTEGER NOT NULL, 
     seat_price VARCHAR(128)NOT NULL,
     is_vacant INTEGER NOT NULL, /*0:空席, 1:予約済み*/
 
-    PRIMARY KEY (seat_id,performance_id),
+    PRIMARY KEY (seat_id),
 
     FOREIGN KEY seat_fk_1(performance_id)REFERENCES performance(Performance_id)
         ON DELETE RESTRICT ON UPDATE CASCADE,
@@ -100,16 +100,16 @@ CREATE TABLE seat(
 );
 
 
-CREATE TABLE booking_detail(
-    booking_detail_id INTEGER NOT NULL,
+CREATE TABLE booking_detail( 
+    booking_detail_id INTEGER AUTO_INCREMENT NOT NULL,
+    booking_id INTEGER NOT NULL,
     visitor_family_name VARCHAR(128) NOT NULL,
     visitor_First_Name VARCHAR(128) NOT NULL,
-    booking_id INTEGER NOT NULL,
     seat_id INTEGER NOT NULL,
 
     PRIMARY KEY(booking_detail_id,booking_id),
 
-    FOREIGN KEY booking_detail_fk_1(booking_detail_id)REFERENCES booking(booking_id)
+    FOREIGN KEY booking_detail_fk_1(booking_id)REFERENCES booking(booking_id)
         ON DELETE RESTRICT ON UPDATE CASCADE,
     FOREIGN KEY booking_detail_fk_2(seat_id)REFERENCES seat(seat_id)
         ON DELETE RESTRICT ON UPDATE CASCADE
