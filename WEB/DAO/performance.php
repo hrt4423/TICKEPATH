@@ -1,6 +1,6 @@
 <?php
 
-    class DAO_Performance{
+    class DAO_performance{
         private function dbConnect(){
             //データベースに接続
             $pdo = new PDO('mysql:host=localhost; dbname=webdb; charset=utf8',
@@ -26,6 +26,71 @@
 
             return $result;
             
+        }
+
+        public function outPutDate($id){
+            $result = $this->getPerformanceTblByid($id);
+            
+            if(empty($result)){
+                echo '指定したIDに該当するデータはありません。';
+            }else{
+                foreach($result as $row){
+                    $date=$row['performance_date'];
+                }
+            } 
+            echo date('Y/m/d', strtotime($date));
+        }
+
+        public function outPutArtist($id){
+            $result = $this->getPerformanceTblByid($id);
+
+            if(empty($result)){
+                echo '指定したIDに該当するデータはありません。';
+            }else{
+                foreach($result as $row){
+                    $artist=$row['artist_name'];
+                }
+            } 
+            echo $artist;
+        }
+
+        public function outPutPlace($id){
+            $result = $this->getPerformanceTblByid($id);
+
+            if(empty($result)){
+                echo '指定したIDに該当するデータはありません。';
+            }else{
+                foreach($result as $row){
+                    $place=$row['place'];
+                }
+            } 
+            echo $place;
+        }
+
+        public function outPutStartTime($id){
+            $result = $this->getPerformanceTblByid($id);
+
+            if(empty($result)){
+                echo '指定したIDに該当するデータはありません。';
+            }else{
+                foreach($result as $row){
+                    $startTime=$row['start_time'];
+                }
+            } 
+            echo date('H:i', strtotime($startTime));
+        }
+
+        public function outPutOpenTime($id){
+            $result = $this->getPerformanceTblByid($id);
+
+            if(empty($result)){
+                echo '指定したIDに該当するデータはありません。';
+            }else{
+                foreach($result as $row){
+                    $openTime=$row['open_time'];
+                }
+            } 
+            echo date('H:i', strtotime($openTime));
         }
     }
 ?>

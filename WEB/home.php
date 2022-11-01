@@ -11,9 +11,9 @@
 <body style="background-color: #DFDFDF;">
     <?php
         require_once './DAO/performance.php';
-        $daoPerformance = new DAO_Performance;
-        $resultArray1 = $daoPerformance->getPerformanceTblByid(1);
-        $resultArray2 = $daoPerformance->getPerformanceTblByid(2);
+        $daoPerformance = new DAO_performance;
+        $aimyon=1;
+        $yonedu=2;
     ?>
 
     <div class="container-fluid">
@@ -73,14 +73,7 @@
                     <div class="row gx-0">
                         <div class="col-3" >
                             <?php 
-                                if(empty($resultArray1)){
-                                    echo '指定したIDに該当するデータはありません。';
-                                }else{
-                                    foreach($resultArray1 as $row){
-                                        $date=$row['performance_date'];
-                                    }
-                                } 
-                                echo date('Y/m/d', strtotime($date));
+                                $daoPerformance->outPutDate($aimyon);
                             ?>
                         </div>
 
@@ -93,40 +86,20 @@
                         <div class="col-8">
                             <h6 class="card-title">
                                 <?php
-                                    if(empty($resultArray1)){
-                                        echo '指定したIDに該当するデータはありません。';
-                                    }else{
-                                        foreach($resultArray1 as $row){
-                                            $artist=$row['artist_name'];
-                                        }
-                                    } 
-                                    echo $artist;
+                                    $daoPerformance->outPutArtist($aimyon);
                                 ?>
                             </h6>
                             <div>
                                 <?php
-                                    if(empty($resultArray1)){
-                                        echo '指定したIDに該当するデータはありません。';
-                                    }else{
-                                        foreach($resultArray1 as $row){
-                                            $place=$row['place'];
-                                        }
-                                    } 
-                                    echo $place;
+                                    $daoPerformance->outPutPlace($aimyon);
                                 ?>
                             </div>
                             <div>
                                 <?php
-                                    if(empty($resultArray1)){
-                                        echo '指定したIDに該当するデータはありません。';
-                                    }else{
-                                        foreach($resultArray1 as $row){
-                                            $start=$row['start_time'];
-                                            $open=$row['open_time'];
-                                        }
-                                    } 
-                                    echo '開演：',date('H:i', strtotime($start)), '～';
-                                    echo  '（開場', date('H:i', strtotime($open)), '～）';
+                                    echo '開演：';
+                                    $daoPerformance->outPutStartTime($aimyon);
+                                    echo '～';
+                                    echo '（開場', $daoPerformance->outPutOpenTime($aimyon), '～）';
                                 ?>
                             </div>
                         </div>
@@ -141,15 +114,7 @@
                     <div class="row gx-0">
                         <div class="col-3">
                         <?php 
-                            $resultArray = $daoPerformance->getPerformanceTblByid(2);
-                            if(empty($resultArray)){
-                                echo '指定したIDに該当するデータはありません。';
-                            }else{
-                                foreach($resultArray as $row){
-                                    $date=$row['performance_date'];
-                                }
-                            } 
-                            echo date('Y/m/d', strtotime($date));
+                            $daoPerformance->outPutDate($yonedu);
                         ?>
                         </div>
 
@@ -162,18 +127,22 @@
                         <div class="col-8">
                             <h6 class="card-title">
                             <?php
-                                if(empty($resultArray2)){
-                                    echo '指定したIDに該当するデータはありません。';
-                                }else{
-                                    foreach($resultArray2 as $row){
-                                        $artist=$row['artist_name'];
-                                    }
-                                } 
-                                echo $artist;
+                                $daoPerformance->outPutArtist($yonedu);
                             ?>
                             </h6>
-                            <div>会場名</div>
-                            <div>開演：時間（会場：時間）</div>
+                            <div>
+                                <?php
+                                    $daoPerformance->outPutPlace($yonedu);
+                                ?>
+                            </div>
+                            <div>
+                                <?php
+                                    echo '開演：';
+                                    $daoPerformance->outPutStartTime($yonedu);
+                                    echo '～';
+                                    echo '（開場', $daoPerformance->outPutOpenTime($yonedu), '～）';
+                                ?>
+                            </div>
                         </div>
                     </div><!--row-->
                 </div><!-- card-body -->
