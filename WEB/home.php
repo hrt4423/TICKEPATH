@@ -9,6 +9,13 @@
     <title>ホーム画面</title>
 </head>
 <body style="background-color: #DFDFDF;">
+    <?php
+        require_once './DAO/performance.php';
+        $daoPerformance = new DAO_Performance;
+        $resultArray1 = $daoPerformance->getPerformanceTblByid(1);
+        $resultArray2 = $daoPerformance->getPerformanceTblByid(2);
+    ?>
+
     <div class="container-fluid">
 
         <div class="row">
@@ -64,8 +71,17 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row gx-0">
-                        <div class="col-3">
-                            2022/2/22
+                        <div class="col-3" >
+                            <?php 
+                                if(empty($resultArray1)){
+                                    echo '指定したIDに該当するデータはありません。';
+                                }else{
+                                    foreach($resultArray1 as $row){
+                                        $date=$row['performance_date'];
+                                    }
+                                } 
+                                echo date('Y/m/d', strtotime($date));
+                            ?>
                         </div>
 
                         <div class="col-1">
@@ -76,10 +92,43 @@
 
                         <div class="col-8">
                             <h6 class="card-title">
-                                アーティスト名
+                                <?php
+                                    if(empty($resultArray1)){
+                                        echo '指定したIDに該当するデータはありません。';
+                                    }else{
+                                        foreach($resultArray1 as $row){
+                                            $artist=$row['artist_name'];
+                                        }
+                                    } 
+                                    echo $artist;
+                                ?>
                             </h6>
-                            <div>会場名</div>
-                            <div>開演：時間（会場：時間）</div>
+                            <div>
+                                <?php
+                                    if(empty($resultArray1)){
+                                        echo '指定したIDに該当するデータはありません。';
+                                    }else{
+                                        foreach($resultArray1 as $row){
+                                            $place=$row['place'];
+                                        }
+                                    } 
+                                    echo $place;
+                                ?>
+                            </div>
+                            <div>
+                                <?php
+                                    if(empty($resultArray1)){
+                                        echo '指定したIDに該当するデータはありません。';
+                                    }else{
+                                        foreach($resultArray1 as $row){
+                                            $start=$row['start_time'];
+                                            $open=$row['open_time'];
+                                        }
+                                    } 
+                                    echo '開演：',date('H:i', strtotime($start)), '～';
+                                    echo  '（開場', date('H:i', strtotime($open)), '～）';
+                                ?>
+                            </div>
                         </div>
                     </div><!--row-->
                 </div><!-- card-body -->
@@ -91,7 +140,17 @@
                 <div class="card-body">
                     <div class="row gx-0">
                         <div class="col-3">
-                            2022/2/22
+                        <?php 
+                            $resultArray = $daoPerformance->getPerformanceTblByid(2);
+                            if(empty($resultArray)){
+                                echo '指定したIDに該当するデータはありません。';
+                            }else{
+                                foreach($resultArray as $row){
+                                    $date=$row['performance_date'];
+                                }
+                            } 
+                            echo date('Y/m/d', strtotime($date));
+                        ?>
                         </div>
 
                         <div class="col-1">
@@ -102,7 +161,16 @@
 
                         <div class="col-8">
                             <h6 class="card-title">
-                                アーティスト名
+                            <?php
+                                if(empty($resultArray2)){
+                                    echo '指定したIDに該当するデータはありません。';
+                                }else{
+                                    foreach($resultArray2 as $row){
+                                        $artist=$row['artist_name'];
+                                    }
+                                } 
+                                echo $artist;
+                            ?>
                             </h6>
                             <div>会場名</div>
                             <div>開演：時間（会場：時間）</div>
@@ -117,8 +185,10 @@
                 <h3 id=""></h3>
             </div>
         </div>
-
+    
     </div><!--container-fluid-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    
+    
 </body>
 </html>
