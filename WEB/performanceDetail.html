@@ -18,12 +18,9 @@
 <!--DBと接続 -->
 
 <body style="background-color:#DFDFDF;">
-<?php
-    $pdo = new PDO('mysql:host=localhost;dbname=webdb;charset=utf8', 'webuser','abccsd2');
-    $sql = "SELECT * FROM performance WHERE artist_name=?";
-    $ps=$pdo->prepare($sql);
-    $ps->bindValue(1,$_POST['inputName'],PDO::)
-?>
+    <div class="card" style="background-color:#FFFF;">
+        <h1 class="card-title">
+    </div>
 </body>
     <!-- bootstrapのjs読み込み -->
     <script src="js/bootstrap.min.js"></script>
