@@ -16,14 +16,26 @@
 <!-- bootstarapのcss読み込み -->
 </head>
 <!--DBと接続 -->
-
 <body style="background-color:#DFDFDF;">
-    <div class="card-body" style="background-color: #FFFF;">
-        <h5 class="card-title text-center">のチケット情報</h5>
-    </div>
-    <div class="card-body" style="background-color: #FFFF;">
-        
-    </div> 
+    <?php
+    require_once './DAO/performance.php';
+    $daoPerformance = new DAO_performance;
+    $aimyon=1;
+    $yonedu=2;
+?>
+<div class="container-fluid">   
+	<div class="card">
+		<h5 class="card-title text-center mt-4">
+			<?php 
+				$daoPerformance->outPutArtist($aimyon);
+			?>のチケット情報</h5>
+			<div class=card-body>
+				
+            </div>
+					
+	</div>
+
+</div> 
 </body>
     <!-- bootstrapのjs読み込み -->
     <script src="js/bootstrap.min.js"></script>
