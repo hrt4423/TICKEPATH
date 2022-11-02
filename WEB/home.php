@@ -9,6 +9,13 @@
     <title>ホーム画面</title>
 </head>
 <body style="background-color: #DFDFDF;">
+    <?php
+        require_once './DAO/performance.php';
+        $daoPerformance = new DAO_performance;
+        $aimyon=1;
+        $yonedu=2;
+    ?>
+
     <div class="container-fluid">
 
         <div class="row">
@@ -64,8 +71,10 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row gx-0">
-                        <div class="col-3">
-                            2022/2/22
+                        <div class="col-3" >
+                            <?php 
+                                $daoPerformance->outPutDate($aimyon);
+                            ?>
                         </div>
 
                         <div class="col-1">
@@ -76,10 +85,23 @@
 
                         <div class="col-8">
                             <h6 class="card-title">
-                                アーティスト名
+                                <?php
+                                    $daoPerformance->outPutArtist($aimyon);
+                                ?>
                             </h6>
-                            <div>会場名</div>
-                            <div>開演：時間（会場：時間）</div>
+                            <div>
+                                <?php
+                                    $daoPerformance->outPutPlace($aimyon);
+                                ?>
+                            </div>
+                            <div>
+                                <?php
+                                    echo '開演：';
+                                    $daoPerformance->outPutStartTime($aimyon);
+                                    echo '～';
+                                    echo '（開場', $daoPerformance->outPutOpenTime($aimyon), '～）';
+                                ?>
+                            </div>
                         </div>
                     </div><!--row-->
                 </div><!-- card-body -->
@@ -91,7 +113,9 @@
                 <div class="card-body">
                     <div class="row gx-0">
                         <div class="col-3">
-                            2022/2/22
+                        <?php 
+                            $daoPerformance->outPutDate($yonedu);
+                        ?>
                         </div>
 
                         <div class="col-1">
@@ -102,10 +126,23 @@
 
                         <div class="col-8">
                             <h6 class="card-title">
-                                アーティスト名
+                            <?php
+                                $daoPerformance->outPutArtist($yonedu);
+                            ?>
                             </h6>
-                            <div>会場名</div>
-                            <div>開演：時間（会場：時間）</div>
+                            <div>
+                                <?php
+                                    $daoPerformance->outPutPlace($yonedu);
+                                ?>
+                            </div>
+                            <div>
+                                <?php
+                                    echo '開演：';
+                                    $daoPerformance->outPutStartTime($yonedu);
+                                    echo '～';
+                                    echo '（開場', $daoPerformance->outPutOpenTime($yonedu), '～）';
+                                ?>
+                            </div>
                         </div>
                     </div><!--row-->
                 </div><!-- card-body -->
@@ -117,8 +154,10 @@
                 <h3 id=""></h3>
             </div>
         </div>
-
+    
     </div><!--container-fluid-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+    
+    
 </body>
 </html>
