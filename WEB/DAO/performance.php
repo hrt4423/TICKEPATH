@@ -92,6 +92,19 @@
             } 
             echo date('H:i', strtotime($openTime));
         }
+
+        public function getImagePath($id){
+            $result = $this->getPerformanceTblByid($id);
+
+            if(empty($result)){
+                echo '指定したIDに該当するデータはありません。';
+            }else{
+                foreach($result as $row){
+                    $imagePath=$row['image_path'];
+                }
+            } 
+            echo $imagePath;
+        }
     }
 ?>
 

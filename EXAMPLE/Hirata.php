@@ -10,7 +10,8 @@
 </head>
 <body style="background-color: #DFDFDF;">
     <div class="container-fluid">
-
+    <img src="../IMAGES/PERFORMANCE/aimyon_live_image.png" class="d-block mx-auto" alt="公演の画像">
+    
             <div><!--カード位置調整-->
                 <div class="card col-12">
                     <div class="card-body">
