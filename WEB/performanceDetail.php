@@ -24,16 +24,24 @@
     $yonedu=2;
 ?>
 <div class="container-fluid">   
-	<div class="card">
+	<div class="card border-dark">
 		<h5 class="card-title text-center mt-4">
 			<?php 
 				$daoPerformance->outPutArtist($aimyon);
 			?>のチケット情報</h5>
 			<div class=card-body>
-				
-            </div>
-					
+				<img src="<?php $daoPerformance->getImagePath($aimyon); ?>">;
+            </div>		
 	</div>
+
+	<div class="card border-dark mt-1">
+			<div class=card-body>
+				<h6><?php  $daoPerformance->outPutDate($aimyon) ?></h6>
+				<h6>開園：<?php  $daoPerformance->outPutStartTime($aimyon) ?></h6>
+            </div>		
+	</div>
+
+
 
 </div> 
 </body>
