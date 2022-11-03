@@ -5,10 +5,15 @@
   <title>header</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">  <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" href="css/test.css" />
+  <style>
+    .navbar{
+        background-color: #64BCFC;
+    }
+  </style>
 </head>
 <body>
     <!-- ナビゲーションバー -->
-    <nav class="navbar navbar-light bg-info mb-3">
+    <nav class="navbar navbar-light mb-3">
         <div class="container-fluid">
             <!-- タイトル -->
             <a class="navbar-brand" href="#">
@@ -27,14 +32,13 @@
                     <li class="nav-item">
                         <a class="nav-link text-light" href="#">新規登録</a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item mb-2">
                         <a class="nav-link text-light" href="#">ログイン</a>
                     </li>
-                    <!-- 検索フォーム -->
-                    <form class="d-flex m-2">
-                        <input class="form-control form-control-sm" type="search" placeholder="キーワードで検索" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="キーワードを入力">
+                        <button class="btn btn-secondary" type="button"><i class="bi bi-search"></i></button>
+                    </div>
                 </ul>
             </div>
         </div>
@@ -56,11 +60,16 @@
     <link rel="stylesheet" href="../css/mypage.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <style>
+        .btn{
+            background-color: #64BCFC;
+        }
+    </style>
 </head>
 <body style="background-color: #DFDFDF;">
     <div name="maindiv" class="container-fluid">
-        <div class="row">
-            <div class="col-12">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
                 <ul class="list-group">
                     <li class="list-group-item">マイページ</li><br>
 
