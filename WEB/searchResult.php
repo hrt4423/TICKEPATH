@@ -62,65 +62,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link rel="stylesheet" href="../CSS/home.css">
-    <title>ホーム画面</title>
+    <title>検索結果画面</title>
 </head>
 <body style="background-color: #DFDFDF;">
     <?php
         require_once './DAO/performance.php';
+        require_once './DAO/performance2.php';
         $daoPerformance = new DAO_performance;
+        $daoPerformance2 = new DAO_performance2;
         $aimyon=1;
         $yonedu=2;
     ?>
 
     <div class="container-fluid">
-
         <div class="row">
-            <div class="col-12" id="header">
-                <h1>TICKEPATH</h1>
-            </div>
-        </div>
-
-            <div id="carousel_bg">
-                <div id="carousel">
-                    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                            <div class="carousel-indicators">
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-                            </div>
-                
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <img src="../IMAGES/PERFORMANCE/aimyon_live_image.png" class="d-block mx-auto" alt="...">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="../IMAGES/PERFORMANCE/yonedu_live_image.jpg" class="d-block mx-auto" alt="...">
-                                </div>
-                                <div class="carousel-item">
-                                    <img src="../IMAGES/PERFORMANCE/vaundy.jpg" class="d-block mx-auto" alt="...">
-                                </div>
-                            </div>
-                
-                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Previous</span>
-                            </button>
-                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="visually-hidden">Next</span>
-                            </button>
-                    </div>
-                </div>
-            </div>
-        
-        
-
-        <div class="row">
-            <div class="col-12" id="headline">
-                <h4 class="">
-                    おすすめ公演・チケット情報
-                </h4>
-            </div>
+        <h2 class="bg-white col-md-12 pt-3 pb-3 text-center">
+            <?php
+                $daoPerformance2->search($_POST['name']);
+            ?>の検索結果</h2>
+            
         </div><!--row-->
 
         <div class="card_position"><!--カード位置調整-->

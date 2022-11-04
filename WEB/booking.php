@@ -38,10 +38,13 @@
                     <li class="nav-item mb-2">
                         <a class="nav-link text-light" href="#">ログイン</a>
                     </li>
+                    <!-- 検索の処理 -->
+                    <form action="searchResult.php" method="post">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="キーワードを入力">
-                        <button class="btn btn-secondary" type="button"><i class="bi bi-search"></i></button>
+                        <input type="text" name="name" class="form-control" placeholder="キーワードを入力" required>
+                        <button type="submit" name="search" class="btn btn-secondary" id="searchbutton" type="button"><i class="bi bi-search"></i></button>
                     </div>
+                    </form>
                 </ul>
             </div>
         </div>
