@@ -5,7 +5,7 @@
 
 <head>
 <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-<title>新規登録 | cookpod</title>
+<title>新規登録</title>
 <style>
 </style>
 <script type="text/javascript">
