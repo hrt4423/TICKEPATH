@@ -4,35 +4,39 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="../CSS/home.css">
+
+    <!--BootStrapCDN--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <!--アイコン用CDN--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+    <!--css--><link rel="stylesheet" href="../CSS/home.css">
     <title>ホーム画面</title>
 </head>
 
 <body style="background-color: #DFDFDF;">
     <?php
+        //クラスファイルの読込み
         require_once './DAO/performance.php';
+        //インスタンスの生成
         $daoPerformance = new DAO_performance;
+        //performance_idを変数に設定
         $aimyon=1;
         $yonedu=2;
     ?>
 
     <div class="container-fluid">
 
-        <div class="row">
+        <div class="row"><!--仮ヘッダ-->
             <div class="col-12" id="header">
                 <h1>TICKEPATH</h1>
             </div>
         </div>
 
 
-        <div id="alert">
+        <div id="alert"><!--通知-->
             <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                <i class="bi bi-bell-fill position-relative">
-                    
-                </i>
+                <!--アイコン-->
+                <i class="bi bi-bell-fill position-relative"></i>
 
+                <!--通知テキスト-->
                 <span id="alert_message">
                     <strong>公演が近づいています！
                         <a href="https://localhost/TICKEPATH/WEB/bookingInfo.php" class="text-decoration-none">
@@ -40,9 +44,11 @@
                         </a>
                     </strong>
                 </span>
+
+                <!--閉じるボタン-->
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
-        </div><!--alert-->
+        </div><!--通知-->
 
         <div id="carousel_bg"><!--画像スライド-->
             <div id="carousel">
@@ -92,6 +98,7 @@
                     <div class="row gx-0">
                         <div class="col-3" >
                             <?php 
+                                //日付を表示
                                 $daoPerformance->outPutDate($aimyon);
                             ?>
                         </div>
@@ -105,16 +112,19 @@
                         <div class="col-8">
                             <h6 class="card-title">
                                 <?php
+                                    //アーティスト名を表示
                                     $daoPerformance->outPutArtist($aimyon);
                                 ?>
                             </h6>
                             <div>
                                 <?php
+                                    //会場を表示
                                     $daoPerformance->outPutPlace($aimyon);
                                 ?>
                             </div>
                             <div>
                                 <?php
+                                    //開演、開場時間を表示
                                     echo '開演：';
                                     $daoPerformance->outPutStartTime($aimyon);
                                     echo '～';
@@ -220,15 +230,13 @@
 
 
 
-        <div class="row">
+        <div class="row"><!--フッター-->
             <div class="col-12" id="footer">
                 <h3 id=""></h3>
             </div>
         </div>
     
     </div><!--container-fluid-->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-    
-    
+    <!--BootStrapCDN--><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
 </html>
