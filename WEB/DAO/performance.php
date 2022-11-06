@@ -1,6 +1,7 @@
 <?php
-
+    //performance（公演）テーブルにアクセスするクラス
     class DAO_performance{
+        //データベースに接続するための関数
         private function dbConnect(){
             //データベースに接続
             $pdo = new PDO('mysql:host=localhost; dbname=webdb; charset=utf8',
@@ -8,6 +9,7 @@
             return $pdo;
         }
 
+        //公演の情報を全て配列に入れて返す関数, 引数：performance_id
         public function getPerformanceTblByid($id){
             $pdo = $this -> dbConnect();
 
@@ -25,9 +27,23 @@
             $result = $ps->fetchAll(PDO::FETCH_ASSOC);
 
             return $result;
-            
         }
 
+        //公演名を出力する関数, 引数：performance_id
+        public function outPutperformanceName($id){
+            $result = $this->getPerformanceTblByid($id);
+            
+            if(empty($result)){
+                echo '指定したIDに該当するデータはありません。';
+            }else{
+                foreach($result as $row){
+                    $performanceName=$row['performance_name'];
+                }
+            } 
+            echo $performanceName;
+        }
+
+        //公演日を出力する関数, 引数：performance_id
         public function outPutDate($id){
             $result = $this->getPerformanceTblByid($id);
             
@@ -41,6 +57,7 @@
             echo date('Y/m/d', strtotime($date));
         }
 
+        //アーティスト名を出力する関数, 引数：performance_id
         public function outPutArtist($id){
             $result = $this->getPerformanceTblByid($id);
 
@@ -54,6 +71,7 @@
             echo $artist;
         }
 
+        //会場を出力する関数, 引数：performance_id
         public function outPutPlace($id){
             $result = $this->getPerformanceTblByid($id);
 
@@ -67,6 +85,7 @@
             echo $place;
         }
 
+        //開演時間を出力する関数, 引数：performance_id
         public function outPutStartTime($id){
             $result = $this->getPerformanceTblByid($id);
 
@@ -80,6 +99,7 @@
             echo date('H:i', strtotime($startTime));
         }
 
+        //開場時間を出力する関数, 引数：performance_id
         public function outPutOpenTime($id){
             $result = $this->getPerformanceTblByid($id);
 
@@ -93,6 +113,7 @@
             echo date('H:i', strtotime($openTime));
         }
 
+        //イメージ画像の絶対パスを出力する関数, 引数：performance_id
         public function getImagePath($id){
             $result = $this->getPerformanceTblByid($id);
 
