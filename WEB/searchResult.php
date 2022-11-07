@@ -85,7 +85,7 @@
             ?>の検索結果<br>
             <!-- 検索件数を表示 -->
             <?php
-            $count = $daoPerformance2->performanceCount($performances[$_POST['name']]);
+            $count = $daoPerformance2->performanceCount($_POST['name']);
 
             echo '<small class="text-secondary">全' . $count . "件中 " . $count . '件</small></h2>';
             ?>
@@ -93,13 +93,14 @@
         </div><!--row-->
         <?php
         for($i = 0; $i < $count; $i++){
-            echo '<div class="card_position"><!--カード位置調整-->
+            ?>
+                <div class="card_position"><!--カード位置調整-->
                     <div class="card">
                         <div class="card-body">
                             <div class="row gx-0">
-                                    <div class="col-3" >'.
-                                        $daoPerformance2->outPutDate($performances[$_POST['name']]).
-                                    '</div>
+                                    <div class="col-3" >
+                                         <?=$daoPerformance2->outPutDate($_POST['name']); ?>
+                                    </div>
 
                                     <div class="col-1">
                                         <div id="vertical_line">
@@ -109,70 +110,30 @@
 
                                     <div class="col-8">
 
-                                        <h6 class="card-title">'. 
-                                            $daoPerformance2->outPutArtist($performances[$_POST['name']]).
-                                        '</h6>
-                                        <div>'.
-                                            $daoPerformance2->outPutPlace($performances[$_POST['name']]).
-                                        '</div>
-                                        <div>'.
-                                            $daoPerformance2->outPutPlace($performances[$_POST['name']]).
-                                        '</div>
+                                        <h6 class="card-title">
+                                            <?=$daoPerformance2->outPutArtist($_POST['name']); ?>
+                                        </h6>
                                         <div>
-                                            開演：'.
-                                        $daoPerformance2->outPutStartTime($performances[$_POST['name']]).
-                                            '～
-                                            （開場'. $daoPerformance2->outPutOpenTime($performances[$_POST['name']]). '～）
+                                            <?=$daoPerformance2->outPutPlace($_POST['name']); ?>
+                                        </div>
+                                        <div>
+                                           
+                                        </div>
+                                        <div>
+                                            開演：
+                                            <?=$daoPerformance2->outPutStartTime($_POST['name']); ?>
+                                             ～（開場
+                                            <?=$daoPerformance2->outPutOpenTime($_POST['name']); ?>
+                                             ～）
                                         </div>
                                     </div>
                             </div><!--row-->
                         </div><!-- card-body -->
                     </div><!-- card -->
-                </div><!-- カード位置調整 -->';
+                </div><!-- カード位置調整 -->
+        <?php        
         }
         ?>
-
-
-        <div class="card_position"><!--カード位置調整-->
-            <div class="card">
-                <div class="card-body">
-                    <div class="row gx-0">
-                        <div class="col-3" >
-                            <?php 
-                                $daoPerformance2->outPutDate($performances[$_POST['name']]);
-                            ?>
-                        </div>
-
-                        <div class="col-1">
-                            <div id="vertical_line">
-                                <!-- 縦線-->
-                            </div>
-                        </div>
-
-                        <div class="col-8">
-                            <h6 class="card-title">
-                                <?php
-                                    $daoPerformance2->outPutArtist($performances[$_POST['name']]);
-                                ?>
-                            </h6>
-                            <div>
-                                <?php
-                                    $daoPerformance2->outPutPlace($performances[$_POST['name']]);
-                                ?>
-                            </div>
-                            <div>
-                                <?php
-                                    echo '開演：';
-                                    $daoPerformance2->outPutStartTime($performances[$_POST['name']]);
-                                    echo '～';
-                                    echo '（開場', $daoPerformance2->outPutOpenTime($performances[$_POST['name']]), '～）';
-                                ?>
-                            </div>
-                        </div>
-                    </div><!--row-->
-                </div><!-- card-body -->
-            </div><!-- card -->
-        </div><!-- カード位置調整 -->
     </div><!--container-fluid-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
     

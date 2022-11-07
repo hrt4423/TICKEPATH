@@ -1,6 +1,11 @@
 <?php
 
     class DAO_performance2{
+        
+        function __construct(){
+            $performances = ["あいみょん" => 1, "米津玄師" => 2];
+        }
+
         private function dbConnect(){
             //データベースに接続
             $pdo = new PDO('mysql:host=localhost; dbname=webdb; charset=utf8',
@@ -13,13 +18,13 @@
             $pdo = $this -> dbConnect();
 
             //SQLの生成　入力を受け取る部分は”？”
-            $sql = "SELECT * FROM performance WHERE performance_id=?";
+            $sql = "SELECT * FROM performance WHERE artist_name=?";
 
             //prepare:準備　戻り値を変数に保持
             $ps = $pdo -> prepare($sql);
 
             //”？”に値を設定する。
-            $ps->bindValue(1, $id, PDO::PARAM_INT); 
+            $ps->bindValue(1, $id, PDO::PARAM_STR); 
 
             //SQLの実行
             $ps->execute();
@@ -122,13 +127,13 @@
             $pdo = $this -> dbConnect();
 
             //SQLの生成　入力を受け取る部分は”？”
-            $sql = "SELECT * FROM performance WHERE performance_id=?";
+            $sql = "SELECT * FROM performance WHERE artist_name=?";
 
             //prepare:準備　戻り値を変数に保持
             $ps = $pdo -> prepare($sql);
 
             //”？”に値を設定する。
-            $ps->bindValue(1, $id, PDO::PARAM_INT); 
+            $ps->bindValue(1, $id, PDO::PARAM_STR); 
 
             //SQLの実行
             $ps->execute();

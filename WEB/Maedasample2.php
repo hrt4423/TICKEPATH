@@ -93,13 +93,14 @@
         </div><!--row-->
         <?php
         for($i = 0; $i < $count; $i++){
-            echo '<div class="card_position"><!--カード位置調整-->
+            ?>
+                <div class="card_position"><!--カード位置調整-->
                     <div class="card">
                         <div class="card-body">
                             <div class="row gx-0">
-                                    <div class="col-3" >'.
-                                         $daoPerformance2->outPutDate($performances[$_POST['name']]).
-                                    '</div>
+                                    <div class="col-3" >
+                                         <?=$daoPerformance2->outPutDate($performances[$_POST['name']]); ?>
+                                    </div>
 
                                     <div class="col-1">
                                         <div id="vertical_line">
@@ -110,25 +111,27 @@
                                     <div class="col-8">
 
                                         <h6 class="card-title">
-                                           
+                                            <?=$daoPerformance2->outPutArtist($performances[$_POST['name']]); ?>
                                         </h6>
                                         <div>
-                                           
+                                            <?=$daoPerformance2->outPutPlace($performances[$_POST['name']]); ?>
                                         </div>
                                         <div>
                                            
                                         </div>
                                         <div>
                                             開演：
-                                        
-                                             ～
+                                            <?=$daoPerformance2->outPutStartTime($performances[$_POST['name']]); ?>
+                                             ～（開場
+                                            <?=$daoPerformance2->outPutOpenTime($performances[$_POST['name']]); ?>
                                              ～）
                                         </div>
                                     </div>
                             </div><!--row-->
                         </div><!-- card-body -->
                     </div><!-- card -->
-                </div><!-- カード位置調整 -->';
+                </div><!-- カード位置調整 -->
+        <?php        
         }
         ?>
 
