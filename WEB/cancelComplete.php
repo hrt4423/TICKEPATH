@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cancel</title>
+    <title>キャンセル完了画面</title>
     <link href="../Example/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
+    
     <!-- ナビゲーションバー -->
     <nav class="navbar navbar-light bg-info mb-3">
         <div class="container-fluid">
@@ -40,9 +41,10 @@
             </div>
         </div>
     </nav>
+
+    <div class="container-fluid">
     <div class="row p-2">
-        <h2 class="text-center">キャンセルの確認</h2>
-        <h4 class="text-center">以下の申し込みをキャンセルします</h4>
+        <h2 class="text-center">チケットをキャンセルしました</h2>        
         <div class="container p-4">
             <table class="table table-striped table-bordered">
                 <thead>
@@ -59,9 +61,9 @@
         </div>
     </div>
     <div class="d-grid gap-2 col-6 mx-auto">
-        <a href="" class="btn" style="color:#fff; background-color: #64BCFC;" type="button">キャンセルを確定する</a>
-        <a href="" class="btn" style="background-color:#DFDFDF;" type="button">戻る</a>
-      </div>
+        <a href="mypage.php" class="btn" style="color:#fff; background-color: #64BCFC;" type="button">マイページへ戻る</a>      
+    </div>
+    </div>
     <script src="../Example/js/bootstrap.min.js"></script>
 </body>
 </html>
