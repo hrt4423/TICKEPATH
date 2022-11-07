@@ -39,7 +39,7 @@
                         <a class="nav-link text-light" href="#">ログイン</a>
                     </li>
                     <!-- 検索の処理 -->
-                    <form action="Maedasample.php" method="post">
+                    <form action="Maedasample2.php" method="post">
                     <div class="input-group">
                         <input type="text" name="name" class="form-control" placeholder="キーワードを入力" required>
                         <button type="submit" name="search" class="btn btn-secondary" id="searchbutton" type="button"><i class="bi bi-search"></i></button>
