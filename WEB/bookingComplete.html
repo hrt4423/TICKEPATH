@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>予約確認</title>
+    <title>予約完了</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 
 </head>
@@ -12,7 +12,11 @@
     
     <div class="container-fluid">
         <div class="row">
-            <p class="bg-white col-md-12 text-center">予約内容をご確認の上、画面下より申込確定手続きへお進みください。</p>
+            <p class="bg-white col-md-12 p-3 text-center">予約完了</p>
+
+            <div class="text-center mb-3">
+                <small>下記の内容で予約が完了しました</small>
+            </div>
         
             <div><!-- カード位置　調整 -->
                 <div class="card">
@@ -36,19 +40,19 @@
                 </div><!-- card -->
             </div><!-- カード位置　調整 -->
 
+            <div class="text-center mt-3">
+                <small>入力したメールに詳細を送信しました</small><br>
+                <small>メールを確認してください</small>
+            </div>
+
             
                 <dic class="card mt-3">
                     <div class="card-body">
                         <div class="row">
-                        <div class="col-6">
-                            <button type="submit" class="btn text-dark m-2" style="background-color: #DFDFDF;">
-                                 　戻る　
-                            </button>
-                        </div>
-
-                        <div class="col-6">
-                            <button type="submit" class="btn text-white m-2" style="background-color: #68C5F3;">
-                                購入する
+                    
+                        <div class="offset-3 col-6 offset-3">
+                            <button type="submit" class="btn text-white px-4" style="background-color: #68C5F3;">
+                                ホームへ
                             </button>
                         </div>
                         </div>
