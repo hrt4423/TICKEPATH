@@ -15,12 +15,29 @@
     <?php
         //クラスファイルの読込み
         require_once './DAO/performance.php';
+        require_once './DAO/booking.php';
+        require_once './DAO/booking_detail.php';
+        require_once './DAO/seat.php';
         //インスタンスの生成
         $daoPerformance = new DAO_performance;
+        $daoBooking = new DAO_booking;
+        $daoBookingDetail = new DAO_booking_detail;
+        $daoSeat = new DAO_seat;
+        
         //performance_idを変数に設定
         $aimyon=1;
         $yonedu=2;
+        //client_idを変数に設定
+        $clientId = 1;
     ?>
+
+    <!--PHPテスト-->
+    <?php
+        //$daoBooking->getBookingIdByClientId($clientId);
+
+    ?>
+    
+
 
     <div class="container-fluid">
 
@@ -28,7 +45,27 @@
             <div class="col-12" id="header">
                 <h1>TICKEPATH</h1>
             </div>
-        </div>
+        </div><!--仮ヘッダ-->
+
+        <?php
+            //通知：ユーザが申し込んだ公演のうち、公演日が1週間以内のものがあればアラートを表示する。
+            $bookingIds[] = $daoBooking->getBookingIdByClientId($clientId);
+            foreach ($bookingIds as $bookingId) {
+                //client_idから予約している公演のperformance_dateを取得
+                $seatId = $daoBookingDetail->getSeatIdByBookingId($bookingId);
+                $performanceId = $daoSeat->getSeatIdByBookingId($seatId);
+                $performanceDataArray = $daoPerformance->getPerformanceTblByid($performanceId);
+                foreach ($performanceData as $row) {
+                    $performanceDate = $row['performance_date'];
+                }
+                //現在のUNIX TIMESTAMPを取得
+                $currentTime = new DateTime();
+                //公演日をUNIX TIMESTAMPに変換
+                strtotime($performanceDate);
+                
+                if()
+            }
+        ?>
 
 
         <div id="alert"><!--通知-->
@@ -226,7 +263,6 @@
                 </div><!-- card-body -->
             </div><!-- card -->
         </div><!-- カード位置調整 -->
-
 
 
 

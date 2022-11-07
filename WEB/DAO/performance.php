@@ -1,7 +1,7 @@
 <?php
     //performance（公演）テーブルにアクセスするクラス
     class DAO_performance{
-        //データベースに接続するための関数
+        //データベースに接続する関数
         private function dbConnect(){
             //データベースに接続
             $pdo = new PDO('mysql:host=localhost; dbname=webdb; charset=utf8',
@@ -20,7 +20,7 @@
             $ps = $pdo -> prepare($sql);
 
             //”？”に値を設定する。
-            $ps->bindValue(1, $id, PDO::PARAM_STR); 
+            $ps->bindValue(1, $id, PDO::PARAM_INT); 
 
             //SQLの実行
             $ps->execute();
