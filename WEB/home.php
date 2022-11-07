@@ -54,13 +54,17 @@
             //現在の時刻を取得
             $currentDate = new DateTime();
             
+            //client_idから顧客ごとの予約(booking_id)を取得
             $bookingIds = array();
             $bookingIds = $daoBooking->getBookingIdByClientId($clientId);
+
+            //booking_idから公演日を調べる
             foreach ($bookingIds as $bookingId) {
                 //client_idから予約している公演のperformance_dateを取得
                 $seatId = $daoBookingDetail->getSeatIdByBookingId($bookingId);
                 $performanceId = $daoSeat->getSeatIdByBookingId($seatId);
                 $performanceDataArray = $daoPerformance->getPerformanceTblByid($performanceId);
+
                 //公演日を取得
                 foreach ($performanceDataArray as $row) {
                     $performanceDate = $row['performance_date'];
@@ -72,8 +76,7 @@
                 //公演日から1週間前の日付を取得
                 $oneWeekBeforeDate = $performanceDate;
                 $oneWeekBeforeDate->sub(new DateInterval('P7D'));
-                //var_dump($performanceDate);
-                echo 'looptest';
+                
                 //公演日が一週間以内か判定
                 if(($oneWeekBeforeDate <= $currentDate) 
                         && ($currentDate <= $performanceDate->add(new DateInterval('P7D')))
