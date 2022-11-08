@@ -126,6 +126,30 @@
             } 
             echo $imagePath;
         }
+
+        //artist_idから公演を検索する関数, 引数：artistId 戻り値：該当公演レコード
+        public function getPerformanceIdsByArtistId($artistId){
+            $pdo = $this -> dbConnect();
+
+            //SQLの生成　入力を受け取る部分は”？”
+            $sql = "SELECT * FROM performance WHERE artist_id=?";
+
+            //prepare:準備　戻り値を変数に保持
+            $ps = $pdo -> prepare($sql);
+
+            //”？”に値を設定する。
+            $ps->bindValue(1, $artistId, PDO::PARAM_INT); 
+
+            //SQLの実行
+            $ps->execute();
+            $result = $ps->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach($result as $row){
+                $performanceIds[] = $row['performance_id'];
+            }
+
+            return $performanceIds;
+        }
     }
 ?>
 
