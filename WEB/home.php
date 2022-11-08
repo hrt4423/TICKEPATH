@@ -23,6 +23,8 @@
         $daoBooking = new DAO_booking;
         $daoBookingDetail = new DAO_booking_detail;
         $daoSeat = new DAO_seat;
+        //通知フラグ
+        $notification_flg = false;
         
         //performance_idを変数に設定
         $aimyon=1;
@@ -33,7 +35,7 @@
 
     <!--PHPテスト-->
     <?php
-        //$daoBooking->getBookingIdByClientId($clientId);
+        
 
     ?>
     
@@ -49,43 +51,61 @@
 
         <?php
             //通知：ユーザが申し込んだ公演のうち、公演日が1週間以内のものがあればアラートを表示する。
+
+            //現在のUNIX TIMESTAMPを取得
+            $currentDate = new DateTime();
+
             $bookingIds[] = $daoBooking->getBookingIdByClientId($clientId);
             foreach ($bookingIds as $bookingId) {
                 //client_idから予約している公演のperformance_dateを取得
                 $seatId = $daoBookingDetail->getSeatIdByBookingId($bookingId);
                 $performanceId = $daoSeat->getSeatIdByBookingId($seatId);
                 $performanceDataArray = $daoPerformance->getPerformanceTblByid($performanceId);
-                foreach ($performanceData as $row) {
+                //公演日を取得
+                foreach ($performanceDataArray as $row) {
                     $performanceDate = $row['performance_date'];
                 }
-                //現在のUNIX TIMESTAMPを取得
-                $currentTime = new DateTime();
-                //公演日をUNIX TIMESTAMPに変換
-                strtotime($performanceDate);
-                
-                if()
+
+                //公演日をDateTime型に変換（データ型を揃えるため）
+                $performanceDate = new DateTime($performanceDate);
+                    
+                //現在の日付から1週間前の日付を取得
+                $oneWeekBeforeDate = $currentDate->sub(new DateInterval('P7D'));
+
+
+                if($oneWeekBeforeDate <= $performanceDate){
+                    $notification_flg = true;
+                    break;
+                }
+            }
+
+            //通知フラグがtureなら通知を表示
+            if($notification_flg){
+                echo '
+                    <div id="alert"><!--通知-->
+                        <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                            <!--アイコン-->
+                            <i class="bi bi-bell-fill position-relative"></i>
+            
+                            <!--通知テキスト-->
+                            <span id="alert_message">
+                                <strong>公演が近づいています！
+                                    <a href="https://localhost/TICKEPATH/WEB/bookingInfo.php" class="text-decoration-none">
+                                        確認する
+                                    </a>
+                                </strong>
+                            </span>
+            
+                            <!--閉じるボタン-->
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    </div><!--通知-->
+                ';
             }
         ?>
 
 
-        <div id="alert"><!--通知-->
-            <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                <!--アイコン-->
-                <i class="bi bi-bell-fill position-relative"></i>
-
-                <!--通知テキスト-->
-                <span id="alert_message">
-                    <strong>公演が近づいています！
-                        <a href="https://localhost/TICKEPATH/WEB/bookingInfo.php" class="text-decoration-none">
-                            確認する
-                        </a>
-                    </strong>
-                </span>
-
-                <!--閉じるボタン-->
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        </div><!--通知-->
+        
 
         <div id="carousel_bg"><!--画像スライド-->
             <div id="carousel">
