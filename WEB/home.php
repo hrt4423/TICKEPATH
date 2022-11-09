@@ -40,7 +40,6 @@
     ?>
     
 
-
     <div class="container-fluid">
 
         <div class="row"><!--仮ヘッダ-->
@@ -52,15 +51,20 @@
         <?php
             //通知：ユーザが申し込んだ公演のうち、公演日が1週間以内のものがあればアラートを表示する。
 
-            //現在のUNIX TIMESTAMPを取得
+            //現在の時刻を取得
             $currentDate = new DateTime();
+            
+            //client_idから顧客ごとの予約(booking_id)を取得
+            $bookingIds = array();
+            $bookingIds = $daoBooking->getBookingIdByClientId($clientId);
 
-            $bookingIds[] = $daoBooking->getBookingIdByClientId($clientId);
+            //booking_idから公演日を調べる
             foreach ($bookingIds as $bookingId) {
                 //client_idから予約している公演のperformance_dateを取得
                 $seatId = $daoBookingDetail->getSeatIdByBookingId($bookingId);
                 $performanceId = $daoSeat->getSeatIdByBookingId($seatId);
                 $performanceDataArray = $daoPerformance->getPerformanceTblByid($performanceId);
+
                 //公演日を取得
                 foreach ($performanceDataArray as $row) {
                     $performanceDate = $row['performance_date'];
@@ -69,15 +73,20 @@
                 //公演日をDateTime型に変換（データ型を揃えるため）
                 $performanceDate = new DateTime($performanceDate);
                     
-                //現在の日付から1週間前の日付を取得
-                $oneWeekBeforeDate = $currentDate->sub(new DateInterval('P7D'));
-
-
-                if($oneWeekBeforeDate <= $performanceDate){
+                //公演日から1週間前の日付を取得
+                $oneWeekBeforeDate = $performanceDate;
+                $oneWeekBeforeDate->sub(new DateInterval('P7D'));
+                
+                //公演日が一週間以内か判定
+                if(($oneWeekBeforeDate <= $currentDate) 
+                        && ($currentDate <= $performanceDate->add(new DateInterval('P7D')))
+                        || $currentDate == $performanceDate){
                     $notification_flg = true;
                     break;
                 }
             }
+
+            
 
             //通知フラグがtureなら通知を表示
             if($notification_flg){
@@ -103,9 +112,6 @@
                 ';
             }
         ?>
-
-
-        
 
         <div id="carousel_bg"><!--画像スライド-->
             <div id="carousel">
