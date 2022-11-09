@@ -1,11 +1,6 @@
 <?php
 
     class DAO_performance2{
-        
-        function __construct(){
-            $performances = ["あいみょん" => 1, "米津玄師" => 2];
-        }
-
         private function dbConnect(){
             //データベースに接続
             $pdo = new PDO('mysql:host=localhost; dbname=webdb; charset=utf8',
@@ -18,13 +13,33 @@
             $pdo = $this -> dbConnect();
 
             //SQLの生成　入力を受け取る部分は”？”
+            $sql = "SELECT * FROM performance WHERE performance_id=?";
+
+            //prepare:準備　戻り値を変数に保持
+            $ps = $pdo -> prepare($sql);
+
+            //”？”に値を設定する。
+            $ps->bindValue(1, $id, PDO::PARAM_INT); 
+
+            //SQLの実行
+            $ps->execute();
+            $result = $ps->fetchAll(PDO::FETCH_ASSOC);
+
+            return $result;
+        }
+
+        //公演の情報を全て配列に入れて返す関数, 引数：performance_id
+        public function getPerformanceTblByname($name){
+            $pdo = $this -> dbConnect();
+
+            //SQLの生成　入力を受け取る部分は”？”
             $sql = "SELECT * FROM performance WHERE artist_name=?";
 
             //prepare:準備　戻り値を変数に保持
             $ps = $pdo -> prepare($sql);
 
             //”？”に値を設定する。
-            $ps->bindValue(1, $id, PDO::PARAM_STR); 
+            $ps->bindValue(1, $name, PDO::PARAM_STR); 
 
             //SQLの実行
             $ps->execute();
@@ -52,6 +67,12 @@
             echo $performanceName;
         }
 
+        public function outPutperformanceName2($id){
+            $result = $this->getPerformanceTblByid($id);
+
+            echo $result['performance_name'];
+        }
+        
         //公演日を出力する関数, 引数：performance_id
         public function outPutDate($id){
             $result = $this->getPerformanceTblByid($id);
@@ -65,7 +86,7 @@
             } 
             echo date('Y/m/d', strtotime($date));
         }
-
+        
         //アーティスト名を出力する関数, 引数：performance_id
         public function outPutArtist($id){
             $result = $this->getPerformanceTblByid($id);

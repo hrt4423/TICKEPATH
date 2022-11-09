@@ -71,7 +71,7 @@
         $daoPerformance = new DAO_performance;
         $daoPerformance2 = new DAO_performance2;
 
-        $performances = ["あいみょん" => 1, "米津玄師" => 2];
+        //$performances = ["あいみょん" => 1, "米津玄師" => 2];
         //$aimyon=1;
         //$yonedu=2;
     ?>
@@ -92,14 +92,15 @@
 
         </div><!--row-->
         <?php
-        for($i = 0; $i < $count; $i++){
+        $result = $daoPerformance2->getPerformanceTblByname($_POST['name']);
+        foreach($result as $row){
             ?>
                 <div class="card_position"><!--カード位置調整-->
                     <div class="card">
                         <div class="card-body">
                             <div class="row gx-0">
                                     <div class="col-3" >
-                                         <?=$daoPerformance2->outPutDate($_POST['name']); ?>
+                                         <?=$daoPerformance2->outPutDate($row['performance_id']); ?>
                                     </div>
 
                                     <div class="col-1">
@@ -111,19 +112,19 @@
                                     <div class="col-8">
 
                                         <h6 class="card-title">
-                                            <?=$daoPerformance2->outPutArtist($_POST['name']); ?>
+                                            <?=$daoPerformance2->outPutArtist($row['performance_id']); ?>
                                         </h6>
                                         <div>
-                                            <?=$daoPerformance2->outPutPlace($_POST['name']); ?>
+                                            <?=$daoPerformance2->outPutPlace($row['performance_id']); ?>
                                         </div>
                                         <div>
                                            
                                         </div>
                                         <div>
                                             開演：
-                                            <?=$daoPerformance2->outPutStartTime($_POST['name']); ?>
+                                            <?=$daoPerformance2->outPutStartTime($row['performance_id']); ?>
                                              ～（開場
-                                            <?=$daoPerformance2->outPutOpenTime($_POST['name']); ?>
+                                            <?=$daoPerformance2->outPutOpenTime($row['performance_id']); ?>
                                              ～）
                                         </div>
                                     </div>
