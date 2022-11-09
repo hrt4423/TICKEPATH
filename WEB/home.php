@@ -32,7 +32,7 @@
         $aimyon=1;
         $yonedu=2;
         //client_idを変数に設定
-        $clientId = 1;
+        $clientId = 3;
     ?>
 
     <!--PHPテスト-->
@@ -263,49 +263,45 @@
                 foreach($performanceIds as $performanceId){
                     echo '
                         <div class="card_position"><!--カード位置調整-->
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row gx-0">
-                                        <div class="col-3" >
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row gx-0">
+                                    <div class="col-3" >
+                                        '
+                                        ,$daoPerformance->outPutDate($performanceId),
+                                        '
+                                    </div>
+            
+                                    <div class="col-1">
+                                        <div id="vertical_line">
+                                            <!-- 縦線-->
+                                        </div>
+                                    </div>
+                                    <div class="col-8">
+                                        <h6 class="card-title">
                                             '
-                                            ,$daoPerformance->outPutDate($performanceId),
+                                            ,$daoPerformance->outPutArtist($performanceId),
                                             '
+                                        </h6>
+                                        <div>
+                                            '
+                                            ,$daoPerformance->outPutPlace($performanceId),
+                                        '</div>
+                                        <div>
+                                            開演：'
+                                            ,$daoPerformance->outPutStartTime($performanceId), '～
+                                            （開場', $daoPerformance->outPutOpenTime($performanceId), '～）
                                         </div>
-                
-                                        <div class="col-1">
-                                            <div id="vertical_line">
-                                                <!-- 縦線-->
-                                            </div>
-                                        </div>
-                                        <div class="col-8">
-                                            <h6 class="card-title">
-                                                '
-                                                ,$daoPerformance->outPutArtist($performanceId),
-                                                '
-                                            </h6>
-                                            <div>
-                                                '
-                                                ,$daoPerformance->outPutPlace($performanceId),
-                                            '</div>
-                                            <div>
-                                                開演：'
-                                                ,$daoPerformance->outPutStartTime($performanceId), '～
-                                                （開場', $daoPerformance->outPutOpenTime($performanceId), '～）
-                                            </div>
-                                        </div>
-                                    </div><!--row-->
-                                </div><!-- card-body -->
-                            </div><!-- card -->
+                                    </div>
+                                </div><!--row-->
+                            </div><!-- card-body -->
+                        </div><!-- card -->
                         </div><!-- カード位置調整 -->
                     ';//end-echo
                 }
             }
         
         ?>
-
-            
-
-
 
         <div class="row"><!--フッター-->
             <div class="col-12" id="footer">
