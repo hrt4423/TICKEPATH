@@ -21,6 +21,12 @@
 </head>
 
 <body>
+    <?php
+        session_start();
+        if(isset($_SESSION["client_id"])==true){
+            header('Location: https://localhost/TICKEPATH/WEB/home.php');
+        }
+    ?>
     <!-- ナビゲーションバー -->
     <nav class="navbar navbar-light">
         <div class="container-fluid">
@@ -65,17 +71,13 @@
         <div class="offset-md-3 col-md-6">
             <h1 class="text-center bg-light mb-5">ログイン</h1>
 
-            <form action="https://localhost/TICKEPATH/WEB/home.php" method="post" id="login"></form>
+            <form action="https://localhost/TICKEPATH/WEB/loginCheck.php" method="post" id="login"></form>
 
-            <div class="row">
-                <div class="col-md-12 mt-1 mb-1 alert-danger text-center" id="errorMsg">
-
-                </div>
-            </div>
+            
             <div class="row">
                 <div class="col-md-12">
                     <div class="form-floating">
-                        <input type="text" class="form-control bg-light" id="usermail" placeholder="abc@abc.com" form="login">
+                        <input type="text" class="form-control bg-light" id="usermail" placeholder="abc@abc.com" name="email_address" form="login">
                         <label for="lastname">メールアドレス</label>
                     </div>
                 </div>
@@ -84,7 +86,7 @@
             <div class="row">
                 <div class="col-md-12 mt-2">
                     <div class="form-floating">
-                        <input type="password" class="form-control bg-light" id="pass" placeholder="abc@abc.com" form="login">
+                        <input type="password" class="form-control bg-light" id="pass" placeholder="abc@abc.com" name="password" form="login">
                         <label for="lastname">パスワード</label>
                     </div>
                 </div>
@@ -119,21 +121,6 @@
         </a>
     </div>
 
-    <?php
-        //バリデーションチェック
-        
-        // バリデーションに使うメールアドレス
-        /*
-        $email = 'hogehoge@email.com';
-
-        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        echo "正しい形式のメールアドレスです。";
-        } else {
-        echo "不正な形式のメールアドレスです。";
-        }
-        */
-    ?>
-        
     <!-- bootstrapのjs読み込み -->
     <script src="../Example/js/bootstrap.min.js"></script>
 </body>
