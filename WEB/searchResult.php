@@ -83,7 +83,7 @@
         foreach($result as $row){
             ?>
                 <div class="card_position"><!--カード位置調整-->
-                    <div class="card">
+                    <div class="card mt-3 mb-3">
                         <div class="card-body">
                             <div class="row gx-0">
                                     <div class="col-3" >
