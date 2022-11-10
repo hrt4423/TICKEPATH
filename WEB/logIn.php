@@ -9,22 +9,22 @@
     <link rel="stylesheet" href="../css/mypage.css">
     
     <style>
-    .navbar{
-        background-color: #64BCFC;
-    }
+        .navbar{
+            background-color: #64BCFC;
+        }
     </style>
+    
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- bootstarapのcss読み込み -->
     <link href="../Example/css/bootstrap.min.css" rel="stylesheet" />
-    
 </head>
 
 <body>
     <?php
-        //ログイン済みであれば、ホームへ遷移
+        //ログイン済みであれば（client_idを持つセッション変数に値があれば）、ホームへ遷移
         session_start();
-        if(isset($_SESSION["client_id"])==true){
+        if(isset($_SESSION["client_id"])){
             header('Location: https://localhost/TICKEPATH/WEB/home.php');
         }
     ?>

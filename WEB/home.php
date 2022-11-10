@@ -32,16 +32,7 @@
         //performance_idを変数に設定
         $aimyon=1;
         $yonedu=2;
-        //client_idを変数に設定
-        //$clientId = 3;
     ?>
-
-    <!--PHPテスト-->
-    <?php
-        
-
-    ?>
-    
 
     <div class="container-fluid">
         <!--ログイン状態の表示-->
@@ -55,6 +46,7 @@
                 echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
             }
         ?>
+        <!--ログイン状態の表示-->
 
         <div class="row"><!--仮ヘッダ-->
             <div class="col-12" id="header">
@@ -63,9 +55,13 @@
         </div><!--仮ヘッダ-->
 
         <?php
+            //ログイン済みであれば（セッション変数に値があれば）リマインド処理を動かす
             if(isset($_SESSION['clientId'])){
-                //アラート処理
-                //通知：ユーザが申し込んだ公演のうち、公演日が1週間以内のものがあればアラートを表示する。
+                /*
+                    リマインド処理
+                    ユーザが申し込んだ公演のうち、公演日が1週間以内のものがあればアラートを表示する。
+                */
+
                 //現在の時刻を取得
                 $currentDate = new DateTime();
                 
@@ -100,8 +96,6 @@
                         break;
                     }
                 }
-    
-                
     
                 //通知フラグがtureなら通知を表示
                 if($notification_flg){
@@ -266,8 +260,14 @@
         </div><!--row-->
 
         <?php
+            //ログイン済みであれば（セッション変数に値があれば）お気に入り表示処理を動かす
             if(isset($_SESSION['clientId'])){
-                //clientIdからartist_idを配列で取得
+                /*
+                    お気に入り：表示
+                    お気に入り登録されているアーティストの公演を表示する
+                */
+
+                //client_idからartist_idを配列で取得
                 $artistIds = array();
                 $artistIds=$daoFavorit->getBookingIdByClientId($_SESSION['clientId']);
 
@@ -320,8 +320,6 @@
                 echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
                 echo 'してください';
             }
-            
-        
         ?>
 
         <div class="row"><!--フッター-->

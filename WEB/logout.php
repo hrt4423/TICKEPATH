@@ -1,8 +1,10 @@
 <?php
     session_start();
 
+    //セッション変数を初期化
     $_SESSION = array();
 
+    //セッションを破棄
     session_destroy();
 ?>
 
