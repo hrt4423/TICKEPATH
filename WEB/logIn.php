@@ -22,6 +22,7 @@
 
 <body>
     <?php
+        //ログイン済みであれば、ホームへ遷移
         session_start();
         if(isset($_SESSION["client_id"])==true){
             header('Location: https://localhost/TICKEPATH/WEB/home.php');
