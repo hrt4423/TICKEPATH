@@ -15,6 +15,17 @@
   </style>
 </head>
 <body style="background-color: #DFDFDF;">
+    <?php
+        //クラス読み込み
+        require_once './DAO/history.php';
+        require_once './DAO/performance.php';
+
+        $daoPerformance = new DAO_performance;
+        $daoHistory = new DAO_history;
+
+        
+    ?>
+
     <!-- ナビゲーションバー -->
     <nav class="navbar navbar-light mb-3">
         <div class="container-fluid">
@@ -58,8 +69,10 @@
                 <div class="card-body">
                     <div class="row gx-0">
                         <div class="col-3" >
+                            <?php
+                                $daoHistory->getHistoryTblById($);
+                            ?>
                         </div>
-
                         <div class="col-1">
                             <div id="vertical_line">
                                 <!-- 縦線-->
@@ -68,8 +81,14 @@
 
                         <div class="col-8">
                             <h6 class="card-title">
+                                <?php
+                                    $daoPerformance->outPutArtist($performanceId);
+                                ?>
                             </h6>
                             <div>
+                                <?php
+                                    $daoPerformance->outPutPlace($performanceId);
+                                ?>
                             </div>
                             <div>
                             </div>
