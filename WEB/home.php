@@ -13,33 +13,40 @@
 
 <body style="background-color: #DFDFDF;">
     <?php
+        session_start();
         //クラスファイルの読込み
         require_once './DAO/performance.php';
         require_once './DAO/booking.php';
         require_once './DAO/booking_detail.php';
         require_once './DAO/seat.php';
+        require_once './DAO/favorite.php';
         //インスタンスの生成
         $daoPerformance = new DAO_performance;
         $daoBooking = new DAO_booking;
         $daoBookingDetail = new DAO_booking_detail;
         $daoSeat = new DAO_seat;
+        $daoFavorit = new DAO_Favorite;
+        //通知フラグ
+        $notification_flg = false;
         
         //performance_idを変数に設定
         $aimyon=1;
         $yonedu=2;
-        //client_idを変数に設定
-        $clientId = 1;
     ?>
-
-    <!--PHPテスト-->
-    <?php
-        //$daoBooking->getBookingIdByClientId($clientId);
-
-    ?>
-    
-
 
     <div class="container-fluid">
+        <!--ログイン状態の表示-->
+        <?php
+            if(isset($_SESSION['clientId'])){
+                echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
+                echo '<a href="https://localhost/TICKEPATH/WEB/logout.php">ログアウト</a>';
+                
+            }else{
+                echo 'ログインしていません<br>';
+                echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
+            }
+        ?>
+        <!--ログイン状態の表示-->
 
         <div class="row"><!--仮ヘッダ-->
             <div class="col-12" id="header">
@@ -48,44 +55,73 @@
         </div><!--仮ヘッダ-->
 
         <?php
-            //通知：ユーザが申し込んだ公演のうち、公演日が1週間以内のものがあればアラートを表示する。
-            $bookingIds[] = $daoBooking->getBookingIdByClientId($clientId);
-            foreach ($bookingIds as $bookingId) {
-                //client_idから予約している公演のperformance_dateを取得
-                $seatId = $daoBookingDetail->getSeatIdByBookingId($bookingId);
-                $performanceId = $daoSeat->getSeatIdByBookingId($seatId);
-                $performanceDataArray = $daoPerformance->getPerformanceTblByid($performanceId);
-                foreach ($performanceData as $row) {
-                    $performanceDate = $row['performance_date'];
-                }
-                //現在のUNIX TIMESTAMPを取得
-                $currentTime = new DateTime();
-                //公演日をUNIX TIMESTAMPに変換
-                strtotime($performanceDate);
+            //ログイン済みであれば（セッション変数に値があれば）リマインド処理を動かす
+            if(isset($_SESSION['clientId'])){
+                /*
+                    リマインド処理
+                    ユーザが申し込んだ公演のうち、公演日が1週間以内のものがあればアラートを表示する。
+                */
+
+                //現在の時刻を取得
+                $currentDate = new DateTime();
                 
-                if()
+                //client_idから顧客ごとの予約(booking_id)を取得
+                $bookingIds = array();
+                $bookingIds = $daoBooking->getBookingIdByClientId($_SESSION['clientId']);
+    
+                //booking_idから公演日を調べる
+                foreach ($bookingIds as $bookingId) {
+                    //client_idから予約している公演のperformance_dateを取得
+                    $seatId = $daoBookingDetail->getSeatIdByBookingId($bookingId);
+                    $performanceId = $daoSeat->getSeatIdByBookingId($seatId);
+                    $performanceDataArray = $daoPerformance->getPerformanceTblByid($performanceId);
+    
+                    //公演日を取得
+                    foreach ($performanceDataArray as $row) {
+                        $performanceDate = $row['performance_date'];
+                    }
+    
+                    //公演日をDateTime型に変換（データ型を揃えるため）
+                    $performanceDate = new DateTime($performanceDate);
+                        
+                    //公演日から1週間前の日付を取得
+                    $oneWeekBeforeDate = $performanceDate;
+                    $oneWeekBeforeDate->sub(new DateInterval('P7D'));
+                    
+                    //公演日が一週間以内か判定
+                    if(($oneWeekBeforeDate <= $currentDate) 
+                            && ($currentDate <= $performanceDate->add(new DateInterval('P7D')))
+                            || $currentDate == $performanceDate){
+                        $notification_flg = true;
+                        break;
+                    }
+                }
+    
+                //通知フラグがtureなら通知を表示
+                if($notification_flg){
+                    echo '
+                        <div id="alert"><!--通知-->
+                            <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                                <!--アイコン-->
+                                <i class="bi bi-bell-fill position-relative"></i>
+                
+                                <!--通知テキスト-->
+                                <span id="alert_message">
+                                    <strong>公演が近づいています！
+                                        <a href="https://localhost/TICKEPATH/WEB/bookingInfo.php" class="text-decoration-none">
+                                            確認する
+                                        </a>
+                                    </strong>
+                                </span>
+                
+                                <!--閉じるボタン-->
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        </div><!--通知-->
+                    ';
+                }
             }
         ?>
-
-
-        <div id="alert"><!--通知-->
-            <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                <!--アイコン-->
-                <i class="bi bi-bell-fill position-relative"></i>
-
-                <!--通知テキスト-->
-                <span id="alert_message">
-                    <strong>公演が近づいています！
-                        <a href="https://localhost/TICKEPATH/WEB/bookingInfo.php" class="text-decoration-none">
-                            確認する
-                        </a>
-                    </strong>
-                </span>
-
-                <!--閉じるボタン-->
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        </div><!--通知-->
 
         <div id="carousel_bg"><!--画像スライド-->
             <div id="carousel">
@@ -223,48 +259,68 @@
             </div>
         </div><!--row-->
 
-        <div class="card_position"><!--カード位置調整-->
-            <div class="card">
-                <div class="card-body">
-                    <div class="row gx-0">
-                        <div class="col-3" >
-                            <?php 
-                                $daoPerformance->outPutDate($aimyon);
-                            ?>
-                        </div>
+        <?php
+            //ログイン済みであれば（セッション変数に値があれば）お気に入り表示処理を動かす
+            if(isset($_SESSION['clientId'])){
+                /*
+                    お気に入り：表示
+                    お気に入り登録されているアーティストの公演を表示する
+                */
 
-                        <div class="col-1">
-                            <div id="vertical_line">
-                                <!-- 縦線-->
-                            </div>
-                        </div>
+                //client_idからartist_idを配列で取得
+                $artistIds = array();
+                $artistIds=$daoFavorit->getBookingIdByClientId($_SESSION['clientId']);
 
-                        <div class="col-8">
-                            <h6 class="card-title">
-                                <?php
-                                    $daoPerformance->outPutArtist($aimyon);
-                                ?>
-                            </h6>
-                            <div>
-                                <?php
-                                    $daoPerformance->outPutPlace($aimyon);
-                                ?>
-                            </div>
-                            <div>
-                                <?php
-                                    echo '開演：';
-                                    $daoPerformance->outPutStartTime($aimyon);
-                                    echo '～';
-                                    echo '（開場', $daoPerformance->outPutOpenTime($aimyon), '～）';
-                                ?>
-                            </div>
-                        </div>
-                    </div><!--row-->
-                </div><!-- card-body -->
-            </div><!-- card -->
-        </div><!-- カード位置調整 -->
-
-
+                //取得したartist_idの公演を表示
+                foreach($artistIds as $artistId){
+                    $performanceIds = array();
+                    $performanceIds=$daoPerformance->getPerformanceIdsByArtistId($artistId);
+                    foreach($performanceIds as $performanceId){
+                        echo '
+                            <div class="card_position"><!--カード位置調整-->
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row gx-0">
+                                        <div class="col-3" >
+                                            '
+                                            ,$daoPerformance->outPutDate($performanceId),
+                                            '
+                                        </div>
+                
+                                        <div class="col-1">
+                                            <div id="vertical_line">
+                                                <!-- 縦線-->
+                                            </div>
+                                        </div>
+                                        <div class="col-8">
+                                            <h6 class="card-title">
+                                                '
+                                                ,$daoPerformance->outPutArtist($performanceId),
+                                                '
+                                            </h6>
+                                            <div>
+                                                '
+                                                ,$daoPerformance->outPutPlace($performanceId),
+                                            '</div>
+                                            <div>
+                                                開演：'
+                                                ,$daoPerformance->outPutStartTime($performanceId), '～
+                                                （開場', $daoPerformance->outPutOpenTime($performanceId), '～）
+                                            </div>
+                                        </div>
+                                    </div><!--row-->
+                                </div><!-- card-body -->
+                            </div><!-- card -->
+                            </div><!-- カード位置調整 -->
+                        ';//end-echo
+                    }
+                }
+            }else{
+                echo 'お気に入りアーティストの公演を表示するには';
+                echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
+                echo 'してください';
+            }
+        ?>
 
         <div class="row"><!--フッター-->
             <div class="col-12" id="footer">

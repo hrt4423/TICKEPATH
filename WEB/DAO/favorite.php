@@ -1,6 +1,5 @@
 <?php
-    //booking（予約）テーブルにアクセスするクラス
-    class DAO_booking{
+    class DAO_Favorite{
         //データベースに接続する関数
         private function dbConnect(){
             //データベースに接続
@@ -9,12 +8,12 @@
             return $pdo;
         }
 
-        //client_idから予約IDを検索する関数, 戻り値：booking_id 配列
+        //client_idからartist_idを検索する関数, 戻り値：artist_id 配列
         public function getBookingIdByClientId($clientId){
             $pdo = $this -> dbConnect();
 
             //SQLの生成　入力を受け取る部分は”？”
-            $sql = "SELECT * FROM booking WHERE client_id=?";
+            $sql = "SELECT * FROM favorite WHERE client_id=?";
 
             //prepare:準備　戻り値を変数に保持
             $ps = $pdo -> prepare($sql);
@@ -31,11 +30,11 @@
                 echo '指定したIDに該当するデータはありません。';
             }else{
                 foreach($result as $row){
-                    $bookingIds[]=$row['booking_id'];
+                    $artistIds[]=$row['artist_id'];
                 }
             } 
             
-            return $bookingIds;
+            return $artistIds;
         }
     }
 ?>
