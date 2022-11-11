@@ -54,9 +54,7 @@
     </nav>
     <?php
         require_once './DAO/performance.php';
-        require_once './DAO/performance2.php';
         $daoPerformance = new DAO_performance;
-        $daoPerformance2 = new DAO_performance2;
 
         //$performances = ["あいみょん" => 1, "米津玄師" => 2];
         //$aimyon=1;
@@ -68,18 +66,18 @@
         <h2 class="bg-white col-md-12 pt-3 pb-3 text-center">
             <!-- 検索した名前を表示 -->
             <?php
-                $daoPerformance2->search($_POST['name']);
+                $daoPerformance->search($_POST['name']);
             ?>の検索結果<br>
             <!-- 検索件数を表示 -->
             <?php
-            $count = $daoPerformance2->performanceCount($_POST['name']);
+            $count = $daoPerformance->performanceCount($_POST['name']);
 
             echo '<small class="text-secondary">全' . $count . "件中 " . $count . '件</small></h2>';
             ?>
 
         </div><!--row-->
         <?php
-        $result = $daoPerformance2->getPerformanceTblByname($_POST['name']);
+        $result = $daoPerformance->getPerformanceTblByname($_POST['name']);
         foreach($result as $row){
             ?>
                 <div class="card_position"><!--カード位置調整-->
@@ -87,7 +85,7 @@
                         <div class="card-body">
                             <div class="row gx-0">
                                     <div class="col-3" >
-                                         <?=$daoPerformance2->outPutDate($row['performance_id']); ?>
+                                         <?=$daoPerformance->outPutDate($row['performance_id']); ?>
                                     </div>
 
                                     <div class="col-1">
@@ -99,19 +97,19 @@
                                     <div class="col-8">
 
                                         <h6 class="card-title">
-                                            <?=$daoPerformance2->outPutArtist($row['performance_id']); ?>
+                                            <?=$daoPerformance->outPutArtist($row['performance_id']); ?>
                                         </h6>
                                         <div>
-                                            <?=$daoPerformance2->outPutPlace($row['performance_id']); ?>
+                                            <?=$daoPerformance->outPutPlace($row['performance_id']); ?>
                                         </div>
                                         <div>
                                            
                                         </div>
                                         <div>
                                             開演：
-                                            <?=$daoPerformance2->outPutStartTime($row['performance_id']); ?>
+                                            <?=$daoPerformance->outPutStartTime($row['performance_id']); ?>
                                              ～（開場
-                                            <?=$daoPerformance2->outPutOpenTime($row['performance_id']); ?>
+                                            <?=$daoPerformance->outPutOpenTime($row['performance_id']); ?>
                                              ～）
                                         </div>
                                     </div>

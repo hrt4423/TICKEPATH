@@ -29,6 +29,51 @@
             return $result;
         }
 
+        //公演の情報を全て配列に入れて返す関数, 引数：artist_name
+        public function getPerformanceTblByname($name){
+            $pdo = $this -> dbConnect();
+
+            //SQLの生成　入力を受け取る部分は”？”
+            $sql = "SELECT * FROM performance WHERE artist_name=?";
+
+            //prepare:準備　戻り値を変数に保持
+            $ps = $pdo -> prepare($sql);
+
+            //”？”に値を設定する。
+            $ps->bindValue(1, $name, PDO::PARAM_STR); 
+
+            //SQLの実行
+            $ps->execute();
+            $result = $ps->fetchAll(PDO::FETCH_ASSOC);
+
+            return $result;
+        }
+
+        //検索した名前を表示
+        public function search($name){
+            echo '"' . $name . '"';
+        }
+
+        //検索件数を返す
+        public function performanceCount($id){
+            $pdo = $this -> dbConnect();
+
+            //SQLの生成　入力を受け取る部分は”？”
+            $sql = "SELECT * FROM performance WHERE artist_name=?";
+
+            //prepare:準備　戻り値を変数に保持
+            $ps = $pdo -> prepare($sql);
+
+            //”？”に値を設定する。
+            $ps->bindValue(1, $id, PDO::PARAM_STR); 
+
+            //SQLの実行
+            $ps->execute();
+            $count = $ps -> rowCount();
+
+            return $count;
+        }
+
         //公演名を出力する関数, 引数：performance_id
         public function outPutperformanceName($id){
             $result = $this->getPerformanceTblByid($id);
