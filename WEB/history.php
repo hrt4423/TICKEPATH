@@ -12,6 +12,12 @@
     .delhistory{
         font-size: 10px;
     }
+    #vertical_line{
+        background-color: #888888;
+        width: 0.5px;
+        height: 100px;
+        margin-left: 8px;
+    }
   </style>
 </head>
 <body style="background-color: #DFDFDF;">
@@ -23,7 +29,7 @@
         $daoPerformance = new DAO_performance;
         $daoHistory = new DAO_history;
 
-        
+        $id = 1;
     ?>
 
     <!-- ナビゲーションバー -->
@@ -64,15 +70,21 @@
                 <li class="list-group-item">閲覧履歴<button class="delhistory float-end" type="button">履歴全削除</button></li><br>
             </ul>
 
-    <div class="card_position"><!--カード位置調整-->
+            
+    <?php
+        $performanceIds = array();
+        $performanceIds = $daoHistory->getHistoryTblById($id);
+        //var_dump($performanceIds);
+        foreach($performanceIds as $performanceId){
+    ?>
+            <div class="card_position"><!--カード位置調整-->
             <div class="card">
                 <div class="card-body">
                     <div class="row gx-0">
                         <div class="col-3" >
-                            <?php
-                                $daoHistory->getHistoryTblById($);
-                            ?>
+                            <?=$daoPerformance->outPutDate($performanceId['performance_id']);?>
                         </div>
+
                         <div class="col-1">
                             <div id="vertical_line">
                                 <!-- 縦線-->
@@ -81,22 +93,30 @@
 
                         <div class="col-8">
                             <h6 class="card-title">
-                                <?php
-                                    $daoPerformance->outPutArtist($performanceId);
-                                ?>
+                                <!-- アーティスト名表示 -->
+                                <?=$daoPerformance->outPutArtist($performanceId['performance_id']);?>
                             </h6>
                             <div>
-                                <?php
-                                    $daoPerformance->outPutPlace($performanceId);
-                                ?>
+                                <!-- 会場表示 -->
+                                <?=$daoPerformance->outPutPlace($performanceId['performance_id']);?>
                             </div>
                             <div>
+                                    <!-- 開演時間表示 -->
+                                    開演
+                                    <?=$daoPerformance->outPutStartTime($performanceId['performance_id']);?>
+                                    ～
+                                    <!-- 開場時間表示 -->
+                                    開場
+                                    <?=$daoPerformance->outPutOpenTime($performanceId['performance_id']);?>
                             </div>
                         </div>
                     </div><!--row-->
                 </div><!-- card-body -->
             </div><!-- card -->
         </div><!-- カード位置調整 -->
+    <?php
+        }
+    ?>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>

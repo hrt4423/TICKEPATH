@@ -14,7 +14,7 @@ class DAO_history{
         $ps->bindValue(1, $id, PDO::PARAM_INT);
         
         $ps->execute();
-        $result = $ps->fetchAll();
+        $result = $ps->fetchAll(PDO::FETCH_ASSOC);
 
         return $result;
     }
