@@ -70,6 +70,7 @@
 <!--DBと接続 -->
 <body style="background-color:#DFDFDF;">
     <?php
+        session_start();
         require_once './DAO/performance.php';
         require_once './DAO/booking.php';
         require_once './DAO/booking_detail.php';
@@ -79,7 +80,7 @@
         $daoBookingDetail = new DAO_booking_detail;
         $daoSeat = new DAO_seat;
 
-        $clientId=1;
+        
     ?>
     <div id="maindiv" style="background-color:#DFDFDF;">
         <div class="container-fluid">
@@ -91,7 +92,7 @@
 
             <?php 
             $bookingIds=array();
-            $bookingIds= $daoBooking->getBookingIdByClientId($clientId);//BookingID取得 
+            $bookingIds= $daoBooking->getBookingIdByClientId($_SESSION['clientId']);//BookingID取得 
                 foreach($bookingIds as $BookingID){
                     $seatId = $daoBookingDetail->getSeatIdByBookingId($BookingID);//席ID取得
                     $performanceId = $daoSeat->getSeatIdByBookingId($seatId);//公演ID取得
