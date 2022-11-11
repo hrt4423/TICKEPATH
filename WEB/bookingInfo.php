@@ -71,16 +71,78 @@
 <body style="background-color:#DFDFDF;">
     <?php
         require_once './DAO/performance.php';
+        require_once './DAO/booking.php';
+        require_once './DAO/booking_detail.php';
+        require_once './DAO/seat.php';
         $daoPerformance = new DAO_performance;
+        $daoBooking =new DAO_booking;
+        $daoBookingDetail = new DAO_booking_detail;
+        $daoSeat = new DAO_seat;
+
+        $clientId=1;
     ?>
     <div id="maindiv" style="background-color:#DFDFDF;">
         <div class="container-fluid">
             <div class="row">
                 <h3 style="background-color:#FFFFFF;" class="col-md-12 text-center p-3">予約情報照会</h3>
             </div>
+
+
+
+            <?php 
+            $bookingIds=array();
+            $bookingIds= $daoBooking->getBookingIdByClientId($clientId);//BookingID取得 
+                foreach($bookingIds as $BookingID){
+                    $seatId = $daoBookingDetail->getSeatIdByBookingId($BookingID);//席ID取得
+                    $performanceId = $daoSeat->getSeatIdByBookingId($seatId);//公演ID取得
+                ?>
+                    <div class="card_position"><!--カード位置調整-->
+            <div class="card">
+                <div class="card-body">
+                    <div class="row gx-0">
+                        <div class="col-3" >
+                            <?php 
+                                $daoPerformance->outPutDate($performanceId);
+                            ?>
+                        </div>
+
+                        <div class="col-1">
+                            <div id="vertical_line">
+                                <!-- 縦線-->
+                            </div>
+                        </div>
+
+                        <div class="col-8">
+                            <h6 class="card-title">
+                                <?php
+                                    $daoPerformance->outPutArtist($performanceId);
+                                ?>
+                            </h6>
+                            <div>
+                                <?php
+                                    $daoPerformance->outPutPlace($performanceId);
+                                ?>
+                            </div> 
+                            <div>
+                                <?php
+                                    echo '開演：';
+                                    $daoPerformance->outPutStartTime($performanceId);
+                                    echo '～';
+                                    echo '（開場', $daoPerformance->outPutOpenTime($performanceId), '～）';
+                                ?>
+                            </div>
+                        </div>
+                    </div><!--row-->
+                </div><!-- card-body -->
+            </div><!-- card -->
+        </div><!-- カード位置調整 -->
+                    <?php } ?>
+        
+
+	    </div>
             
             <div class="d-grid gap-2 mt-3">
-                <button class="btn bg-primary text-white"  type="button">マイページに戻る</button>
+                <button class="btn  text-white" style="background-color:#68C5F3;"  type="button">マイページに戻る</button>
             </div>
         </div>
     </div>
