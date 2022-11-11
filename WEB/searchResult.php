@@ -60,7 +60,8 @@
         //$aimyon=1;
         //$yonedu=2;
     ?>
-
+    <!-- <form action="performanceDetail.php" method="post" id="form1"> -->
+    <!-- </form> -->
     <div class="container-fluid">
         <div class="row">
         <h2 class="bg-white col-md-12 pt-3 pb-3 text-center">
@@ -80,9 +81,12 @@
         $result = $daoPerformance->getPerformanceTblByname($_POST['name']);
         foreach($result as $row){
             ?>
+            <form action="performanceDetail.php" method="post" id="form1">
                 <div class="card_position"><!--カード位置調整-->
                     <div class="card mt-3 mb-3">
                         <div class="card-body">
+                        <input type="hidden" name="key" value="<?=$row['performance_id']?>">
+                        <input type="submit">
                             <div class="row gx-0">
                                     <div class="col-3" >
                                          <?=$daoPerformance->outPutDate($row['performance_id']); ?>
@@ -117,6 +121,7 @@
                         </div><!-- card-body -->
                     </div><!-- card -->
                 </div><!-- カード位置調整 -->
+        </form>
         <?php        
         }
         ?>

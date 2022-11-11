@@ -74,14 +74,14 @@
     <?php
     require_once './DAO/performance.php';
     $daoPerformance = new DAO_performance;
-    $aimyon=1;
-    $yonedu=2;
+    $aimyon=$_POST['key'];
 ?>
 <div class="container-fluid">   
 	<div class="card border-dark mt-1"><!-- 公演写真カード -->
 		<h5 class="card-title text-center mt-4">
 			<?php 
 				$daoPerformance->outPutArtist($aimyon);
+                echo $_POST['key'];
 			?>のチケット情報</h5><!-- アーティスト名 -->
 			<div class="card-body ">
 				<img class="mx-auto img-fluid" src="<?php $daoPerformance->getImagePath($aimyon); ?>"><!--写真  -->
