@@ -9,7 +9,7 @@
         }
 
         //メールアドレスから顧客データを取得する関数
-        public function loginCheck($emailAddress){
+        public function getClientDataByEmail($emailAddress){
 
             $pdo = $this -> dbConnect();
 
