@@ -11,6 +11,18 @@
     <link href="../Example/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body style="background-color: #DFDFDFDF;">
+    <?php
+        session_start();
+        if(isset($_SESSION['clientId'])){
+            echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
+            echo '<a href="https://localhost/TICKEPATH/WEB/logout.php">ログアウト</a>';
+            
+        }else{
+            echo 'ログインしていません<br>';
+            echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
+        }
+        echo '<br>tempPerformanceId：', $_SESSION['tmpPerformanceId'];
+    ?>
     <div class="container-fluid">
         <div class="row">
             <h3 class="bg-white col-md-12 text-center">利用規約</h3>
@@ -59,21 +71,17 @@
 
             <div class="row">
                 <div class="offset-2 col-4">
-                    <a href="">
-                        <button type="submit" class="btn mx-3" style="background-color:#FFFFFB;"
-                            form="payment_method_form">
-                        戻る
-                        </button>
-                    </a>
+                    <button class="btn btn-ligh text-dark" style="background-color: #FFFF;"
+                        onclick="location.href='https://localhost/TICKEPATH/WEB/paymentMethod.php'">
+                            戻る
+                    </button>
                 </div>
             
                 <div class="col-6">
-                    <a href="">
-                        <button type="submit" class="btn mx-2 btn-info" style="background-color:#68C5F3;" 
-                            form="payment_method_form">
+                        <button class="btn mx-2 btn-info" style="background-color:#68C5F3;" 
+                            onclick="location.href='https://localhost/TICKEPATH/WEB/confirm.php'">
                             次へ
                         </button>
-                    </a>
                 </div>
         </div><!-- row -->
     </div>

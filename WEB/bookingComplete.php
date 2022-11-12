@@ -8,6 +8,28 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 </head>
 <body style="background-color: #DFDFDFDF;">
+    <?php
+        session_start();
+        if(isset($_SESSION['clientId'])){
+            echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
+            echo '<a href="https://localhost/TICKEPATH/WEB/logout.php">ログアウト</a>';
+            
+        }else{
+            echo 'ログインしていません<br>';
+            echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
+        }
+        echo '<br>tempPerformanceId：', $_SESSION['tmpPerformanceId'];
+    ?>
+    
+    <!-- ナビゲーションバー -->
+    <nav class="navbar navbar-light" style="background-color: #64BCFC;">
+        <div class="container-fluid">
+            <!-- タイトル -->
+            <a class="navbar-brand" href="https://localhost/TICKEPATH/WEB/home.php">
+                <img src="../images/黄色ロゴ.png" height="75px">
+            </a>
+        </div>
+    </nav>
     
     <div class="container-fluid">
         <div class="row">
@@ -50,7 +72,8 @@
                         <div class="row">
                     
                         <div class="offset-3 col-6 offset-3">
-                            <button type="submit" class="btn text-white px-4" style="background-color: #68C5F3;">
+                            <button  class="btn text-white px-4" style="background-color: #68C5F3;"
+                            onclick="location.href='https://localhost/TICKEPATH/WEB/home.php'">
                                 ホームへ
                             </button>
                         </div>
