@@ -36,5 +36,18 @@
             
             return $artistIds;
         }
+
+        public function insertFavoriteArtist($cid, $aid){
+            $pdo = $this -> dbConnect();
+
+            $sql = "INSERT INTO favorite(client_id, artist_id) VALUES(?, ?)";
+
+            $ps = $pdo -> prepare($sql);
+
+            $ps->bindValue(1, $cid, PDO::PARAM_INT);
+            $ps->bindValue(2, $aid, PDO::PARAM_INT);
+
+            $ps->execute();
+        }
     }
 ?>
