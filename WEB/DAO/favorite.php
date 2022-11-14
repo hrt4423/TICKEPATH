@@ -1,5 +1,5 @@
 <?php
-    class DAO_Favorite{
+    class DAO_favorite{
         //データベースに接続する関数
         private function dbConnect(){
             //データベースに接続

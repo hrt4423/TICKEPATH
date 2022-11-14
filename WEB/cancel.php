@@ -8,36 +8,25 @@
     <link href="../Example/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
+    <?php
+        session_start();
+        if(isset($_SESSION['clientId'])){
+            echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
+            echo '<a href="https://localhost/TICKEPATH/WEB/logout.php">ログアウト</a>';
+            
+        }else{
+            echo 'ログインしていません<br>';
+            echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
+        }
+    ?>
     <!-- ナビゲーションバー -->
-    <nav class="navbar navbar-light bg-info mb-3">
+    <nav class="navbar navbar-light  mb-3" style="background-color: #64BCFC;">
         <div class="container-fluid">
             <!-- タイトル -->
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="https://localhost/TICKEPATH/WEB/home.php">
                 <img src="../images/黄色ロゴ.png" height="75px">
             </a>
-            <!-- ハンバーガーメニュー -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <!-- ナビゲーションメニュー -->
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link text-light" href="#">ホーム</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-light" href="#">新規登録</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-light" href="#">ログイン</a>
-                    </li>
-                    <!-- 検索フォーム -->
-                    <form class="d-flex m-2">
-                        <input class="form-control form-control-sm" type="search" placeholder="キーワードで検索" aria-label="Search">
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
-                </ul>
-            </div>
+            
         </div>
     </nav>
 

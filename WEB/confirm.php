@@ -9,6 +9,18 @@
 
 </head>
 <body style="background-color: #DFDFDFDF;">
+    <?php
+        session_start();
+        if(isset($_SESSION['clientId'])){
+            echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
+            echo '<a href="https://localhost/TICKEPATH/WEB/logout.php">ログアウト</a>';
+            
+        }else{
+            echo 'ログインしていません<br>';
+            echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
+        }
+        echo '<br>tempPerformanceId：', $_SESSION['tmpPerformanceId'];
+    ?>
     
     <div class="container-fluid">
         <div class="row">
@@ -41,14 +53,16 @@
                     <div class="card-body">
                         <div class="row">
                         <div class="col-6">
-                            <button type="submit" class="btn text-dark m-2" style="background-color: #DFDFDF;">
+                            <button class="btn text-dark m-2" style="background-color: #DFDFDF;"
+                            onclick="location.href='https://localhost/TICKEPATH/WEB/userPolicy.php'">
                                  　戻る　
                             </button>
                         </div>
 
                         <div class="col-6">
-                            <button type="submit" class="btn text-white m-2" style="background-color: #68C5F3;">
-                                購入する
+                            <button type="submit" class="btn text-white m-2" style="background-color: #68C5F3;"
+                            onclick="location.href='https://localhost/TICKEPATH/WEB/bookingComplete.php'">
+                                購入
                             </button>
                         </div>
                         </div>

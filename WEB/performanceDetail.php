@@ -27,10 +27,10 @@
     ?>
 
     <!-- ナビゲーションバー -->
-    <nav class="navbar navbar-light">
+    <nav class="navbar navbar-light mb-3">
         <div class="container-fluid">
             <!-- タイトル -->
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="https://localhost/TICKEPATH/WEB/home.php">
                 <img src="../images/黄色ロゴ.png" height="75px">
             </a>
             <!-- ハンバーガーメニュー -->
@@ -41,18 +41,21 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
-                        <a class="nav-link text-light" href="#">ホーム</a>
+                        <a class="nav-link text-light" href="https://localhost/TICKEPATH/WEB/home.php">ホーム</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-light" href="#">新規登録</a>
+                        <a class="nav-link text-light" href="https://localhost/TICKEPATH/WEB/accessCheckMyPage.php">マイページ</a>
                     </li>
                     <li class="nav-item mb-2">
-                        <a class="nav-link text-light" href="#">ログイン</a>
+                        <a class="nav-link text-light" href="#">新規登録orログイン</a>
                     </li>
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="キーワードを入力">
-                        <button class="btn btn-secondary" type="button"><i class="bi bi-search"></i></button>
-                    </div>
+                    <!-- 検索の処理 -->
+                    <form action="searchResult.php" method="post">
+                        <div class="input-group">
+                            <input type="text" name="name" class="form-control" placeholder="キーワードを入力" required>
+                            <button type="submit" name="search" class="btn btn-secondary" id="searchbutton" type="button"><i class="bi bi-search"></i></button>
+                        </div>
+                    </form>
                 </ul>
             </div>
         </div>

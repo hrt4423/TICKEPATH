@@ -18,11 +18,26 @@
     <title>検索結果画面</title>
 </head>
 <body style="background-color: #DFDFDF;">
+    <?php
+        
+        session_start();
+        if(isset($_SESSION['clientId'])){
+            echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
+            echo '<a href="https://localhost/TICKEPATH/WEB/logout.php">ログアウト</a>';
+            
+        }else{
+            echo 'ログインしていません<br>';
+            echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
+        }
+        
+        require_once './DAO/performance.php';
+        $daoPerformance = new DAO_performance;
+    ?>
 <!-- ナビゲーションバー -->
 <nav class="navbar navbar-light">
         <div class="container-fluid">
             <!-- タイトル -->
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="https://localhost/TICKEPATH/WEB/home.php">
                 <img src="../images/黄色ロゴ.png" height="75px">
             </a>
             <!-- ハンバーガーメニュー -->
@@ -33,34 +48,26 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
-                        <a class="nav-link text-light" href="#">ホーム</a>
+                        <a class="nav-link text-light" href="https://localhost/TICKEPATH/WEB/home.php">ホーム</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-light" href="#">新規登録</a>
+                        <a class="nav-link text-light" href="https://localhost/TICKEPATH/WEB/accessCheckMyPage.php">マイページ</a>
                     </li>
                     <li class="nav-item mb-2">
-                        <a class="nav-link text-light" href="#">ログイン</a>
+                        <a class="nav-link text-light" href="#">新規登録orログイン</a>
                     </li>
                     <!-- 検索の処理 -->
                     <form action="searchResult.php" method="post">
-                    <div class="input-group">
-                        <input type="text" name="name" class="form-control" placeholder="キーワードを入力" required>
-                        <button type="submit" name="search" class="btn btn-secondary" id="searchbutton" type="button"><i class="bi bi-search"></i></button>
-                    </div>
+                        <div class="input-group">
+                            <input type="text" name="name" class="form-control" placeholder="キーワードを入力" required>
+                            <button type="submit" name="search" class="btn btn-secondary" id="searchbutton" type="button"><i class="bi bi-search"></i></button>
+                        </div>
                     </form>
                 </ul>
             </div>
         </div>
     </nav>
-    <?php
-        require_once './DAO/performance.php';
-        $daoPerformance = new DAO_performance;
-
-        //$performances = ["あいみょん" => 1, "米津玄師" => 2];
-        //$aimyon=1;
-        //$yonedu=2;
-    ?>
-
+    
     <div class="container-fluid">
         <div class="row">
         <h2 class="bg-white col-md-12 pt-3 pb-3 text-center">
@@ -80,9 +87,12 @@
         $result = $daoPerformance->getPerformanceTblByname($_POST['name']);
         foreach($result as $row){
             ?>
+            <form action="performanceDetail.php" method="post" id="form1">
                 <div class="card_position"><!--カード位置調整-->
                     <div class="card mt-3 mb-3">
                         <div class="card-body">
+                        <input type="hidden" name="key" value="<?=$row['performance_id']?>">
+                        <input type="submit">
                             <div class="row gx-0">
                                     <div class="col-3" >
                                          <?=$daoPerformance->outPutDate($row['performance_id']); ?>
@@ -117,6 +127,7 @@
                         </div><!-- card-body -->
                     </div><!-- card -->
                 </div><!-- カード位置調整 -->
+        </form>
         <?php        
         }
         ?>
