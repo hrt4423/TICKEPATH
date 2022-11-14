@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>予約詳細</title>
+  <title>予約状況照会</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">  <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
@@ -15,6 +15,17 @@
   </style>
 </head>
 <body>
+    <?php
+        session_start();
+        if(isset($_SESSION['clientId'])){
+            echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
+            echo '<a href="https://localhost/TICKEPATH/WEB/logout.php">ログアウト</a>';
+            
+        }else{
+            echo 'ログインしていません<br>';
+            echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
+        }
+    ?>
     <!-- ナビゲーションバー -->
     <nav class="navbar navbar-light">
         <div class="container-fluid">
@@ -22,28 +33,7 @@
             <a class="navbar-brand" href="#">
                 <img src="../images/黄色ロゴ.png" height="75px">
             </a>
-            <!-- ハンバーガーメニュー -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <!-- ナビゲーションメニュー -->
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link text-light" href="#">ホーム</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-light" href="#">新規登録</a>
-                    </li>
-                    <li class="nav-item mb-2">
-                        <a class="nav-link text-light" href="#">ログイン</a>
-                    </li>
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="キーワードを入力">
-                        <button class="btn btn-secondary" type="button"><i class="bi bi-search"></i></button>
-                    </div>
-                </ul>
-            </div>
+            
         </div>
     </nav>
 
@@ -70,7 +60,6 @@
 <!--DBと接続 -->
 <body style="background-color:#DFDFDF;">
     <?php
-        session_start();
         require_once './DAO/performance.php';
         require_once './DAO/booking.php';
         require_once './DAO/booking_detail.php';
@@ -97,11 +86,14 @@
                     $seatId = $daoBookingDetail->getSeatIdByBookingId($BookingID);//席ID取得
                     $performanceId = $daoSeat->getSeatIdByBookingId($seatId);//公演ID取得
                 ?>
+                    <form action="cancel.php" method="post" id="form1">
                     <div class="card_position"><!--カード位置調整-->
-            <div class="card">
+            <div class="card mt-3 mb-3">
+                <button class="btn btn-white">
                 <div class="card-body">
+                    <input type="hidden" name="key" value="<?=$BookingID?>">
                     <div class="row gx-0">
-                        <div class="col-3" >
+                        <div class="col-4" >
                             <?php 
                                 $daoPerformance->outPutDate($performanceId);
                             ?>
@@ -113,7 +105,7 @@
                             </div>
                         </div>
 
-                        <div class="col-8">
+                        <div class="col-7">
                             <h6 class="card-title">
                                 <?php
                                     $daoPerformance->outPutArtist($performanceId);
@@ -135,15 +127,20 @@
                         </div>
                     </div><!--row-->
                 </div><!-- card-body -->
+                </button>
             </div><!-- card -->
         </div><!-- カード位置調整 -->
+                </form>
                     <?php } ?>
         
 
 	    </div>
             
             <div class="d-grid gap-2 mt-3">
-                <button class="btn  text-white" style="background-color:#68C5F3;"  type="button">マイページに戻る</button>
+                <button class="btn  text-white" style="background-color:#68C5F3;"
+                onclick="location.href='https://localhost/TICKEPATH/WEB/myPage.php'">
+                    マイページに戻る    
+                </button>
             </div>
         </div>
     </div>

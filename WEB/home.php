@@ -8,12 +8,24 @@
     <!--BootStrapCDN--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <!--アイコン用CDN--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
     <!--css--><link rel="stylesheet" href="../CSS/home.css">
+    <style>
+        .navbar{
+            background-color: #64BCFC;
+        }
+        .homebtn{
+            background-color: #64BCFC;
+        }
+    </style>
     <title>ホーム画面</title>
 </head>
 
 <body style="background-color: #DFDFDF;">
     <?php
+        
+
         session_start();
+        
+
         //クラスファイルの読込み
         require_once './DAO/performance.php';
         require_once './DAO/booking.php';
@@ -25,7 +37,7 @@
         $daoBooking = new DAO_booking;
         $daoBookingDetail = new DAO_booking_detail;
         $daoSeat = new DAO_seat;
-        $daoFavorit = new DAO_Favorite;
+        $daoFavorit = new DAO_favorite;
         //通知フラグ
         $notification_flg = false;
         
@@ -34,26 +46,55 @@
         $yonedu=2;
     ?>
 
-    <div class="container-fluid">
+<!--ログイン状態の表示-->
+    <?php
+        if(isset($_SESSION['clientId'])){
+            echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
+            echo '<a href="https://localhost/TICKEPATH/WEB/logout.php">ログアウト</a>';
+            
+        }else{
+            echo 'ログインしていません<br>';
+            echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
+        }
+    ?>
         <!--ログイン状態の表示-->
-        <?php
-            if(isset($_SESSION['clientId'])){
-                echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
-                echo '<a href="https://localhost/TICKEPATH/WEB/logout.php">ログアウト</a>';
-                
-            }else{
-                echo 'ログインしていません<br>';
-                echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
-            }
-        ?>
-        <!--ログイン状態の表示-->
-
-        <div class="row"><!--仮ヘッダ-->
-            <div class="col-12" id="header">
-                <h1>TICKEPATH</h1>
+        
+        <!-- ナビゲーションバー -->
+        <nav class="navbar navbar-light mb-3">
+            <div class="container-fluid">
+                <!-- タイトル -->
+                <a class="navbar-brand" href="https://localhost/TICKEPATH/WEB/home.php">
+                    <img src="../images/黄色ロゴ.png" height="75px">
+                </a>
+                <!-- ハンバーガーメニュー -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <!-- ナビゲーションメニュー -->
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link text-light" href="https://localhost/TICKEPATH/WEB/home.php">ホーム</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="https://localhost/TICKEPATH/WEB/accessCheckMyPage.php">マイページ</a>
+                        </li>
+                        <li class="nav-item mb-2">
+                            <a class="nav-link text-light" href="#">新規登録orログイン</a>
+                        </li>
+                        <!-- 検索の処理 -->
+                        <form action="searchResult.php" method="post">
+                            <div class="input-group">
+                                <input type="text" name="name" class="form-control" placeholder="キーワードを入力" required>
+                                <button type="submit" name="search" class="btn btn-secondary" id="searchbutton" type="button"><i class="bi bi-search"></i></button>
+                            </div>
+                        </form>
+                    </ul>
+                </div>
             </div>
-        </div><!--仮ヘッダ-->
+        </nav>
 
+        <div class="container-fluid">
         <?php
             //ログイン済みであれば（セッション変数に値があれば）リマインド処理を動かす
             if(isset($_SESSION['clientId'])){
@@ -329,6 +370,13 @@
         </div>
     
     </div><!--container-fluid-->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+  
     <!--BootStrapCDN--><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+
+
 </body>
 </html>

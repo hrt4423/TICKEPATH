@@ -32,31 +32,9 @@
     <nav class="navbar navbar-light">
         <div class="container-fluid">
             <!-- タイトル -->
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="https://localhost/TICKEPATH/WEB/home.php">
                 <img src="../images/黄色ロゴ.png" height="75px">
             </a>
-            <!-- ハンバーガーメニュー -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <!-- ナビゲーションメニュー -->
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link text-light" href="#">ホーム</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-light" href="#">新規登録</a>
-                    </li>
-                    <li class="nav-item mb-2">
-                        <a class="nav-link text-light" href="#">ログイン</a>
-                    </li>
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="キーワードを入力">
-                        <button class="btn btn-secondary" type="button"><i class="bi bi-search"></i></button>
-                    </div>
-                </ul>
-            </div>
         </div>
     </nav>
 

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>予約状況</title>
+    <title>予約</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">  <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
@@ -18,41 +18,32 @@
     </style>
 
 </head>
+<?php
+    session_start();
+    if(isset($_SESSION['clientId'])){
+        echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
+        echo '<a href="https://localhost/TICKEPATH/WEB/logout.php">ログアウト</a>';
+        
+    }else{
+        echo 'ログインしていません<br>';
+        echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
+    }
+    echo '<br>tempPerformanceId：', $_SESSION['tmpPerformanceId'];
+?>
 <body style="background-color: #DFDFDFDF;">
-<!-- ナビゲーションバー -->
-<nav class="navbar navbar-light">
+
+    <form action="https://localhost/TICKEPATH/WEB/paymentMethod.php" method="post" id="bookingForm"></form>
+
+    <!-- ナビゲーションバー -->
+    <nav class="navbar navbar-light" style="background-color: #64BCFC;">
         <div class="container-fluid">
             <!-- タイトル -->
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="https://localhost/TICKEPATH/WEB/home.php">
                 <img src="../images/黄色ロゴ.png" height="75px">
             </a>
-            <!-- ハンバーガーメニュー -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <!-- ナビゲーションメニュー -->
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link text-light" href="#">ホーム</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-light" href="#">新規登録</a>
-                    </li>
-                    <li class="nav-item mb-2">
-                        <a class="nav-link text-light" href="#">ログイン</a>
-                    </li>
-                    <!-- 検索の処理 -->
-                    <form action="searchResult.php" method="post">
-                    <div class="input-group">
-                        <input type="text" name="name" class="form-control" placeholder="キーワードを入力" required>
-                        <button type="submit" name="search" class="btn btn-secondary" id="searchbutton" type="button"><i class="bi bi-search"></i></button>
-                    </div>
-                    </form>
-                </ul>
-            </div>
         </div>
     </nav>
+
     <div class="container-fluid">
         <div class="row">
             <p class="bg-white col-md-12 text-center">詳細をご確認の上、画面下より申込手続きへお進みください。</p>
@@ -162,14 +153,15 @@
                     <div class="card-body">
                         <div class="row">
                         <div class="col-6">
-                            <button type="submit" class="btn text-dark m-2" style="background-color: #DFDFDF;">
+                            <button  class="btn text-dark m-2" style="background-color: #DFDFDF;"
+                            onclick="location.href='https://localhost/TICKEPATH/WEB/performanceDetail.php'">
                                  　戻る　
                             </button>
                         </div>
 
                         <div class="col-6">
-                            <button type="submit" class="btn text-dark m-2" style="background-color: #68C5F3;">
-                                決算選択
+                            <button type="submit" class="btn text-dark m-2" style="background-color: #68C5F3;" form="bookingForm">
+                                決算方法選択
                             </button>
                         </div>
                         </div>

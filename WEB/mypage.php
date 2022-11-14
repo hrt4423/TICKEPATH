@@ -16,35 +16,24 @@
   </style>
 </head>
 <body style="background-color: #DFDFDF;">
+    <?php
+        session_start();
+        if(isset($_SESSION['clientId'])){
+            echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
+            echo '<a href="https://localhost/TICKEPATH/WEB/logout.php">ログアウト</a>';
+            
+        }else{
+            echo 'ログインしていません<br>';
+            echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
+        }
+    ?>
     <!-- ナビゲーションバー -->
     <nav class="navbar navbar-light mb-3">
         <div class="container-fluid">
             <!-- タイトル -->
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="https://localhost/TICKEPATH/WEB/home.php">
                 <img src="../images/黄色ロゴ.png" height="75px">
             </a>
-            <!-- ハンバーガーメニュー -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <!-- ナビゲーションメニュー -->
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item active">
-                        <a class="nav-link text-light" href="home.php">ホーム</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-light" href="signup.html">新規登録</a>
-                    </li>
-                    <li class="nav-item mb-2">
-                        <a class="nav-link text-light" href="login.php">ログイン</a>
-                    </li>
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="キーワードを入力">
-                        <button class="btn btn-secondary" type="button"><i class="bi bi-search"></i></button>
-                    </div>
-                </ul>
-            </div>
         </div>
     </nav>
     <div name="maindiv" class="container-fluid">
@@ -52,7 +41,20 @@
             <div class="col-lg-6">
                 <ul class="list-group">
                     <li class="list-group-item">マイページ</li><br>
-                    <a href="home.php" class="text-decoration-none">
+                    <a href="https://localhost/TICKEPATH/WEB/bookingInfo.php" class="text-decoration-none">
+                        <li class="list-group-item border border-dark">
+                            <div class="row">
+                                <div class="col-6">
+                                    予約照会
+                                </div>
+                                <div class="col-6">
+                                    <i class="bi bi-arrow-right float-end"></i>
+                                </div>
+                            </div>
+                        </li>
+                    </a>
+
+                    <a href="https://localhost/TICKEPATH/WEB/memberInfo.php" class="text-decoration-none">
                         <li class="list-group-item border border-dark">
                             <div class="row">
                                 <div class="col-6">
@@ -65,7 +67,8 @@
                             </div>
                         </li>
                     </a>
-                    <a href="history.php" class="text-decoration-none">
+
+                    <a href="https://localhost/TICKEPATH/WEB/history.php" class="text-decoration-none">
                         <li class="list-group-item border border-dark">
                             <div class="row">
                                 <div class="col-6">
@@ -77,19 +80,8 @@
                             </div>
                         </li>
                     </a>
-                    <a href="home.php" class="text-decoration-none">
-                        <li class="list-group-item border border-dark">
-                            <div class="row">
-                                <div class="col-6">
-                                    予約照会
-                                </div>
-                                <div class="col-6">
-                                    <i class="bi bi-arrow-right float-end"></i>
-                                </div>
-                            </div>
-                        </li>
-                    </a>
-                    <a href="home.php" class="text-decoration-none">
+                    
+                    <a href="https://localhost/TICKEPATH/WEB/logout.php" class="text-decoration-none">
                         <li class="list-group-item border border-dark">
                             <div class="row">
                                 <div class="col-6">
