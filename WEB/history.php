@@ -22,14 +22,17 @@
 </head>
 <body style="background-color: #DFDFDF;">
     <?php
+        session_start();
+
         //クラス読み込み
         require_once './DAO/history.php';
         require_once './DAO/performance.php';
 
+        //インスタンス生成
         $daoPerformance = new DAO_performance;
         $daoHistory = new DAO_history;
 
-        $id = 1;
+        $_SESSION['clientId'];
     ?>
 
     <!-- ナビゲーションバー -->
@@ -73,7 +76,7 @@
             
     <?php
         $performanceIds = array();
-        $performanceIds = $daoHistory->getHistoryTblById($id);
+        $performanceIds = $daoHistory->getHistoryTblById($_SESSION['clientId']);
         //var_dump($performanceIds);
         foreach($performanceIds as $performanceId){
     ?>
