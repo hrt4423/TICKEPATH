@@ -75,7 +75,7 @@
         }
 
         //公演名を出力する関数, 引数：performance_id
-        public function outPutperformanceName($id){
+        public function outPutPerformanceName($id){
             $result = $this->getPerformanceTblByid($id);
             
             if(empty($result)){

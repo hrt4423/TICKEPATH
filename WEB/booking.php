@@ -28,7 +28,12 @@
         echo 'ログインしていません<br>';
         echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
     }
-    echo '<br>tempPerformanceId：', $_SESSION['tmpPerformanceId'];
+    $performanceId = $_SESSION['tmpPerformanceId'];
+    echo '<br>tempPerformanceId：', $performanceId;
+
+    require_once './DAO/performance.php';
+    $daoPerformance = new DAO_performance();
+
 ?>
 <body style="background-color: #DFDFDFDF;">
 
@@ -53,19 +58,26 @@
                     <div class="card-body" style="background-color:#C0C0C0">
 
                         <div class="row">
-                            <div>企業名</div>
-                                <div class="bg-white col-md-12 mt-1 mb-1">○○○○</div>
-
+                            <div>公演名</div>
+                                <div class="bg-white col-md-12 mt-1 mb-1">
+                                    <?php $daoPerformance->outPutPerformanceName($performanceId)?>
+                                </div>
+                            <div>アーティスト</div>
+                                <div class="bg-white col-md-12 mt-1 mb-1">
+                                    <?php $daoPerformance->outPutArtist($performanceId)?>
+                                </div>
                             <div>会場</div>
-                                <div class="bg-white col-md-12 mt-1 mb-1">○○○○</div>
-
+                                <div class="bg-white col-md-12 mt-1 mb-1">
+                                    <?php $daoPerformance->outPutPlace($performanceId)?>
+                                </div>
                             <div>公演日時</div>
-                                <div class="bg-white col-md-12 mt-1 mb-1">○○○○</div>
-
-                            <div>座席・料金</div>
-                                <div class="bg-white col-md-12 mt-1 mb-1">￥:○○○○</div>
-                        </div><!--row-->
-    
+                                <div class="bg-white col-md-12 mt-1 mb-1">
+                                    <?php
+                                        $daoPerformance->outPutDate($performanceId);
+                                        echo '開演:', $daoPerformance->outPutStartTime($performanceId);
+                                        echo '（開場:', $daoPerformance->outPutOpenTime($performanceId),'）';
+                                    ?>
+                                </div>
                     </div><!-- card-body -->
                 </div><!-- card -->
             </div><!-- カード位置　調整 -->
@@ -81,19 +93,11 @@
                                     日時
                                 </div>
                                 <div class="col-9">
-                                    <select name="date" id="select_date" class="form-select">
+                                    <select name="performanceDate" id="select_date" class="form-select" form="bookingForm">
                                         <option selected>----------</option>
-                                        <option value="2">02</option>
-                                        <option value="3">03</option>
-                                        <option value="4">04</option>
-                                        <option value="5">05</option>
-                                        <option value="6">06</option>
-                                        <option value="7">07</option>
-                                        <option value="8">08</option>
-                                        <option value="9">09</option>
-                                        <option value="10">10</option>
-                                        <option value="11">11</option>
-                                        <option value="12">12</option>
+                                        <!--DBから日時情報を取得-->
+                                        <option value="2">2019/3/10</option>
+                                        
                                     </select>
                                 </div>
                             </div>
@@ -103,19 +107,11 @@
                                     席種
                                 </div>
                                 <div class="col-9">
-                                    <select name="seat" id="select_seat" class="form-select">
+                                    <select name="seatValue" id="select_seat" class="form-select" form="bookingForm">
                                         <option selected>----------</option>
-                                        <option value="2">02</option>
-                                        <option value="3">03</option>
-                                        <option value="4">04</option>
-                                        <option value="5">05</option>
-                                        <option value="6">06</option>
-                                        <option value="7">07</option>
-                                        <option value="8">08</option>
-                                        <option value="9">09</option>
-                                        <option value="10">10</option>
-                                        <option value="11">11</option>
-                                        <option value="12">12</option>
+                                        <!--DBから席と対応する値段を取得-->
+                                        <option value="2">A席　￥7,000</option>
+                                        
                                     </select>
                                 </div>
                             </div>
@@ -125,20 +121,13 @@
                                     枚数
                                 </div>
                                 <div class="col-9">
-                                    <select name="number" id="select_number" class="form-select">
+                                    <select name="number" id="select_number" class="form-select" form="bookingForm">
+                                        <!--枚数を送信。指定された分だけ席を押さえる。空きの判定、席が無い場合の処理も必要-->
                                         <option selected>----------</option>
                                         <option value="1">01</option>
                                         <option value="2">02</option>
                                         <option value="3">03</option>
                                         <option value="4">04</option>
-                                        <option value="5">05</option>
-                                        <option value="6">06</option>
-                                        <option value="7">07</option>
-                                        <option value="8">08</option>
-                                        <option value="9">9</option>
-                                        <option value="10">10</option>
-                                        <option value="11">11</option>
-                                        <option value="12">12</option>
                                     </select>
                                 </div>
                             </div>
