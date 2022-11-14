@@ -86,11 +86,14 @@
                     $seatId = $daoBookingDetail->getSeatIdByBookingId($BookingID);//席ID取得
                     $performanceId = $daoSeat->getSeatIdByBookingId($seatId);//公演ID取得
                 ?>
+                    <form action="cancel.php" method="post" id="form1">
                     <div class="card_position"><!--カード位置調整-->
-            <div class="card">
+            <div class="card mt-3 mb-3">
+                <button class="btn btn-white">
                 <div class="card-body">
+                    <input type="hidden" name="key" value="<?=$BookingID?>">
                     <div class="row gx-0">
-                        <div class="col-3" >
+                        <div class="col-4" >
                             <?php 
                                 $daoPerformance->outPutDate($performanceId);
                             ?>
@@ -102,7 +105,7 @@
                             </div>
                         </div>
 
-                        <div class="col-8">
+                        <div class="col-7">
                             <h6 class="card-title">
                                 <?php
                                     $daoPerformance->outPutArtist($performanceId);
@@ -124,8 +127,10 @@
                         </div>
                     </div><!--row-->
                 </div><!-- card-body -->
+                </button>
             </div><!-- card -->
         </div><!-- カード位置調整 -->
+                </form>
                     <?php } ?>
         
 
