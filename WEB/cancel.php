@@ -33,6 +33,7 @@
     <div class="container-fluid">
         <div class="row p-2">
             <h2 class="text-center">キャンセルの確認</h2>
+            <?= $_POST['key'];?>
             <h4 class="text-center">以下の申し込みをキャンセルします</h4>
             <div class="container p-4">
                 <table class="table table-striped table-bordered">
