@@ -58,7 +58,7 @@ function registClick(){
       <form action="./signUpdetail.php" method="POST">
         <div class="row">
                 <h1 class="col-md-12 text-center" text-center style="background-color:#DFDFDF;">会員情報入力</h1>
-                    <div class="col-md-12 mt-1 mb-1  text-danger text-center" id="errorMsg"></div><!-- エラーメッセージの設定 -->
+                  <div class="col-md-12 mt-1 mb-1  text-danger text-center" id="errorMsg"></div><!-- エラーメッセージの設定 -->
                     <label for="address" class="form-label col-md-12" style="background-color:#DFDFDF;">メールアドレス</label>
                     <input type="text" class="form-control p-12" id="address" name="address" placeholder="">
 
@@ -76,45 +76,45 @@ function registClick(){
                     <input type="text" class="form-control" id="phonenumber" name="phonenumber" placeholder="000-0000-0000">
 
                     <label for="Gender" class="col-form-label col-md-12 mt-2" style="background-color:#DFDFDF;">性別</label>
-                    <div class="col-12">
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="Gender1" name="Gender" value="男性">
-                        <label class="form-check-label" for="男性">男性</label>
-                        <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="Gender2" name="Gender" value="女性">
-                        <label class="form-check-label" for="女性">女性</label>
-                      </div>
-                        </div>
-
+                      
+                    
+                          <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="Gender1" name="Gender" value="男性">
+                            <label class="form-check-label" for="男性">男性</label>
+                          </div>
+                          <div class="form-check form-check-inline">           
+                            <input class="form-check-input" type="checkbox" id="Gender2" name="Gender" value="女性">
+                            <label class="form-check-label" for="女性">女性</label> 
+                          </div>
                     <label for="phonenumber" class="form-label col-md-12 mt-2" style="background-color:#DFDFDF;">生年</label>
                     <label class="form-check-label" for="Year">西暦</label>
-                    <input type="text" class="form-control" id="Year of Birth" placeholder="">
+                    <input type="text" class="form-control" id="Year of Birth"name="Birth" placeholder="">
 
                     <label for="phonenumber" class="form-label col-md-12 mt-2" style="background-color:#DFDFDF;">都道府県</label>
-                    <input type="text" class="form-control" id="Ken" placeholder="">
+                    <input type="text" class="form-control" id="Ken" name="Ken" placeholder="">
 
                     <label for="phonenumber" class="form-label col-md-12 mt-2" style="background-color:#DFDFDF;">市区町村</label>
-                    <input type="text" class="form-control" id="City" placeholder="">
+                    <input type="text" class="form-control" id="City"  placeholder="">
 
                     <label for="phonenumber" class="form-label col-md-12 mt-2" style="background-color:#DFDFDF;">番地</label>
                     <input type="text" class="form-control" id="AddressNumber" placeholder="">
 
-                    <label for="phonenumber" class="form-label col-md-12 mt-2" style="background-color:#DFDFDF;">マンション名・部屋番号</label>
-                    <input type="text" class="form-control" id="HomeNumber" placeholder="">
+                      <label for="phonenumber" class="form-label col-md-12 mt-2" style="background-color:#DFDFDF;">マンション名・部屋番号</label>
+                      <input type="text" class="form-control" id="HomeNumber" placeholder="">
 
-                    <label for="phonenumber" class="form-label col-md-12 mt-2" style="background-color:#DFDFDF;">郵便番号</label>
-                    <input type="text" class="form-control" id="PostCode" placeholder="">
+                      <label for="phonenumber" class="form-label col-md-12 mt-2" style="background-color:#DFDFDF;">郵便番号</label>
+                      <input type="text" class="form-control" id="PostCode" placeholder="">
+              
 
-                    </div>
-                </div>
-              <div class="d-grid gap-2 mt-3">
-                  <button class="btn btn-danger"  type="button" input type="submit"onclick=" registClick()" >新規登録をする</button>
-              </div>
+
+                <div class="d-grid gap-2 mt-3">
+                    <button class="btn btn-danger"  type="button" input type="submit" onclick=" registClick()" >新規登録をする</button>
+                </div>            
+        </div><!--class="row"-->
       </form>
-    </div>
-  </div>
-        <!-- bootstrapのjs読み込み -->
-        <script src="js/bootstrap.min.js"></script>
+    </div><!--class="container-fluid"-->
+  </div><!--id="maindiv" -->
+<script src="js/bootstrap.min.js"></script><!-- bootstrapのjs読み込み -->
 </body>
 
 </html>
