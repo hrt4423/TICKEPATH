@@ -9,6 +9,7 @@
 </head>
 <body>
     <?php
+    //iscancelをtrue
         session_start();
         if(isset($_SESSION['clientId'])){
             echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
@@ -18,6 +19,9 @@
             echo 'ログインしていません<br>';
             echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
         }
+
+        require_once './DAO/performance.php';
+        $daoPerformance = new DAO_performance;
     ?>
     <!-- ナビゲーションバー -->
     <nav class="navbar navbar-light  mb-3" style="background-color: #64BCFC;">
@@ -35,20 +39,27 @@
             <h2 class="text-center">キャンセルの確認</h2>
             <?= $_POST['key'];?>
             <h4 class="text-center">以下の申し込みをキャンセルします</h4>
+            <?php
+            $result = $daoPerformance->getPerformanceTblByid($_POST['key']);
+            foreach($result as $row){
+                ?>
             <div class="container p-4">
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr class="table"style="background-color:#DFDFDF;"><td>公演名</td></tr>
-                        <tr><td>○○○○</td></tr>
+                        <tr><td><?=$daoPerformance->outPutPerformanceName($row['performance_id']);?></td></tr>
                         <tr class="table"style="background-color:#DFDFDF;"><td>会場</td></tr>
-                        <tr><td>○○○○</td></tr>
+                        <tr><td><?=$daoPerformance->outPutPlace($row['performance_id']);?></td></tr>
                         <tr class="table"style="background-color:#DFDFDF;"><td>公演日時</td></tr>
-                        <tr><td>○○○○</td></tr>
+                        <tr><td><?=$daoPerformance->outPutDate($row['performance_id']);?></td></tr>
                         <tr class="table"style="background-color:#DFDFDF;"><td>席種・料金</td></tr>
-                        <tr><td>¥：0000</td></tr>
+                        <tr><td>¥<?=$daoPerformance->outPutPerformanceName($row['performance_id']);?></td></tr>
                     </thead>
                 </table>
             </div>
+            <?php 
+            }
+            ?>
         </div>
         <div class="d-grid gap-2 col-6 mx-auto">
             <a href="cancelComplete.php" class="btn" style="color:#fff; background-color: #64BCFC;" type="button">キャンセルを確定する</a>

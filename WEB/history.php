@@ -19,6 +19,25 @@
         margin-left: 8px;
     }
   </style>
+  <?php
+  /*
+  if(isset($_COOKIE['history_url'])){
+    $history_url = unserialize($_COOKIE['history_url']); //クッキーに保存されたURLを配列にする
+    }
+    if(isset($_COOKIE['history_item'])){
+    $history_item = unserialize($_COOKIE['history_item']); //クッキーに保存されたテキストを配列にする
+    $i = 0;
+    echo '<ul>';
+    foreach($history_item as $key=>$val){
+    echo '<li><a href="'.$history_url[$i].'">'.$val.'</a></li>'."\n"; //テキストを表示および同じ順番に保存されているURLを表示
+    $i++;
+    }
+    echo '</ul>';
+    }else{
+    echo '<p>過去に見たページはありません。</p>';
+    }
+    */
+  ?>
 </head>
 <body style="background-color: #DFDFDF;">
     <?php
