@@ -21,7 +21,11 @@
         }
 
         require_once './DAO/performance.php';
+        require_once './DAO/seat.php';
+        require_once './DAO/booking_detail.php';
         $daoPerformance = new DAO_performance;
+        $daoSeat = new DAO_seat;
+        $daoBookingDetail = new DAO_booking_detail;
     ?>
     <!-- ナビゲーションバー -->
     <nav class="navbar navbar-light  mb-3" style="background-color: #64BCFC;">
@@ -41,6 +45,9 @@
             <h4 class="text-center">以下の申し込みをキャンセルします</h4>
             <?php
             $result = $daoPerformance->getPerformanceTblByid($_POST['key']);
+            $bookingdetaile = $daoBookingDetail->getSeatIdByBookingId($_POST['key']);
+            $performanceid = $daoSeat->getPerformanceId($bookingdetaile);
+            $seatvalueid = $daoSeat->getSeatValueId($bookingdetaile);
             foreach($result as $row){
                 ?>
             <div class="container p-4">
@@ -53,7 +60,7 @@
                         <tr class="table"style="background-color:#DFDFDF;"><td>公演日時</td></tr>
                         <tr><td><?=$daoPerformance->outPutDate($row['performance_id']);?></td></tr>
                         <tr class="table"style="background-color:#DFDFDF;"><td>席種・料金</td></tr>
-                        <tr><td>¥<?=$daoPerformance->outPutPerformanceName($row['performance_id']);?></td></tr>
+                        <tr><td>¥<?=$daoSeat->outputSeatPrice($performanceid,$seatvalueid);?></td></tr>
                     </thead>
                 </table>
             </div>
