@@ -18,6 +18,13 @@
             echo 'ログインしていません<br>';
             echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
         }
+
+        require_once './DAO/performance.php';
+        require_once './DAO/seat.php';
+        require_once './DAO/booking_detail.php';
+        $daoPerformance = new DAO_performance;
+        $daoSeat = new DAO_seat;
+        $daoBookingDetail = new DAO_booking_detail;
         
     ?>
     <!-- ナビゲーションバー -->
@@ -33,20 +40,31 @@
 
     <div class="container-fluid">
     <div class="row p-2">
-        <h2 class="text-center">チケットをキャンセルしました</h2>        
-        <div class="container p-4">
-            <table class="table table-striped table-bordered">
-                <thead>
-                    <tr class="table"style="background-color:#DFDFDF;"><td>公演名</td></tr>
-                    <tr><td>○○○○</td></tr>
-                    <tr class="table"style="background-color:#DFDFDF;"><td>会場</td></tr>
-                    <tr><td>○○○○</td></tr>
-                    <tr class="table"style="background-color:#DFDFDF;"><td>公演日時</td></tr>
-                    <tr><td>○○○○</td></tr>
-                    <tr class="table"style="background-color:#DFDFDF;"><td>席種・料金</td></tr>
-                    <tr><td>¥：0000</td></tr>
-                </thead>
-            </table>
+        <h2 class="text-center">チケットをキャンセルしました</h2>
+        <?php
+            $result = $daoPerformance->getPerformanceTblByid($_SESSION['cancelId']);
+            $bookingdetaile = $daoBookingDetail->getSeatIdByBookingId($_SESSION['cancelId']);
+            $performanceid = $daoSeat->getPerformanceId($bookingdetaile);
+            $seatvalueid = $daoSeat->getSeatValueId($bookingdetaile);        
+        foreach($result as $row){
+                ?>
+            <div class="container p-4">
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr class="table"style="background-color:#DFDFDF;"><td>公演名</td></tr>
+                        <tr><td><?=$daoPerformance->outPutPerformanceName($row['performance_id']);?></td></tr>
+                        <tr class="table"style="background-color:#DFDFDF;"><td>会場</td></tr>
+                        <tr><td><?=$daoPerformance->outPutPlace($row['performance_id']);?></td></tr>
+                        <tr class="table"style="background-color:#DFDFDF;"><td>公演日時</td></tr>
+                        <tr><td><?=$daoPerformance->outPutDate($row['performance_id']);?></td></tr>
+                        <tr class="table"style="background-color:#DFDFDF;"><td>席種・料金</td></tr>
+                        <tr><td>¥<?=$daoSeat->outputSeatPrice($performanceid,$seatvalueid);?></td></tr>
+                    </thead>
+                </table>
+            </div>
+        <?php 
+        }
+        ?>
         </div>
     </div>
     <div class="d-grid gap-2 col-6 mx-auto">
