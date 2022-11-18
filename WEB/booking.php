@@ -32,7 +32,11 @@
     echo '<br>tempPerformanceId：', $performanceId;
 
     require_once './DAO/performance.php';
+    require_once './DAO/seat.php';
+    require_once './DAO/seat_value.php';
     $daoPerformance = new DAO_performance();
+    $daoSeat = new DAO_seat();
+    $daoSeatValue = new DAO_seat_value();
 
 ?>
 <body style="background-color: #DFDFDFDF;">
@@ -74,7 +78,7 @@
                                 <div class="bg-white col-md-12 mt-1 mb-1">
                                     <?php
                                         $daoPerformance->outPutDate($performanceId);
-                                        echo '開演:', $daoPerformance->outPutStartTime($performanceId);
+                                        echo ' 開演:', $daoPerformance->outPutStartTime($performanceId);
                                         echo '（開場:', $daoPerformance->outPutOpenTime($performanceId),'）';
                                     ?>
                                 </div>
@@ -96,7 +100,13 @@
                                     <select name="performanceDate" id="select_date" class="form-select" form="bookingForm">
                                         <option selected>----------</option>
                                         <!--DBから日時情報を取得-->
-                                        <option value="2">2019/3/10</option>
+                                        <?php
+                                            echo '<option value="1">',
+                                                $daoPerformance->outPutDate($performanceId),
+                                                ' 開演:', 
+                                                $daoPerformance->outPutStartTime($performanceId),
+                                            '</option>';
+                                        ?>
                                         
                                     </select>
                                 </div>
@@ -110,7 +120,18 @@
                                     <select name="seatValue" id="select_seat" class="form-select" form="bookingForm">
                                         <option selected>----------</option>
                                         <!--DBから席と対応する値段を取得-->
-                                        <option value="2">A席　￥7,000</option>
+                                        <!--選択した席種とvalueの対応が必要 -->
+                                        <?php
+                                            $seatValueIds = array();
+                                            $seatValueIds =  $daoSeat->getSeatValueIdsByPerformanceId($performanceId);
+                                            foreach($seatValueIds as $seatValueId){
+                                                echo '<option value="1">';
+                                                $daoSeatValue->outputSeatName($seatValueId);
+                                                echo '　￥';
+                                                $daoSeat->outputSeatPrice($performanceId, $seatValueId);
+                                                echo '</option>';
+                                            }
+                                        ?>
                                         
                                     </select>
                                 </div>
@@ -126,8 +147,6 @@
                                         <option selected>----------</option>
                                         <option value="1">01</option>
                                         <option value="2">02</option>
-                                        <option value="3">03</option>
-                                        <option value="4">04</option>
                                     </select>
                                 </div>
                             </div>
