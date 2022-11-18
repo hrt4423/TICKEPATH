@@ -20,6 +20,11 @@
             echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
         }
         echo '<br>tempPerformanceId：', $_SESSION['tmpPerformanceId'];
+
+        if(isset($_SESSION['seatValueId']) && isset($_SESSION['ticketNum'])){
+            echo '<br>席種ID：', $_SESSION['seatValueId'];
+            echo '<br>チケット枚数：', $_SESSION['ticketNum'];
+        }
     ?>
     
     <div class="container-fluid">

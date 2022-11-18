@@ -117,22 +117,24 @@
                                     席種
                                 </div>
                                 <div class="col-9">
-                                    <select name="seatValue" id="select_seat" class="form-select" form="bookingForm">
+                                    <select name="seatValueId" id="select_seat" class="form-select" form="bookingForm">
                                         <option selected>----------</option>
                                         <!--DBから席と対応する値段を取得-->
                                         <!--選択した席種とvalueの対応が必要 -->
                                         <?php
+                                            
                                             $seatValueIds = array();
                                             $seatValueIds =  $daoSeat->getSeatValueIdsByPerformanceId($performanceId);
+                                            
                                             foreach($seatValueIds as $seatValueId){
-                                                echo '<option value="1">';
+                                                echo '<option value="', $seatValueId, '">';
                                                 $daoSeatValue->outputSeatName($seatValueId);
                                                 echo '　￥';
                                                 $daoSeat->outputSeatPrice($performanceId, $seatValueId);
                                                 echo '</option>';
                                             }
+                                  
                                         ?>
-                                        
                                     </select>
                                 </div>
                             </div>
@@ -142,7 +144,7 @@
                                     枚数
                                 </div>
                                 <div class="col-9">
-                                    <select name="number" id="select_number" class="form-select" form="bookingForm">
+                                    <select name="ticketNum" id="select_number" class="form-select" form="bookingForm">
                                         <!--枚数を送信。指定された分だけ席を押さえる。空きの判定、席が無い場合の処理も必要-->
                                         <option selected>----------</option>
                                         <option value="1">01</option>
@@ -171,7 +173,6 @@
                             <button type="submit" class="btn text-dark m-2" style="background-color: #68C5F3;" form="bookingForm">
                                 決算方法選択
                             </button>
-                        </div>
                         </div>
                         
 
