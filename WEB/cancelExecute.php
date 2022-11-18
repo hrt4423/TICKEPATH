@@ -4,7 +4,7 @@ require_once './DAO/booking.php';
 
 $daoBooking = new DAO_booking;
 
-//$daoBooking->Cancel($_POST['id']);
+$daoBooking->Cancel($_POST['id']);
 
 session_start();
 
