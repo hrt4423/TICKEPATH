@@ -38,7 +38,7 @@
             <table class="table table-striped table-bordered">
                 <thead>
                     <tr class="table"style="background-color:#DFDFDF;"><td>公演名</td></tr>
-                    <tr><td>○○○○</td></tr>
+                    <tr><td><?= echo $_SESSION['cancelId']?></td></tr>
                     <tr class="table"style="background-color:#DFDFDF;"><td>会場</td></tr>
                     <tr><td>○○○○</td></tr>
                     <tr class="table"style="background-color:#DFDFDF;"><td>公演日時</td></tr>
