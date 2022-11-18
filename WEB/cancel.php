@@ -18,6 +18,15 @@
             echo 'ログインしていません<br>';
             echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
         }
+
+        require_once './DAO/performance.php';
+        require_once './DAO/seat.php';
+        require_once './DAO/booking_detail.php';
+        require_once './DAO/booking.php';
+        $daoPerformance = new DAO_performance;
+        $daoSeat = new DAO_seat;
+        $daoBookingDetail = new DAO_booking_detail;
+        $daoBooking = new DAO_booking;
     ?>
     <!-- ナビゲーションバー -->
     <nav class="navbar navbar-light  mb-3" style="background-color: #64BCFC;">
@@ -35,24 +44,38 @@
             <h2 class="text-center">キャンセルの確認</h2>
             <?= $_POST['key'];?>
             <h4 class="text-center">以下の申し込みをキャンセルします</h4>
+            <?php
+            $result = $daoPerformance->getPerformanceTblByid($_POST['key']);
+            $bookingdetaile = $daoBookingDetail->getSeatIdByBookingId($_POST['key']);
+            $performanceid = $daoSeat->getPerformanceId($bookingdetaile);
+            $seatvalueid = $daoSeat->getSeatValueId($bookingdetaile);
+            foreach($result as $row){
+                ?>
             <div class="container p-4">
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr class="table"style="background-color:#DFDFDF;"><td>公演名</td></tr>
-                        <tr><td>○○○○</td></tr>
+                        <tr><td><?=$daoPerformance->outPutPerformanceName($row['performance_id']);?></td></tr>
                         <tr class="table"style="background-color:#DFDFDF;"><td>会場</td></tr>
-                        <tr><td>○○○○</td></tr>
+                        <tr><td><?=$daoPerformance->outPutPlace($row['performance_id']);?></td></tr>
                         <tr class="table"style="background-color:#DFDFDF;"><td>公演日時</td></tr>
-                        <tr><td>○○○○</td></tr>
+                        <tr><td><?=$daoPerformance->outPutDate($row['performance_id']);?></td></tr>
                         <tr class="table"style="background-color:#DFDFDF;"><td>席種・料金</td></tr>
-                        <tr><td>¥：0000</td></tr>
+                        <tr><td>¥<?=$daoSeat->outputSeatPrice($performanceid,$seatvalueid);?></td></tr>
                     </thead>
                 </table>
             </div>
+            <?php 
+            }
+            ?>
         </div>
         <div class="d-grid gap-2 col-6 mx-auto">
-            <a href="cancelComplete.php" class="btn" style="color:#fff; background-color: #64BCFC;" type="button">キャンセルを確定する</a>
-            <a href="bookingInfo.php" class="btn" style="background-color:#DFDFDF;" type="button">戻る</a>
+            <form action="cancelExecute.php" method="post">
+            <input type="hidden" name="id" value="<?=$_POST['key']?>">
+                <button class="btn mx-1 px-3" style="color:#fff; background-color: #64BCFC;" type="submit">キャンセルを確定する</button>
+            </form>
+            <!-- <a href="cancelComplete.php" class="btn" style="color:#fff; background-color: #64BCFC;" type="button">キャンセルを確定する</a> -->
+            <a href="bookingInfo.php" class="btn mx-1 px-3" style="background-color:#DFDFDF;" type="button">戻る</a>
         </div>
     </div>
     <script src="../Example/js/bootstrap.min.js"></script>

@@ -15,6 +15,9 @@
         background-color: #64BCFC;
     }
     </style>
+
+    
+
     <title>検索結果画面</title>
 </head>
 <body style="background-color: #DFDFDF;">
