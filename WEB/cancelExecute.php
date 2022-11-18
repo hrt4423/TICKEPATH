@@ -6,9 +6,9 @@ $daoBooking = new DAO_booking;
 
 //$daoBooking->Cancel($_POST['id']);
 
-session_strat();
+session_start();
 
-$SESSION['cancelId'] = $_POST['id'];
+$_SESSION['cancelId'] = $_POST['id'];
 
 header('location: https://localhost/TICKEPATH/WEB/cancelComplete.php');
 ?>
