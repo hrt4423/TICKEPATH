@@ -9,7 +9,6 @@
 </head>
 <body>
     <?php
-    //iscancelをtrue
         session_start();
         if(isset($_SESSION['clientId'])){
             echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
@@ -23,9 +22,11 @@
         require_once './DAO/performance.php';
         require_once './DAO/seat.php';
         require_once './DAO/booking_detail.php';
+        require_once './DAO/booking.php';
         $daoPerformance = new DAO_performance;
         $daoSeat = new DAO_seat;
         $daoBookingDetail = new DAO_booking_detail;
+        $daoBooking = new DAO_booking;
     ?>
     <!-- ナビゲーションバー -->
     <nav class="navbar navbar-light  mb-3" style="background-color: #64BCFC;">
@@ -69,8 +70,12 @@
             ?>
         </div>
         <div class="d-grid gap-2 col-6 mx-auto">
-            <a href="cancelComplete.php" class="btn" style="color:#fff; background-color: #64BCFC;" type="button">キャンセルを確定する</a>
-            <a href="bookingInfo.php" class="btn" style="background-color:#DFDFDF;" type="button">戻る</a>
+            <form action="cancelExecute.php" method="post">
+            <input type="hidden" name="id" value="<?=$_POST['key']?>">
+                <button class="btn mx-1 px-3" style="color:#fff; background-color: #64BCFC;" type="submit">キャンセルを確定する</button>
+            </form>
+            <!-- <a href="cancelComplete.php" class="btn" style="color:#fff; background-color: #64BCFC;" type="button">キャンセルを確定する</a> -->
+            <a href="bookingInfo.php" class="btn mx-1 px-3" style="background-color:#DFDFDF;" type="button">戻る</a>
         </div>
     </div>
     <script src="../Example/js/bootstrap.min.js"></script>
