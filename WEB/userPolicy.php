@@ -21,7 +21,7 @@
             echo 'ログインしていません<br>';
             echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
         }
-        echo '<br>tempPerformanceId：', $_SESSION['tmpPerformanceId'];
+        echo '<br>performanceId：', $_SESSION['performanceId'];
 
         if(isset($_SESSION['seatValueId']) && isset($_SESSION['ticketNum'])){
             echo '<br>席種ID：', $_SESSION['seatValueId'];

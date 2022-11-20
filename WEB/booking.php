@@ -28,8 +28,8 @@
         echo 'ログインしていません<br>';
         echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
     }
-    $performanceId = $_SESSION['tmpPerformanceId'];
-    echo '<br>tempPerformanceId：', $performanceId;
+    $performanceId = $_SESSION['performanceId'];
+    echo '<br>performanceId：', $performanceId;
 
     require_once './DAO/performance.php';
     require_once './DAO/seat.php';
@@ -41,7 +41,7 @@
 ?>
 <body style="background-color: #DFDFDFDF;">
 
-    <form action="https://localhost/TICKEPATH/WEB/paymentMethod.php" method="post" id="bookingForm"></form>
+    <form action="https://localhost/TICKEPATH/WEB/bookingDataSet.php" method="post" id="bookingForm"></form>
 
     <!-- ナビゲーションバー -->
     <nav class="navbar navbar-light" style="background-color: #64BCFC;">
@@ -126,8 +126,10 @@
                                             
                                             $seatValueIds = array();
                                             $seatValueIds =  $daoSeat->getSeatValueIdsByPerformanceId($performanceId);
-                                            
+                                            var_dump($seatValueIds);
+                                           
                                             foreach($seatValueIds as $seatValueId){
+                                                echo 'テスト';
                                                 if($daoSeat->seatCheck($performanceId, $seatValueId)!= 0){
                                                     echo '<option value="', $seatValueId, '">';
                                                     $daoSeatValue->outputSeatName($seatValueId);
@@ -137,6 +139,7 @@
                                                 }else{
                                                     continue;
                                                 }
+                                                
                                                 
                                             }
                                   

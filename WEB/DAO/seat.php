@@ -159,7 +159,7 @@
 
             //SQLの生成　入力を受け取る部分は”？”
             $sql = "SELECT seat_value_id, count(*)
-            FROM aimyon_seat
+            FROM seat
             WHERE performance_id = ?
             AND seat_value_id = ?
             AND is_reserved = false;";
@@ -181,6 +181,50 @@
                 $seatCount = $row['count(*)'];
             }
             return $seatCount;
+        }
+
+        //指定した公演・席種の空いている席のIDを全て取得
+        public function getVacantSeat($performanceId, $seatValueId){
+            $pdo = $this->dbConnect();
+            //SQLの生成　入力を受け取る部分は”？”
+            $sql = "SELECT * FROM seat WHERE performance_id=? 
+            AND seat_value_id=? 
+            AND is_reserved = false
+            ORDER BY seat_id";
+
+            //prepare:準備　戻り値を変数に保持
+            $ps = $pdo -> prepare($sql);
+
+            //”？”に値を設定する
+            $ps->bindValue(1, $performanceId, PDO::PARAM_INT); 
+            $ps->bindValue(2, $seatValueId, PDO::PARAM_INT); 
+
+            //SQLの実行
+            $ps->execute();
+
+            //実行結果を配列に格納
+            $result = $ps->fetchAll(PDO::FETCH_ASSOC);
+
+            foreach($result as $row){
+                $seatIds[] = $row['seat_id'];
+            }
+            return $seatIds;
+        }
+
+        //席を予約する関数　引数：席ID
+        public function reserveSeat($seatId){
+            $pdo = $this->dbConnect();
+            //SQLの生成　入力を受け取る部分は”？”
+            $sql = "UPDATE seat SET is_reserved = true WHERE seat_id=?";
+
+            //prepare:準備　戻り値を変数に保持
+            $ps = $pdo -> prepare($sql);
+
+            //”？”に値を設定する
+            $ps->bindValue(1, $seatId, PDO::PARAM_INT); 
+            
+            //SQLの実行
+            $ps->execute();
         }
     }
 

@@ -109,34 +109,38 @@
                 //client_idから顧客ごとの予約(booking_id)を取得
                 $bookingIds = array();
                 $bookingIds = $daoBooking->getBookingIdByClientId($_SESSION['clientId']);
-    
-                //booking_idから公演日を調べる
-                foreach ($bookingIds as $bookingId) {
-                    //client_idから予約している公演のperformance_dateを取得
-                    $seatId = $daoBookingDetail->getSeatIdByBookingId($bookingId);
-                    $performanceId = $daoSeat->getSeatIdByBookingId($seatId);
-                    $performanceDataArray = $daoPerformance->getPerformanceTblByid($performanceId);
-    
-                    //公演日を取得
-                    foreach ($performanceDataArray as $row) {
-                        $performanceDate = $row['performance_date'];
-                    }
-    
-                    //公演日をDateTime型に変換（データ型を揃えるため）
-                    $performanceDate = new DateTime($performanceDate);
+
+                if(isset($bookingIds)){
+                    //booking_idから公演日を調べる
+                    foreach ($bookingIds as $bookingId) {
+                        //client_idから予約している公演のperformance_dateを取得
+                        $seatId = $daoBookingDetail->getSeatIdByBookingId($bookingId);
+                        $performanceId = $daoSeat->getSeatIdByBookingId($seatId);
+                        $performanceDataArray = $daoPerformance->getPerformanceTblByid($performanceId);
+        
+                        //公演日を取得
+                        foreach ($performanceDataArray as $row) {
+                            $performanceDate = $row['performance_date'];
+                        }
+        
+                        //公演日をDateTime型に変換（データ型を揃えるため）
+                        $performanceDate = new DateTime($performanceDate);
+                            
+                        //公演日から1週間前の日付を取得
+                        $oneWeekBeforeDate = $performanceDate;
+                        $oneWeekBeforeDate->sub(new DateInterval('P7D'));
                         
-                    //公演日から1週間前の日付を取得
-                    $oneWeekBeforeDate = $performanceDate;
-                    $oneWeekBeforeDate->sub(new DateInterval('P7D'));
-                    
-                    //公演日が一週間以内か判定
-                    if(($oneWeekBeforeDate <= $currentDate) 
-                            && ($currentDate <= $performanceDate->add(new DateInterval('P7D')))
-                            || $currentDate == $performanceDate){
-                        $notification_flg = true;
-                        break;
+                        //公演日が一週間以内か判定
+                        if(($oneWeekBeforeDate <= $currentDate) 
+                                && ($currentDate <= $performanceDate->add(new DateInterval('P7D')))
+                                || $currentDate == $performanceDate){
+                            $notification_flg = true;
+                            break;
+                        }
                     }
                 }
+    
+                
     
                 //通知フラグがtureなら通知を表示
                 if($notification_flg){
@@ -312,12 +316,13 @@
                 $artistIds = array();
                 $artistIds=$daoFavorit->getBookingIdByClientId($_SESSION['clientId']);
 
-                //取得したartist_idの公演を表示
-                foreach($artistIds as $artistId){
-                    $performanceIds = array();
-                    $performanceIds=$daoPerformance->getPerformanceIdsByArtistId($artistId);
-                    foreach($performanceIds as $performanceId){
-                        echo '
+                if(isset($artistIds)){
+                    //取得したartist_idの公演を表示
+                    foreach($artistIds as $artistId){
+                        $performanceIds = array();
+                        $performanceIds=$daoPerformance->getPerformanceIdsByArtistId($artistId);
+                        foreach($performanceIds as $performanceId){
+                            echo '
                             <div class="card_position"><!--カード位置調整-->
                             <div class="card">
                                 <div class="card-body">
@@ -353,8 +358,11 @@
                                 </div><!-- card-body -->
                             </div><!-- card -->
                             </div><!-- カード位置調整 -->
-                        ';//end-echo
+                            ';//end-echo
+                        }
                     }
+                }else{
+                    echo '<p>アーティストをお気に入り登録して最新情報をゲット！</p>';
                 }
             }else{
                 echo 'お気に入りアーティストの公演を表示するには';

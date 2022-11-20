@@ -37,5 +37,29 @@
             //echo $seatId;
             return $seatId;
         }
+
+        //明細を登録　引数：
+        public function addBookingDetail($familyName, $firstName, $bookingId, $seatId){
+            
+
+            $pdo = $this->dbConnect();
+            //SQLの生成　入力を受け取る部分は”？”
+            $sql = "INSERT INTO booking_detail(booking_id, visitor_family_name, 
+            visitor_first_name, seat_id) 
+            VALUES(?, ?, ?, ?)";
+
+            //prepare:準備　戻り値を変数に保持
+            $ps = $pdo -> prepare($sql);
+
+            //”？”に値を設定する
+            $ps->bindValue(1, $bookingId, PDO::PARAM_INT); 
+            $ps->bindValue(2, $familyName, PDO::PARAM_STR); //family name
+            $ps->bindValue(3, $firstName, PDO::PARAM_STR); //first name
+            $ps->bindValue(4, $seatId, PDO::PARAM_INT); 
+            
+            //SQLの実行
+            $ps->execute();
+        }
     }
 ?>
+

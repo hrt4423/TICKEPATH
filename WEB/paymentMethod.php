@@ -19,17 +19,9 @@
             echo 'ログインしていません<br>';
             echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
         }
-        echo '<br>tempPerformanceId：', $_SESSION['tmpPerformanceId'];
+        echo '<br>tempPerformanceId：', $_SESSION['performanceId'];
 
-        //入力値をセッション変数に保存
-        if(isset($_POST['seatValueId']) && isset($_POST['ticketNum'])){
-            $_SESSION['seatValueId'] = $_POST['seatValueId'];
-            $_SESSION['ticketNum'] = $_POST['ticketNum'];
-        }else{
-            $_SESSION['seatValueId'] = null;
-            $_SESSION['ticketNum'] = null;
-
-        }
+        
         
         
         

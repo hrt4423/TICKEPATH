@@ -19,7 +19,7 @@
             echo 'ログインしていません<br>';
             echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
         }
-        echo '<br>tempPerformanceId：', $_SESSION['tmpPerformanceId'];
+        echo '<br>performanceId：', $_SESSION['performanceId'];
 
         if(isset($_SESSION['seatValueId']) && isset($_SESSION['ticketNum'])){
             echo '<br>席種ID：', $_SESSION['seatValueId'];
@@ -46,22 +46,22 @@
                         <div class="row">
                             <div>公演名</div>
                                 <div class="bg-white col-md-12 mt-1 mb-1">
-                                    <?php $daoPerformance->outPutPerformanceName($_SESSION['tmpPerformanceId'])?>
+                                    <?php $daoPerformance->outPutPerformanceName($_SESSION['performanceId'])?>
                                 </div>
                             <div>アーティスト</div>
                                 <div class="bg-white col-md-12 mt-1 mb-1">
-                                    <?php $daoPerformance->outPutArtist($_SESSION['tmpPerformanceId'])?>
+                                    <?php $daoPerformance->outPutArtist($_SESSION['performanceId'])?>
                                 </div>
                             <div>会場</div>
                                 <div class="bg-white col-md-12 mt-1 mb-1">
-                                    <?php $daoPerformance->outPutPlace($_SESSION['tmpPerformanceId'])?>
+                                    <?php $daoPerformance->outPutPlace($_SESSION['performanceId'])?>
                                 </div>
                             <div>公演日時</div>
                                 <div class="bg-white col-md-12 mt-1 mb-1">
                                     <?php
-                                        $daoPerformance->outPutDate($_SESSION['tmpPerformanceId']);
-                                        echo ' 開演:', $daoPerformance->outPutStartTime($_SESSION['tmpPerformanceId']);
-                                        echo '（開場:', $daoPerformance->outPutOpenTime($_SESSION['tmpPerformanceId']),'）';
+                                        $daoPerformance->outPutDate($_SESSION['performanceId']);
+                                        echo ' 開演:', $daoPerformance->outPutStartTime($_SESSION['performanceId']);
+                                        echo '（開場:', $daoPerformance->outPutOpenTime($_SESSION['performanceId']),'）';
                                     ?>
                                 </div>
                             <div>席種・料金</div>
@@ -69,7 +69,7 @@
                                     <?php 
                                         $daoSeatValue->outputSeatName($_SESSION['seatValueId']);
                                         echo '×', $_SESSION['ticketNum'], '枚　￥';
-                                        $daoSeat->outputSeatPrice($_SESSION['tmpPerformanceId'], $_SESSION['seatValueId']);
+                                        $daoSeat->outputSeatPrice($_SESSION['performanceId'], $_SESSION['seatValueId']);
                                     ?>
                                 </div>
                         </div>
@@ -90,7 +90,7 @@
 
                         <div class="col-6">
                             <button type="submit" class="btn text-white m-2" style="background-color: #68C5F3;"
-                            onclick="location.href='https://localhost/TICKEPATH/WEB/bookingComplete.php'">
+                            onclick="location.href='https://localhost/TICKEPATH/WEB/bookingExecute.php'">
                                 購入
                             </button>
                         </div>
