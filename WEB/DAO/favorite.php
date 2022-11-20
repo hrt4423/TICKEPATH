@@ -49,5 +49,18 @@
 
             $ps->execute();
         }
+
+        public function checkDuplication($cid, $aid){
+            $pdo = $this -> dbConnect();
+
+            $sql = "SELECT COUNT(*) AS cnt FROM favorite WHERE client_id = ? AND artist_id = ?";
+
+            $ps = $pdo -> prepare($sql);
+
+            $ps->bindValue(1, $cid, PDO::PARAM_INT);
+            $ps->bindValue(2, $aid, PDO::PARAM_INT);
+
+            $ps->execute();
+        }
     }
 ?>
