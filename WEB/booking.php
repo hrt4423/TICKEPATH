@@ -82,6 +82,7 @@
                                         echo '（開場:', $daoPerformance->outPutOpenTime($performanceId),'）';
                                     ?>
                                 </div>
+                        </div>
                     </div><!-- card-body -->
                 </div><!-- card -->
             </div><!-- カード位置　調整 -->
@@ -127,11 +128,16 @@
                                             $seatValueIds =  $daoSeat->getSeatValueIdsByPerformanceId($performanceId);
                                             
                                             foreach($seatValueIds as $seatValueId){
-                                                echo '<option value="', $seatValueId, '">';
-                                                $daoSeatValue->outputSeatName($seatValueId);
-                                                echo '　￥';
-                                                $daoSeat->outputSeatPrice($performanceId, $seatValueId);
-                                                echo '</option>';
+                                                if($daoSeat->seatCheck($performanceId, $seatValueId)!= 0){
+                                                    echo '<option value="', $seatValueId, '">';
+                                                    $daoSeatValue->outputSeatName($seatValueId);
+                                                    echo '　￥';
+                                                    $daoSeat->outputSeatPrice($performanceId, $seatValueId);
+                                                    echo '</option>';
+                                                }else{
+                                                    continue;
+                                                }
+                                                
                                             }
                                   
                                         ?>
@@ -148,7 +154,6 @@
                                         <!--枚数を送信。指定された分だけ席を押さえる。空きの判定、席が無い場合の処理も必要-->
                                         <option selected>----------</option>
                                         <option value="1">01</option>
-                                        <option value="2">02</option>
                                     </select>
                                 </div>
                             </div>

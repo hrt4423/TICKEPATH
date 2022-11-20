@@ -25,6 +25,14 @@
             echo '<br>席種ID：', $_SESSION['seatValueId'];
             echo '<br>チケット枚数：', $_SESSION['ticketNum'];
         }
+
+        require_once './DAO/performance.php';
+        require_once './DAO/seat.php';
+        require_once './DAO/seat_value.php';
+        
+        $daoPerformance = new DAO_performance();
+        $daoSeat = new DAO_seat();
+        $daoSeatValue = new DAO_seat_value();
     ?>
     
     <div class="container-fluid">
@@ -36,19 +44,35 @@
                     <div class="card-body" style="background-color:#C0C0C0">
 
                         <div class="row">
-                            <div>企業名</div>
-                                <div class="bg-white col-md-12 mt-1 mb-1">○○○○</div>
-
+                            <div>公演名</div>
+                                <div class="bg-white col-md-12 mt-1 mb-1">
+                                    <?php $daoPerformance->outPutPerformanceName($_SESSION['tmpPerformanceId'])?>
+                                </div>
+                            <div>アーティスト</div>
+                                <div class="bg-white col-md-12 mt-1 mb-1">
+                                    <?php $daoPerformance->outPutArtist($_SESSION['tmpPerformanceId'])?>
+                                </div>
                             <div>会場</div>
-                                <div class="bg-white col-md-12 mt-1 mb-1">○○○○</div>
-
+                                <div class="bg-white col-md-12 mt-1 mb-1">
+                                    <?php $daoPerformance->outPutPlace($_SESSION['tmpPerformanceId'])?>
+                                </div>
                             <div>公演日時</div>
-                                <div class="bg-white col-md-12 mt-1 mb-1">○○○○</div>
-
-                            <div>座席・料金</div>
-                                <div class="bg-white col-md-12 mt-1 mb-1">￥:○○○○</div>
-                        </div><!--row-->
-    
+                                <div class="bg-white col-md-12 mt-1 mb-1">
+                                    <?php
+                                        $daoPerformance->outPutDate($_SESSION['tmpPerformanceId']);
+                                        echo ' 開演:', $daoPerformance->outPutStartTime($_SESSION['tmpPerformanceId']);
+                                        echo '（開場:', $daoPerformance->outPutOpenTime($_SESSION['tmpPerformanceId']),'）';
+                                    ?>
+                                </div>
+                            <div>席種・料金</div>
+                                <div class="bg-white col-md-12 mt-1 mb-1">
+                                    <?php 
+                                        $daoSeatValue->outputSeatName($_SESSION['seatValueId']);
+                                        echo '×', $_SESSION['ticketNum'], '枚　￥';
+                                        $daoSeat->outputSeatPrice($_SESSION['tmpPerformanceId'], $_SESSION['seatValueId']);
+                                    ?>
+                                </div>
+                        </div>
                     </div><!-- card-body -->
                 </div><!-- card -->
             </div><!-- カード位置　調整 -->

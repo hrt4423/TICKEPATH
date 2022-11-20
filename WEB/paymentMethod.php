@@ -22,14 +22,15 @@
         echo '<br>tempPerformanceId：', $_SESSION['tmpPerformanceId'];
 
         //入力値をセッション変数に保存
-        if(isset($_SESSION['seatValueId'] )==false){
+        if(isset($_POST['seatValueId']) && isset($_POST['ticketNum'])){
             $_SESSION['seatValueId'] = $_POST['seatValueId'];
-        }
-        if(isset($_SESSION['ticketNum'])==false){
             $_SESSION['ticketNum'] = $_POST['ticketNum'];
+        }else{
+            $_SESSION['seatValueId'] = null;
+            $_SESSION['ticketNum'] = null;
+
         }
         
-
         
         
         echo '<br>席種ID：', $_SESSION['seatValueId'];
