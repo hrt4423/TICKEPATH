@@ -27,7 +27,7 @@
             $result = $ps->fetchAll(PDO::FETCH_ASSOC);
 
             if(empty($result)){
-                echo '指定したIDに該当するデータはありません。';
+                $artistIds = array();
             }else{
                 foreach($result as $row){
                     $artistIds[]=$row['artist_id'];

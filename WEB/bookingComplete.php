@@ -18,7 +18,20 @@
             echo 'ログインしていません<br>';
             echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
         }
-        echo '<br>tempPerformanceId：', $_SESSION['tmpPerformanceId'];
+        echo '<br>performanceId：', $_SESSION['performanceId'];
+
+        require_once './DAO/performance.php';
+        require_once './DAO/seat.php';
+        require_once './DAO/seat_value.php';
+        
+        $daoPerformance = new DAO_performance();
+        $daoSeat = new DAO_seat();
+        $daoSeatValue = new DAO_seat_value();
+        if(isset($_SESSION['bookingId'])){
+            $bookingId =  $_SESSION['bookingId'];
+        }else{
+            $bookingId = 9999;
+        }
     ?>
     
     <!-- ナビゲーションバー -->
@@ -44,22 +57,53 @@
                     <div class="card-body" style="background-color:#C0C0C0">
 
                         <div class="row">
-                            <div>企業名</div>
-                                <div class="bg-white col-md-12 mt-1 mb-1">○○○○</div>
-
+                            <div>公演名</div>
+                                <div class="bg-white col-md-12 mt-1 mb-1">
+                                    <?php $daoPerformance->outPutPerformanceName($_SESSION['performanceId'])?>
+                                </div>
+                            <div>アーティスト</div>
+                                <div class="bg-white col-md-12 mt-1 mb-1">
+                                    <?php $daoPerformance->outPutArtist($_SESSION['performanceId'])?>
+                                </div>
                             <div>会場</div>
-                                <div class="bg-white col-md-12 mt-1 mb-1">○○○○</div>
-
+                                <div class="bg-white col-md-12 mt-1 mb-1">
+                                    <?php $daoPerformance->outPutPlace($_SESSION['performanceId'])?>
+                                </div>
                             <div>公演日時</div>
-                                <div class="bg-white col-md-12 mt-1 mb-1">○○○○</div>
-
-                            <div>座席・料金</div>
-                                <div class="bg-white col-md-12 mt-1 mb-1">￥:○○○○</div>
+                                <div class="bg-white col-md-12 mt-1 mb-1">
+                                    <?php
+                                        $daoPerformance->outPutDate($_SESSION['performanceId']);
+                                        echo ' 開演:', $daoPerformance->outPutStartTime($_SESSION['performanceId']);
+                                        echo '（開場:', $daoPerformance->outPutOpenTime($_SESSION['performanceId']),'）';
+                                    ?>
+                                </div>
+                            <div>席種・料金</div>
+                                <div class="bg-white col-md-12 mt-1 mb-1">
+                                    <?php 
+                                        $daoSeatValue->outputSeatName($_SESSION['seatValueId']);
+                                        echo '×', $_SESSION['ticketNum'], '枚　￥';
+                                        $daoSeat->outputSeatPrice($_SESSION['performanceId'], $_SESSION['seatValueId']);
+                                    ?>
+                                </div>
+                            <div>予約番号</div>
+                                <div class="bg-white col-md-12 mt-1 mb-1">
+                                    <?php 
+                                        echo $bookingId,'番';
+                                    ?>
+                                </div>
                         </div><!--row-->
-    
                     </div><!-- card-body -->
                 </div><!-- card -->
             </div><!-- カード位置　調整 -->
+
+            <?php
+                //セッション変数(performanceId, seatValueId, ticketNum, bookingId)の初期化
+                $_SESSION['performanceId'] = null;
+                $_SESSION['seatValueId'] = null;
+                $_SESSION['ticketNum'] = null;
+                $_SESSION['bookingId'] = null;
+
+            ?>
 
             <div class="text-center mt-3">
                 <small>入力したメールに詳細を送信しました</small><br>

@@ -33,17 +33,21 @@
         require_once './DAO/favorite.php';
         $daoPerformance = new DAO_performance;
         $daoFavorite = new DAO_favorite;
-        if(isset($_SESSION['tmpPerformanceId'])==false){
-            $_SESSION['tmpPerformanceId'] = $_POST['key'];
+        if(isset($_POST['key'])){
+            $_SESSION['performanceId'] = $_POST['key'];
         }
         
-        $aimyon=$_SESSION['tmpPerformanceId'];
+        $performanceId=$_SESSION['performanceId'];
         $clientid=$_SESSION['clientId'];
     ?>
+
     <!-- ナビゲーションバー -->
-    <nav class="navbar navbar-light mb-3">
+    <nav class="navbar navbar-light" style="background-color: #64BCFC;">
         <div class="container-fluid">
-            </div>
+            <!-- タイトル -->
+            <a class="navbar-brand" href="https://localhost/TICKEPATH/WEB/home.php">
+                <img src="../images/黄色ロゴ.png" height="75px">
+            </a>
         </div>
     </nav>
 
@@ -51,19 +55,19 @@
         <div class="card border-dark mt-1"><!-- 公演写真カード -->
             <h5 class="card-title text-center mt-4">
                 <?php 
-                    $daoPerformance->outPutArtist($aimyon);
+                    $daoPerformance->outPutArtist($performanceId);
                     //echo $_POST['key'];
                 ?>のチケット情報</h5><!-- アーティスト名 -->
                 <div class="card-body ">
-                    <img class="mx-auto img-fluid" src="<?php $daoPerformance->getImagePath($aimyon); ?>"><!--写真  -->
+                    <img class="mx-auto img-fluid" src="<?php $daoPerformance->getImagePath($performanceId); ?>"><!--写真  -->
                 </div>		
         </div>
 
         <div class="card border-dark mt-1"><!-- 公演詳細カード -->
                 <div class=card-body>
-                    <h8><?php  $daoPerformance->outPutDate($aimyon) ?></h8><br><!--公演日  -->
-                    <h8>開演：<?php  $daoPerformance->outPutStartTime($aimyon) ?></h8><br><!--開演時間  -->
-                    <span style="color:#68C5F3;"><h8><?php  $daoPerformance->outPutPlace($aimyon) ?></h8></span><!-- 会場名 -->
+                    <h8><?php  $daoPerformance->outPutDate($performanceId) ?></h8><br><!--公演日  -->
+                    <h8>開演：<?php  $daoPerformance->outPutStartTime($performanceId) ?></h8><br><!--開演時間  -->
+                    <span style="color:#68C5F3;"><h8><?php  $daoPerformance->outPutPlace($performanceId) ?></h8></span><!-- 会場名 -->
                 </div>		
         </div>
         <form action="https://localhost/TICKEPATH/WEB/booking.php" method="post" id="form"></form>
@@ -77,7 +81,7 @@
         <div class="card border-dark mt-3 mb-1">
             <h8 style="color:#0047FF"  class="card-title text-center mt-1">このアーティストをお気に入りに登録する</h8>
             <div class=row>
-                <h6 class="text-center"><?php $daoPerformance->outPutArtist($aimyon);?></h6> 
+                <h6 class="text-center"><?php $daoPerformance->outPutArtist($performanceId);?></h6> 
             </div>
         </div>
 
@@ -91,7 +95,7 @@
 
         <?php
             if(isset($_POST['fav'])){
-                $daoFavorite->insertFavoriteArtist($clientid, $aimyon);
+                $daoFavorite->insertFavoriteArtist($clientid, $performanceId);
             }
         ?>
 

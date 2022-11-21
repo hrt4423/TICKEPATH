@@ -28,8 +28,8 @@
         echo 'ログインしていません<br>';
         echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
     }
-    $performanceId = $_SESSION['tmpPerformanceId'];
-    echo '<br>tempPerformanceId：', $performanceId;
+    $performanceId = $_SESSION['performanceId'];
+    echo '<br>performanceId：', $performanceId;
 
     require_once './DAO/performance.php';
     require_once './DAO/seat.php';
@@ -41,7 +41,7 @@
 ?>
 <body style="background-color: #DFDFDFDF;">
 
-    <form action="https://localhost/TICKEPATH/WEB/paymentMethod.php" method="post" id="bookingForm"></form>
+    <form action="https://localhost/TICKEPATH/WEB/bookingDataSet.php" method="post" id="bookingForm"></form>
 
     <!-- ナビゲーションバー -->
     <nav class="navbar navbar-light" style="background-color: #64BCFC;">
@@ -82,6 +82,7 @@
                                         echo '（開場:', $daoPerformance->outPutOpenTime($performanceId),'）';
                                     ?>
                                 </div>
+                        </div>
                     </div><!-- card-body -->
                 </div><!-- card -->
             </div><!-- カード位置　調整 -->
@@ -117,22 +118,32 @@
                                     席種
                                 </div>
                                 <div class="col-9">
-                                    <select name="seatValue" id="select_seat" class="form-select" form="bookingForm">
+                                    <select name="seatValueId" id="select_seat" class="form-select" form="bookingForm">
                                         <option selected>----------</option>
                                         <!--DBから席と対応する値段を取得-->
                                         <!--選択した席種とvalueの対応が必要 -->
                                         <?php
+                                            
                                             $seatValueIds = array();
                                             $seatValueIds =  $daoSeat->getSeatValueIdsByPerformanceId($performanceId);
+                                            var_dump($seatValueIds);
+                                           
                                             foreach($seatValueIds as $seatValueId){
-                                                echo '<option value="1">';
-                                                $daoSeatValue->outputSeatName($seatValueId);
-                                                echo '　￥';
-                                                $daoSeat->outputSeatPrice($performanceId, $seatValueId);
-                                                echo '</option>';
+                                                echo 'テスト';
+                                                if($daoSeat->seatCheck($performanceId, $seatValueId)!= 0){
+                                                    echo '<option value="', $seatValueId, '">';
+                                                    $daoSeatValue->outputSeatName($seatValueId);
+                                                    echo '　￥';
+                                                    $daoSeat->outputSeatPrice($performanceId, $seatValueId);
+                                                    echo '</option>';
+                                                }else{
+                                                    continue;
+                                                }
+                                                
+                                                
                                             }
+                                  
                                         ?>
-                                        
                                     </select>
                                 </div>
                             </div>
@@ -142,11 +153,10 @@
                                     枚数
                                 </div>
                                 <div class="col-9">
-                                    <select name="number" id="select_number" class="form-select" form="bookingForm">
+                                    <select name="ticketNum" id="select_number" class="form-select" form="bookingForm">
                                         <!--枚数を送信。指定された分だけ席を押さえる。空きの判定、席が無い場合の処理も必要-->
                                         <option selected>----------</option>
                                         <option value="1">01</option>
-                                        <option value="2">02</option>
                                     </select>
                                 </div>
                             </div>
@@ -171,7 +181,6 @@
                             <button type="submit" class="btn text-dark m-2" style="background-color: #68C5F3;" form="bookingForm">
                                 決算方法選択
                             </button>
-                        </div>
                         </div>
                         
 

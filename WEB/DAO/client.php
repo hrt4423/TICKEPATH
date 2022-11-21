@@ -29,6 +29,58 @@
 
             return $result;
         }
+
+        //clientIdから姓を取得する関数
+        public function getFamilyName($clientId){
+            $pdo = $this -> dbConnect();
+
+            //SQLの生成　入力を受け取る部分は”？”
+            $sql = "SELECT * FROM client WHERE client_id=?";
+
+            //prepare:準備　戻り値を変数に保持
+            $ps = $pdo -> prepare($sql);
+            //”？”に値を設定する
+            $ps->bindValue(1, $clientId, PDO::PARAM_INT); 
+            //SQLの実行
+            $ps->execute();
+            //実行結果を配列に格納
+            $result = $ps->fetchAll(PDO::FETCH_ASSOC);
+
+            if(empty($result)){
+                echo '指定したIDに該当するデータはありません。';
+            }else{
+                foreach($result as $row){
+                    $familyName=$row['family_name'];
+                }
+            } 
+            return $familyName;
+        }
+
+        //clientIdから名を取得する関数
+        public function getFirstName($clientId){
+            $pdo = $this -> dbConnect();
+
+            //SQLの生成　入力を受け取る部分は”？”
+            $sql = "SELECT * FROM client WHERE client_id=?";
+
+            //prepare:準備　戻り値を変数に保持
+            $ps = $pdo -> prepare($sql);
+            //”？”に値を設定する
+            $ps->bindValue(1, $clientId, PDO::PARAM_INT); 
+            //SQLの実行
+            $ps->execute();
+            //実行結果を配列に格納
+            $result = $ps->fetchAll(PDO::FETCH_ASSOC);
+
+            if(empty($result)){
+                echo '指定したIDに該当するデータはありません。';
+            }else{
+                foreach($result as $row){
+                    $firstName=$row['first_name'];
+                }
+            } 
+            return $firstName;
+        }
         
     }
 

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-
+    
     <title>規約</title>
     <!-- bootstarapのcss読み込み -->
     <link href="../Example/css/bootstrap.min.css" rel="stylesheet" />
@@ -21,7 +21,12 @@
             echo 'ログインしていません<br>';
             echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
         }
-        echo '<br>tempPerformanceId：', $_SESSION['tmpPerformanceId'];
+        echo '<br>performanceId：', $_SESSION['performanceId'];
+
+        if(isset($_SESSION['seatValueId']) && isset($_SESSION['ticketNum'])){
+            echo '<br>席種ID：', $_SESSION['seatValueId'];
+            echo '<br>チケット枚数：', $_SESSION['ticketNum'];
+        }
     ?>
     <div class="container-fluid">
         <div class="row">
@@ -61,7 +66,7 @@
                 <div class="card-body">
                         <div class="text-center">
                             <form action="" method="post">
-                                <input type="checkbox" name="kiyaku">利用規約に同意する
+                                <input type="checkbox" name="kiyaku" id="checkbox">利用規約に同意する
                             </form>
                         </div><!-- card-body -->
                     </div><!-- card -->
@@ -79,7 +84,9 @@
             
                 <div class="col-6">
                         <button class="btn mx-2 btn-info" style="background-color:#68C5F3;" 
-                            onclick="location.href='https://localhost/TICKEPATH/WEB/confirm.php'">
+                            onclick="location.href='https://localhost/TICKEPATH/WEB/confirm.php'"
+                            id="button"
+                            disabled>
                             次へ
                         </button>
                 </div>
@@ -88,5 +95,6 @@
 
     <!-- bootstrapのjs読み込み -->
     <script src="../Example/js/bootstrap.min.js"></script>
+    <script src="./SCRIPT/script.js"></script>
 </body>
 </html>
