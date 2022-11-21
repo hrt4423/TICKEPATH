@@ -39,6 +39,8 @@
         
         $performanceId=$_SESSION['performanceId'];
         $clientid=$_SESSION['clientId'];
+
+        $duplication = $daoFavorite->checkDuplication($clientid, $performanceId);
     ?>
 
     <!-- ナビゲーションバー -->
@@ -94,8 +96,14 @@
         </form>
 
         <?php
-            if(isset($_POST['fav'])){
-                $daoFavorite->insertFavoriteArtist($clientid, $performanceId);
+            if(empty($duplication)){
+                if(isset($_POST['fav'])){
+                    $daoFavorite->insertFavoriteArtist($clientid, $performanceId);
+                }
+            }else{
+                if(isset($_POST['fav'])){
+                    echo '既に登録済みです';
+                }
             }
         ?>
 
