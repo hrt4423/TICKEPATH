@@ -1,8 +1,5 @@
 START TRANSACTION;
 
-
-START TRANSACTION;
-
 ALTER TABLE booking ADD COLUMN is_cancel INT;
 
 ALTER TABLE booking_detail 
@@ -17,6 +14,60 @@ ALTER TABLE history ADD COLUMN browse_date DATETIME;
 INSERT INTO artist(artist_name)VALUES('あいみょん'),('米津玄師');
 
 ALTER TABLE performance ADD COLUMN artist_id INTEGER NOT NULL;
+
+INSERT INTO client(
+    client_password, 
+    family_name, 
+    first_name, 
+    gender, 
+    email_address, 
+    mobile_phone_number,
+    post_code, 
+    prefecture, 
+    city, 
+    address, 
+    Room_number
+) VALUES (
+    'abcc1', 
+    '平山', 
+    '武', 
+    '男', 
+    '3101021@s.asojuku.ac.jp',
+    '91033233453',
+    '612-4432', 
+    '福岡県', 
+    '博多区', 
+    '3-1', 
+    'ニューシティ801'
+),
+
+(
+    'abcc2', 
+    '前野', 
+    '武美', 
+    '女', 
+    'osakasi@gmail.com',
+    '91033245678', 
+    '120-6394', 
+    '大阪市', 
+    '西成区', 
+    '2-1', 
+    'New York413'
+),
+
+(
+    'abcc3',
+    '志度',
+    '朝日', 
+    '男', 
+    '5102012@s.asojuku.ac.jp',
+    '91033245678',
+    '120-6394', 
+    '福岡県',
+    '糸島市', 
+    '5-9', 
+    '有坂ビル206'
+);
 
 INSERT INTO seat_value(seat_name)
 VALUES('立見席'), ('S席'), ('A席'), ('B席');
