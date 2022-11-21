@@ -37,5 +37,19 @@
             
             return $bookingIds;
         }
+
+        //is_cancelをtrueにするメソッド
+        public function Cancel($bookingid){
+                $pdo = $this -> dbConnect();
+                //SQLの生成　入力を受け取る部分は”？”
+                $sql = "UPDATE booking SET is_cancel = true WHERE booking_id=?";
+                //prepare:準備　戻り値を変数に保持
+                $ps = $pdo -> prepare($sql);
+                //”？”に値を設定する
+                $ps->bindValue(1, $bookingid, PDO::PARAM_INT);
+                //SQLの実行
+                $ps->execute();
+        
+        }
     }
 ?>
