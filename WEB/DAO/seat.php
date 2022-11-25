@@ -226,6 +226,22 @@
             //SQLの実行
             $ps->execute();
         }
+
+        //予約をキャンセルする関数　引数：席ID
+        public function CancelReserveSeat($seatId){
+            $pdo = $this->dbConnect();
+            //SQLの生成　入力を受け取る部分は”？”
+            $sql = "UPDATE seat SET is_reserved = false WHERE seat_id=?";
+
+            //prepare:準備　戻り値を変数に保持
+            $ps = $pdo -> prepare($sql);
+
+            //”？”に値を設定する
+            $ps->bindValue(1, $seatId, PDO::PARAM_INT); 
+            
+            //SQLの実行
+            $ps->execute();
+        }
     }
 
 ?>
