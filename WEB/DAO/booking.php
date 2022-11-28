@@ -14,7 +14,7 @@
             $pdo = $this -> dbConnect();
 
             //SQLの生成　入力を受け取る部分は”？”
-            $sql = "SELECT * FROM booking WHERE client_id=?";
+            $sql = "SELECT * FROM booking WHERE is_cancel = false AND client_id=?";
 
             //prepare:準備　戻り値を変数に保持
             $ps = $pdo -> prepare($sql);
