@@ -45,28 +45,29 @@
             <?= $_POST['key'];?>
             <h4 class="text-center">以下の申し込みをキャンセルします</h4>
             <?php
+            $bookingIds=array();
+            $bookingIds= $daoBooking->getBookingIdByClientId($_SESSION['clientId']);//BookingID取得 
             $result = $daoPerformance->getPerformanceTblByid($_POST['key']);
-            $bookingdetaile = $daoBookingDetail->getSeatIdByBookingId($_POST['key']);
-            $performanceid = $daoSeat->getPerformanceId($bookingdetaile);
-            $seatvalueid = $daoSeat->getSeatValueId($bookingdetaile);
-            foreach($result as $row){
+            $seat = $daoBookingDetail->getSeatIdByBookingId($_POST['key']);
+            $performanceId = $daoSeat->getSeatIdByBookingId($seat);
+            $seatvalueid = $daoSeat->getSeatValueId($seat);
                 ?>
             <div class="container p-4">
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr class="table"style="background-color:#DFDFDF;"><td>公演名</td></tr>
-                        <tr><td><?=$daoPerformance->outPutPerformanceName($row['performance_id']);?></td></tr>
+                        <tr><td><?=$daoPerformance->outPutPerformanceName($performanceId);?></td></tr>
                         <tr class="table"style="background-color:#DFDFDF;"><td>会場</td></tr>
-                        <tr><td><?=$daoPerformance->outPutPlace($row['performance_id']);?></td></tr>
+                        <tr><td><?=$daoPerformance->outPutPlace($performanceId);?></td></tr>
                         <tr class="table"style="background-color:#DFDFDF;"><td>公演日時</td></tr>
-                        <tr><td><?=$daoPerformance->outPutDate($row['performance_id']);?></td></tr>
+                        <tr><td><?=$daoPerformance->outPutDate($performanceId);?></td></tr>
                         <tr class="table"style="background-color:#DFDFDF;"><td>席種・料金</td></tr>
-                        <tr><td>¥<?=$daoSeat->outputSeatPrice($performanceid,$seatvalueid);?></td></tr>
+                        <tr><td>¥<?=$daoSeat->outputSeatPrice($performanceId,$seatvalueid);?></td></tr>
                     </thead>
                 </table>
             </div>
             <?php 
-            }
+            
             ?>
         </div>
         <div class="d-grid gap-2 col-6 mx-auto">
