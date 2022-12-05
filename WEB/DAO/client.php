@@ -3,8 +3,8 @@
         //データベースに接続する関数
         private function dbConnect(){
             //データベースに接続
-            $pdo = new PDO('mysql:host=localhost; dbname=webdb; charset=utf8',
-                            'webuser', 'abccsd2');
+            $pdo = new PDO('mysql:host=mysql207.phy.lolipop.lan; dbname=LAA1417809-tickepath; charset=utf8',
+                'LAA1417809', 'Team6db');
             return $pdo;
         }
 
