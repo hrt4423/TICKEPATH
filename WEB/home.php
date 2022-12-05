@@ -15,6 +15,9 @@
         .homebtn{
             background-color: #64BCFC;
         }
+        .card1{
+            text-align: left;
+        }
     </style>
     <title>ホーム画面</title>
 </head>
@@ -210,11 +213,14 @@
             </div>
         </div><!--row-->
 
+        <form action="performanceDetail.php" method="post" id="home1">
         <div class="card_position"><!--カード位置調整-->
             <div class="card">
+            <button class="btn btn-white">
                 <div class="card-body">
-                    <div class="row gx-0">
-                        <div class="col-3" >
+                <input type="hidden" name="key" value="<?=$aimyon?>">
+                    <div class="card1 row gx-0">
+                        <div class="col-4">
                             <?php 
                                 //日付を表示
                                 $daoPerformance->outPutDate($aimyon);
@@ -227,7 +233,7 @@
                             </div>
                         </div>
 
-                        <div class="col-8">
+                        <div class="col-7">
                             <h6 class="card-title">
                                 <?php
                                     //アーティスト名を表示
@@ -252,14 +258,19 @@
                         </div>
                     </div><!--row-->
                 </div><!-- card-body -->
+            </button>
             </div><!-- card -->
         </div><!-- カード位置調整 -->
+        </form>
 
+        <form action="performanceDetail.php" method="post" id="home2">
         <div class="card_position"><!--カード位置調整-->
             <div class="card">
+            <button class="btn btn-white">
                 <div class="card-body">
-                    <div class="row gx-0">
-                        <div class="col-3">
+                <input type="hidden" name="key" value="<?=$yonedu?>">
+                    <div class="card1 row gx-0">
+                        <div class="col-4">
                         <?php 
                             $daoPerformance->outPutDate($yonedu);
                         ?>
@@ -271,7 +282,7 @@
                             </div>
                         </div>
 
-                        <div class="col-8">
+                        <div class="col-7">
                             <h6 class="card-title">
                             <?php
                                 $daoPerformance->outPutArtist($yonedu);
@@ -293,8 +304,10 @@
                         </div>
                     </div><!--row-->
                 </div><!-- card-body -->
+            </div>
             </div><!-- card -->
         </div><!-- カード位置調整 -->
+        </form>
 
         <div class="row">
             <div class="col-12" id="headline">
@@ -323,10 +336,13 @@
                         $performanceIds=$daoPerformance->getPerformanceIdsByArtistId($artistId);
                         foreach($performanceIds as $performanceId){
                             echo '
+                            <form action="performanceDetail.php" method="post" id="home3">
                             <div class="card_position"><!--カード位置調整-->
                             <div class="card">
+                            <button class="btn btn-white">
                                 <div class="card-body">
                                     <div class="row gx-0">
+                                    <input type="hidden" name="key" value="',$performanceId,'">
                                         <div class="col-3" >
                                             '
                                             ,$daoPerformance->outPutDate($performanceId),
@@ -356,8 +372,10 @@
                                         </div>
                                     </div><!--row-->
                                 </div><!-- card-body -->
+                                </button>
                             </div><!-- card -->
                             </div><!-- カード位置調整 -->
+                            </form>
                             ';//end-echo
                         }
                     }
