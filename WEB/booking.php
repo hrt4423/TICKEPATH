@@ -41,7 +41,7 @@
 ?>
 <body style="background-color: #DFDFDFDF;">
 
-    <form action="https://localhost/TICKEPATH/WEB/bookingDataSet.php" method="post" id="bookingForm"></form>
+    <form action="https://localhost/TICKEPATH/WEB/bookingDataSet.php" method="post" id="bookingForm">
 
     <!-- ナビゲーションバー -->
     <nav class="navbar navbar-light" style="background-color: #64BCFC;">
@@ -98,8 +98,8 @@
                                     日時
                                 </div>
                                 <div class="col-9">
-                                    <select name="performanceDate" id="select_date" class="form-select" form="bookingForm">
-                                        <option selected>----------</option>
+                                    <select name="performanceDate" id="select_date" class="form-select" form="bookingForm" required>
+                                        <option selected value="">----------</option>
                                         <!--DBから日時情報を取得-->
                                         <?php
                                             echo '<option value="1">',
@@ -118,8 +118,8 @@
                                     席種
                                 </div>
                                 <div class="col-9">
-                                    <select name="seatValueId" id="select_seat" class="form-select" form="bookingForm">
-                                        <option selected>----------</option>
+                                    <select name="seatValueId" id="select_seat" class="form-select" form="bookingForm" required>
+                                        <option selected value="">----------</option>
                                         <!--DBから席と対応する値段を取得-->
                                         <!--選択した席種とvalueの対応が必要 -->
                                         <?php
@@ -153,9 +153,9 @@
                                     枚数
                                 </div>
                                 <div class="col-9">
-                                    <select name="ticketNum" id="select_number" class="form-select" form="bookingForm">
+                                    <select name="ticketNum" id="select_number" class="form-select" form="bookingForm" required>
                                         <!--枚数を送信。指定された分だけ席を押さえる。空きの判定、席が無い場合の処理も必要-->
-                                        <option selected>----------</option>
+                                        <option selected value="">----------</option>
                                         <option value="1">01</option>
                                     </select>
                                 </div>
@@ -182,6 +182,8 @@
                                 決算方法選択
                             </button>
                         </div>
+
+                        </form>
                         
 
                     </div><!--card-body-->
