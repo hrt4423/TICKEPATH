@@ -41,7 +41,7 @@ function registClick(){
   if(isSuccess == true){
     window.location.href = 'signUpdetail.html';
   }
-   }
+}
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -101,7 +101,7 @@ function registClick(){
 
 
                   <div class="d-grid gap-2 mt-3">
-                      <button class="btn btn-danger" type="submit"  >新規登録をする</button>
+                      <button class="btn btn-danger" type="submit" onclick="registClick">新規登録をする</button>
                   </div>            
           </div><!--class="row"-->
       </div><!--class="container-fluid"-->

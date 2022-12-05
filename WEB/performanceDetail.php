@@ -61,7 +61,7 @@
                     //echo $_POST['key'];
                 ?>のチケット情報</h5><!-- アーティスト名 -->
                 <div class="card-body ">
-                    <img class="mx-auto img-fluid" src="<?php $daoPerformance->getImagePath($performanceId); ?>"><!--写真  -->
+                    <img  class="mx-auto  img-fluid" width="400px" height="400px" src="<?php $daoPerformance->getImagePath($performanceId); ?>"><!--写真  -->
                 </div>		
         </div>
 
@@ -106,10 +106,15 @@
                 }
             }
         ?>
-
-
-
-
+            <a href="home.php"  class="text-decoration-none">
+                        <div class="row">
+                            <div class="d-grid  gap-2 text-center">
+                                <button type="button" class="homebtn btn btn-info btn-sm text-white border-dark">
+                                    ホームへ戻る
+                                </button>
+                            </div>
+                        </div>
+                    </a>
     </div> 
     <!-- bootstrapのjs読み込み -->
     <script src="js/bootstrap.min.js"></script>
