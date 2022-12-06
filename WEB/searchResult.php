@@ -165,7 +165,7 @@
                     <button class="btn btn-white">
                         <div class="card-body">
                         <input type="hidden" name="key" value="<?=$row['performance_id']?>">
-                        <input type="hidden" name="artistname" value="<?=$_POST['name']?>">
+                        <input type="hidden" name="artistname" value="<?=$_POST['artistname']?>">
                             <div class="row gx-0">
                                     <div class="col-4" >
                                         <?=$daoPerformance->outPutDate($row['performance_id']); ?>
