@@ -34,13 +34,13 @@
             $pdo = $this -> dbConnect();
 
             //SQLの生成　入力を受け取る部分は”？”
-            $sql = "SELECT * FROM performance WHERE artist_name=?";
+            $sql = "SELECT * FROM performance WHERE artist_name LIKE ?";
 
             //prepare:準備　戻り値を変数に保持
             $ps = $pdo -> prepare($sql);
 
             //”？”に値を設定する。
-            $ps->bindValue(1, $name, PDO::PARAM_STR); 
+            $ps->bindValue(1, $name. "%", PDO::PARAM_STR); 
 
             //SQLの実行
             $ps->execute();
@@ -55,17 +55,17 @@
         }
 
         //検索件数を返す
-        public function performanceCount($id){
+        public function performanceCount($name){
             $pdo = $this -> dbConnect();
 
             //SQLの生成　入力を受け取る部分は”？”
-            $sql = "SELECT * FROM performance WHERE artist_name=?";
+            $sql = "SELECT * FROM performance WHERE artist_name LIKE ?";
 
             //prepare:準備　戻り値を変数に保持
             $ps = $pdo -> prepare($sql);
 
             //”？”に値を設定する。
-            $ps->bindValue(1, $id, PDO::PARAM_STR); 
+            $ps->bindValue(1, $name. "%", PDO::PARAM_STR); 
 
             //SQLの実行
             $ps->execute();
