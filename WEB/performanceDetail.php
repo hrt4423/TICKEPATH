@@ -111,6 +111,11 @@
                 }
             }
         ?>
+        <?php 
+
+            if(isset($_POST['artistname'])){
+                ?>
+
             <form action="searchResult.php" method="post" class="text-decoration-none">
                         <div class="row">
                             <div class="d-grid  gap-2 mt-1 text-center">
@@ -119,6 +124,11 @@
                             </div>
                         </div>
             </form>
+            <?php
+            }else{
+
+            }
+            ?>
     </div> 
     <!-- bootstrapのjs読み込み -->
     <script src="js/bootstrap.min.js"></script>
