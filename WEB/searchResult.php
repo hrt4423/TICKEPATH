@@ -76,8 +76,12 @@
         <h2 class="bg-white col-md-12 pt-3 pb-3 text-center">
             <!-- 検索した名前を表示 -->
             <?php
+            if(isset($_POST['name'])){
                 $daoPerformance->search($_POST['name']);
             ?>の検索結果<br>
+                
+
+
             <!-- 検索件数を表示 -->
             <?php
             $count = $daoPerformance->performanceCount($_POST['name']);
@@ -96,9 +100,10 @@
                     <button class="btn btn-white">
                         <div class="card-body">
                         <input type="hidden" name="key" value="<?=$row['performance_id']?>">
+                        <input type="hidden" name="artistname" value="<?=$_POST['name']?>">
                             <div class="row gx-0">
                                     <div class="col-4" >
-                                         <?=$daoPerformance->outPutDate($row['performance_id']); ?>
+                                        <?=$daoPerformance->outPutDate($row['performance_id']); ?>
                                     </div>
 
                                     <div class="col-1">
@@ -116,7 +121,7 @@
                                             <?=$daoPerformance->outPutPlace($row['performance_id']); ?>
                                         </div>
                                         <div>
-                                           
+                                        
                                         </div>
                                         <div>
                                             開演：
@@ -134,6 +139,72 @@
         </form>
         <?php        
         }
+    }else{
+        ?>
+        <div class="container-fluid">
+        <div class="row">
+        <h2 class="bg-white col-md-12 pt-3 pb-3 text-center">
+            <?php
+        $daoPerformance->search($_POST['artistname']);
+            ?>の検索結果<br>
+            <!-- 検索件数を表示 -->
+            <?php
+            $count = $daoPerformance->performanceCount($_POST['artistname']);
+
+            echo '<small class="text-secondary">全' . $count . "件中 " . $count . '件</small></h2>';
+            ?>
+
+        </div><!--row-->
+        <?php
+        $result = $daoPerformance->getPerformanceTblByname($_POST['artistname']);
+        foreach($result as $row){
+            ?>
+            <form action="performanceDetail.php" method="post" id="form1">
+                <div class="card_position"><!--カード位置調整-->
+                    <div class="card mt-3 mb-3">
+                    <button class="btn btn-white">
+                        <div class="card-body">
+                        <input type="hidden" name="key" value="<?=$row['performance_id']?>">
+                        <!-- <input type="hidden" name="artistname" value="<?=$_POST['name']?>"> -->
+                            <div class="row gx-0">
+                                    <div class="col-4" >
+                                        <?=$daoPerformance->outPutDate($row['performance_id']); ?>
+                                    </div>
+
+                                    <div class="col-1">
+                                        <div id="vertical_line">
+                                            <!-- 縦線-->
+                                        </div>
+                                    </div>
+
+                                    <div class="col-7">
+
+                                        <h6 class="card-title">
+                                            <?=$daoPerformance->outPutArtist($row['performance_id']); ?>
+                                        </h6>
+                                        <div>
+                                            <?=$daoPerformance->outPutPlace($row['performance_id']); ?>
+                                        </div>
+                                        <div>
+                                        
+                                        </div>
+                                        <div>
+                                            開演：
+                                            <?=$daoPerformance->outPutStartTime($row['performance_id']); ?>
+                                             ～（開場
+                                            <?=$daoPerformance->outPutOpenTime($row['performance_id']); ?>
+                                             ～）
+                                        </div>
+                                    </div>
+                            </div><!--row-->
+                        </div><!-- card-body -->
+                        </button>
+                    </div><!-- card -->
+                </div><!-- カード位置調整 -->
+        </form>
+        <?php        
+        }
+    }
         ?>
     </div><!--container-fluid-->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
