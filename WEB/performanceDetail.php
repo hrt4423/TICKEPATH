@@ -101,6 +101,12 @@
         </form>
 
         <?php
+            if($clientid == null){
+                if(isset($_POST['fav'])){
+                    header("Location:https://localhost/TICKEPATH/WEB/login.php");
+                }
+            }
+            
             if(empty($duplication)){
                 if(isset($_POST['fav'])){
                     $daoFavorite->insertFavoriteArtist($clientid, $performanceId);
