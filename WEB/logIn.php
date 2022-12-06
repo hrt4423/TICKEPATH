@@ -91,7 +91,7 @@
     </div>
 
     <div class="row">
-        <a href="https://localhost/TICKEPATH/WEB/signUp.html" class="text-decoration-none">
+        <a href="https://localhost/TICKEPATH/WEB/signUp.php" class="text-decoration-none">
             <div class="col-md-12 mt-4">
                 <div class="d-grid gap-2">
                     <button class="btn text-white" style="background-color:#68C5F3;" type="button">新規登録</button>

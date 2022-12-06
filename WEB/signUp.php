@@ -57,46 +57,46 @@ function registClick(){
                   <h1 class="col-md-12 text-center" text-center style="background-color:#DFDFDF;">会員情報入力</h1>
                     <div class="col-md-12 mt-1 mb-1  text-danger text-center" id="errorMsg"></div><!-- エラーメッセージの設定 -->
                       <label for="address" class="form-label col-md-12" style="background-color:#DFDFDF;">メールアドレス</label>
-                      <input type="text" class="form-control p-12" id="address" name="e-address" placeholder="">
+                      <input type="text" class="form-control p-12" id="address" name="e-address" placeholder="" required="required">
 
                       <label for="password" class="form-label col-md-12 mt-2" style="background-color:#DFDFDF;">パスワード</label>
                       <input type="text" class="form-control" id="password" name="password" placeholder="８文字以上で英字、数字、記号が１つ以上含まれる必要があります">
 
                       <label for="password" class="form-label col-md-12 mt-2">確認のため再入力してください</label>
-                      <input type="text" class="form-control" id="password" name="password" placeholder="">
+                      <input type="text" class="form-control" id="password" name="password" placeholder=""required="required">
 
                       <label for="name" class="form-label col-md-12 mt-2" style="background-color:#DFDFDF;">名前(全角)</label>
-                      <input type="text" class="form-control" id="familyname" name="familyname" placeholder="苗字">
-                      <input type="text" class="form-control mt-2" id="firstname" name="firstname" placeholder="名前">
+                      <input type="text" class="form-control" id="familyname" name="familyname" placeholder="苗字"required="required">
+                      <input type="text" class="form-control mt-2" id="firstname" name="firstname" placeholder="名前"required="required">
 
                       <label for="phonenumber" class="form-label col-md-12 mt-2" style="background-color:#DFDFDF;">電話番号</label>
-                      <input type="text" class="form-control" id="phonenumber" name="phonenumber" placeholder="000-0000-0000">
+                      <input type="text" class="form-control" id="phonenumber" name="phonenumber" placeholder="000-0000-0000"required="required">
 
                       <label for="Gender" class="col-form-label col-md-12 mt-2" style="background-color:#DFDFDF;">性別</label>
                         
                       
                             <div class="form-check form-check-inline">
-                              <input type="radio" name="gender" value="男性">
+                              <input type="radio" name="gender" value="男性"required="required">
                               <label class="form-check-label" for="男性">男性</label>
                             </div>
                             <div class="form-check form-check-inline">           
-                              <input type="radio" name="gender" value="女性">
+                              <input type="radio" name="gender" value="女性"required="required">
                               <label class="form-check-label" for="女性">女性</label> 
                             </div>
                       <label for="phonenumber" class="form-label col-md-12 mt-2" style="background-color:#DFDFDF;">都道府県</label>
-                      <input type="text" class="form-control" id="Ken" name="Ken" placeholder="">
+                      <input type="text" class="form-control" id="Ken" name="Ken" placeholder="" required="required">
 
                       <label for="phonenumber" class="form-label col-md-12 mt-2" style="background-color:#DFDFDF;">市区町村</label>
-                      <input type="text" class="form-control" id="City" name="City"  placeholder="">
+                      <input type="text" class="form-control" id="City" name="City"  placeholder=""required="required">
 
                       <label for="phonenumber" class="form-label col-md-12 mt-2" style="background-color:#DFDFDF;">番地</label>
-                      <input type="text" class="form-control" id="AddressNumber" name="AddressNumber" placeholder="">
+                      <input type="text" class="form-control" id="AddressNumber" name="AddressNumber" placeholder=""required="required">
 
                         <label for="phonenumber" class="form-label col-md-12 mt-2" style="background-color:#DFDFDF;">マンション名・部屋番号</label>
-                        <input type="text" class="form-control" id="HomeNumber" name="HomeNumber" placeholder="">
+                        <input type="text" class="form-control" id="HomeNumber" name="HomeNumber" placeholder=""required="required">
 
                         <label for="phonenumber" class="form-label col-md-12 mt-2" style="background-color:#DFDFDF;">郵便番号</label>
-                        <input type="text" class="form-control" id="PostCode" name="PostCode"  placeholder="">
+                        <input type="text" class="form-control" id="PostCode" name="PostCode"  placeholder="" required="required">
                 
 
 
