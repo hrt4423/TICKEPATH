@@ -80,7 +80,7 @@
         <form action="https://localhost/TICKEPATH/WEB/booking.php" method="post" id="form"></form>
         <div class="d-grid gap-2"><!--申込みボタン-->
             <button style="background-color:#68C5F3;border-color:black;color:white" class="btn mt-1" 
-                onclick="location.href='https://localhost/TICKEPATH/WEB/booking.php'">
+                onclick="location.href='https://localhost/TICKEPATH/WEB/bookingLoginCheck.php'">
                 申し込む
             </button>
         </div>
