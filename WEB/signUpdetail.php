@@ -4,7 +4,7 @@ $pdo = new PDO('mysql:host=localhost;dbname=webdb;charset=utf8','webuser','abccs
 $sql ="INSERT INTO client(client_password,family_name,first_name,gender,email_address,mobile_phone_number,post_code,prefecture,city,address,Room_number)
        VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 $ps=$pdo->prepare($sql);
-$ps->bindValue(1,password_hash($_POST['password'],PASSWORD_DEFAULT),PDO::PARAM_STR);
+$ps->bindValue(1,($_POST['password']),PDO::PARAM_STR);
 $ps->bindValue(2,$_POST['familyname'],PDO::PARAM_STR);
 $ps->bindValue(3,$_POST['firstname'],PDO::PARAM_STR);
 $ps->bindValue(4,$_POST['gender'],PDO::PARAM_STR);
@@ -17,3 +17,12 @@ $ps->bindValue(10,$_POST['AddressNumber'],PDO::PARAM_STR);
 $ps->bindValue(11,$_POST['HomeNumber'],PDO::PARAM_STR);
 $ps->execute();
 ?>
+<div class="row">
+       <a href="https://localhost/TICKEPATH/WEB/logIn.php" class="text-decoration-none">
+              <div class="col-md-12 mt-2">
+              <div class="d-grid gap-2">
+                     <button class="btn  btn-sm " style="background-color:#DFDFDF;" type="button">戻る</button>
+              </div>
+              </div>
+       </a>
+</div>
