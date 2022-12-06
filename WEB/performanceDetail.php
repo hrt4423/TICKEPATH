@@ -13,8 +13,13 @@
         .navbar{
             background-color: #64BCFC;
         }
+        
+
     </style>
 </head>
+
+<script>
+</script>
 
 <body style="background-color:#DFDFDF;">
     <!--DBと接続 -->
@@ -60,8 +65,8 @@
                     $daoPerformance->outPutArtist($performanceId);
                     //echo $_POST['key'];
                 ?>のチケット情報</h5><!-- アーティスト名 -->
-                <div class="card-body ">
-                    <img  class="mx-auto  img-fluid" width="400px" height="400px" src="<?php $daoPerformance->getImagePath($performanceId); ?>"><!--写真  -->
+                <div class="card-body mx-auto">
+                    <img  class="img-fluid" width="400px" height="331px" src="<?php $daoPerformance->getImagePath($performanceId); ?>"><!--写真  -->
                 </div>		
         </div>
 
@@ -106,22 +111,20 @@
                 }
             }
         ?>
-            <a href="home.php"  class="text-decoration-none">
+            <form action="searchResult.php" method="post" class="text-decoration-none">
                         <div class="row">
-                            <div class="d-grid  gap-2 text-center">
-                                <button type="button" class="homebtn btn btn-info btn-sm text-white border-dark">
-                                    ホームへ戻る
-                                </button>
+                            <div class="d-grid  gap-2 mt-1 text-center">
+                            <input type="hidden" name="artistname" value="<?=$_POST['artistname']?>">
+                                <input type="submit"  value="検索結果へ戻る" class="homebtn btn btn-info btn-sm text-white border-dark">
                             </div>
                         </div>
-                    </a>
+            </form>
     </div> 
     <!-- bootstrapのjs読み込み -->
     <script src="js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-  
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script> 
     <!--BootStrapCDN--><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 
 </body>
