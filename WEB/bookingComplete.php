@@ -10,27 +10,47 @@
 <body style="background-color: #DFDFDFDF;">
     <?php
         session_start();
-        if(isset($_SESSION['clientId'])){
-            echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
-            echo '<a href="https://localhost/TICKEPATH/WEB/logout.php">ログアウト</a>';
-            
-        }else{
-            echo 'ログインしていません<br>';
-            echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
-        }
-        echo '<br>performanceId：', $_SESSION['performanceId'];
 
-        require_once './DAO/performance.php';
-        require_once './DAO/seat.php';
-        require_once './DAO/seat_value.php';
-        
-        $daoPerformance = new DAO_performance();
-        $daoSeat = new DAO_seat();
-        $daoSeatValue = new DAO_seat_value();
-        if(isset($_SESSION['bookingId'])){
-            $bookingId =  $_SESSION['bookingId'];
-        }else{
-            $bookingId = 9999;
+        try{
+            if(isset($_SESSION['clientId'])){
+                echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
+                echo '<a href="https://localhost/TICKEPATH/WEB/logout.php">ログアウト</a>';
+                
+            }else{
+                echo 'ログインしていません<br>';
+                echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
+            }
+        }catch(Exception $ex){
+            echo $ex->getMessage();
+        }catch(Error $err){
+            echo $err->getMessage();
+        }
+
+        try{
+            echo '<br>performanceId：', $_SESSION['performanceId'];
+        }catch(Exception $ex){
+            echo $ex->getMessage();
+        }catch(Error $err){
+            echo $err->getMessage();
+        }
+
+        try{
+            require_once './DAO/performance.php';
+            require_once './DAO/seat.php';
+            require_once './DAO/seat_value.php';
+            
+            $daoPerformance = new DAO_performance();
+            $daoSeat = new DAO_seat();
+            $daoSeatValue = new DAO_seat_value();
+            if(isset($_SESSION['bookingId'])){
+                $bookingId =  $_SESSION['bookingId'];
+            }else{
+                $bookingId = 9999;
+            }
+        }catch(Exception $ex){
+            echo $ex->getMessage();
+        }catch(Error $err){
+            echo $err->getMessage();
         }
     ?>
     
@@ -59,36 +79,78 @@
                         <div class="row">
                             <div>公演名</div>
                                 <div class="bg-white col-md-12 mt-1 mb-1">
-                                    <?php $daoPerformance->outPutPerformanceName($_SESSION['performanceId'])?>
+                                    <?php 
+                                    try{
+                                        $daoPerformance->outPutPerformanceName($_SESSION['performanceId']);
+                                    }catch(Exception $ex){
+                                        echo $ex->getMessage();
+                                    }catch(Error $err){
+                                        echo $err->getMessage();
+                                    }
+                                    ?>
                                 </div>
                             <div>アーティスト</div>
                                 <div class="bg-white col-md-12 mt-1 mb-1">
-                                    <?php $daoPerformance->outPutArtist($_SESSION['performanceId'])?>
+                                    <?php 
+                                    try{
+                                        $daoPerformance->outPutArtist($_SESSION['performanceId']);
+                                    }catch(Exception $ex){
+                                        echo $ex->getMessage();
+                                    }catch(Error $err){
+                                        echo $err->getMessage();
+                                    }
+                                    ?>
                                 </div>
                             <div>会場</div>
                                 <div class="bg-white col-md-12 mt-1 mb-1">
-                                    <?php $daoPerformance->outPutPlace($_SESSION['performanceId'])?>
+                                    <?php 
+                                    try{
+                                        $daoPerformance->outPutPlace($_SESSION['performanceId']);
+                                    }catch(Exception $ex){
+                                        echo $ex->getMessage();
+                                    }catch(Error $err){
+                                        echo $err->getMessage();
+                                    }
+                                    ?>
                                 </div>
                             <div>公演日時</div>
                                 <div class="bg-white col-md-12 mt-1 mb-1">
                                     <?php
+                                    try{
                                         $daoPerformance->outPutDate($_SESSION['performanceId']);
                                         echo ' 開演:', $daoPerformance->outPutStartTime($_SESSION['performanceId']);
                                         echo '（開場:', $daoPerformance->outPutOpenTime($_SESSION['performanceId']),'）';
+                                    }catch(Exception $ex){
+                                        echo $ex->getMessage();
+                                    }catch(Error $err){
+                                        echo $err->getMessage();
+                                    }
                                     ?>
                                 </div>
                             <div>席種・料金</div>
                                 <div class="bg-white col-md-12 mt-1 mb-1">
                                     <?php 
+                                    try{
                                         $daoSeatValue->outputSeatName($_SESSION['seatValueId']);
                                         echo '×', $_SESSION['ticketNum'], '枚　￥';
                                         $daoSeat->outputSeatPrice($_SESSION['performanceId'], $_SESSION['seatValueId']);
+                                    }catch(Exception $ex){
+                                        echo $ex->getMessage();
+                                    }catch(Error $err){
+                                        echo $err->getMessage();
+                                    }
                                     ?>
                                 </div>
                             <div>予約番号</div>
                                 <div class="bg-white col-md-12 mt-1 mb-1">
                                     <?php 
+                                    try{
                                         echo $bookingId,'番';
+                                    }catch(Exception $ex){
+                                        echo $ex->getMessage();
+                                    }catch(Error $err){
+                                        echo $err->getMessage();
+                                    }
                                     ?>
                                 </div>
                         </div><!--row-->
@@ -97,11 +159,17 @@
             </div><!-- カード位置　調整 -->
 
             <?php
+            try{
                 //セッション変数(performanceId, seatValueId, ticketNum, bookingId)の初期化
                 $_SESSION['performanceId'] = null;
                 $_SESSION['seatValueId'] = null;
                 $_SESSION['ticketNum'] = null;
                 $_SESSION['bookingId'] = null;
+            }catch(Exception $ex){
+                echo $ex->getMessage();
+            }catch(Error $err){
+                echo $err->getMessage();
+            }
 
             ?>
 

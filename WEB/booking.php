@@ -20,23 +20,43 @@
 </head>
 <?php
     session_start();
-    if(isset($_SESSION['clientId'])){
-        echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
-        echo '<a href="https://localhost/TICKEPATH/WEB/logout.php">ログアウト</a>';
-        
-    }else{
-        echo 'ログインしていません<br>';
-        echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
-    }
-    $performanceId = $_SESSION['performanceId'];
-    echo '<br>performanceId：', $performanceId;
 
-    require_once './DAO/performance.php';
-    require_once './DAO/seat.php';
-    require_once './DAO/seat_value.php';
-    $daoPerformance = new DAO_performance();
-    $daoSeat = new DAO_seat();
-    $daoSeatValue = new DAO_seat_value();
+    try{
+        if(isset($_SESSION['clientId'])){
+            echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
+            echo '<a href="https://localhost/TICKEPATH/WEB/logout.php">ログアウト</a>';
+            
+        }else{
+            echo 'ログインしていません<br>';
+            echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
+        }
+    }catch(Exception $ex){
+        echo $ex->getMessage();
+    }catch(Error $err){
+        echo $err->getMessage();
+    }
+
+    try{
+        $performanceId = $_SESSION['performanceId'];
+        echo '<br>performanceId：', $performanceId;
+    }catch(Exception $ex){
+        echo $ex->getMessage();
+    }catch(Error $err){
+        echo $err->getMessage();
+    }
+
+    try{
+        require_once './DAO/performance.php';
+        require_once './DAO/seat.php';
+        require_once './DAO/seat_value.php';
+        $daoPerformance = new DAO_performance();
+        $daoSeat = new DAO_seat();
+        $daoSeatValue = new DAO_seat_value();
+    }catch(Exception $ex){
+        echo $ex->getMessage();
+    }catch(Error $err){
+        echo $err->getMessage();
+    }
 
 ?>
 <body style="background-color: #DFDFDFDF;">
@@ -64,22 +84,52 @@
                         <div class="row">
                             <div>公演名</div>
                                 <div class="bg-white col-md-12 mt-1 mb-1">
-                                    <?php $daoPerformance->outPutPerformanceName($performanceId)?>
+                                    <?php 
+                                    try{
+                                        $daoPerformance->outPutPerformanceName($performanceId);
+                                    }catch(Exception $ex){
+                                        echo $ex->getMessage();
+                                    }catch(Error $err){
+                                        echo $err->getMessage();
+                                    }
+                                    ?>
                                 </div>
                             <div>アーティスト</div>
                                 <div class="bg-white col-md-12 mt-1 mb-1">
-                                    <?php $daoPerformance->outPutArtist($performanceId)?>
+                                    <?php 
+                                    try{
+                                        $daoPerformance->outPutArtist($performanceId);
+                                    }catch(Exception $ex){
+                                        echo $ex->getMessage();
+                                    }catch(Error $err){
+                                        echo $err->getMessage();
+                                    }
+                                    ?>
                                 </div>
                             <div>会場</div>
                                 <div class="bg-white col-md-12 mt-1 mb-1">
-                                    <?php $daoPerformance->outPutPlace($performanceId)?>
+                                    <?php 
+                                    try{
+                                        $daoPerformance->outPutPlace($performanceId);
+                                    }catch(Exception $ex){
+                                        echo $ex->getMessage();
+                                    }catch(Error $err){
+                                        echo $err->getMessage();
+                                    }
+                                    ?>
                                 </div>
                             <div>公演日時</div>
                                 <div class="bg-white col-md-12 mt-1 mb-1">
                                     <?php
+                                    try{
                                         $daoPerformance->outPutDate($performanceId);
                                         echo ' 開演:', $daoPerformance->outPutStartTime($performanceId);
                                         echo '（開場:', $daoPerformance->outPutOpenTime($performanceId),'）';
+                                    }catch(Exception $ex){
+                                        echo $ex->getMessage();
+                                    }catch(Error $err){
+                                        echo $err->getMessage();
+                                    }
                                     ?>
                                 </div>
                         </div>
@@ -102,11 +152,17 @@
                                         <option selected value="">----------</option>
                                         <!--DBから日時情報を取得-->
                                         <?php
+                                        try{
                                             echo '<option value="1">',
                                                 $daoPerformance->outPutDate($performanceId),
                                                 ' 開演:', 
                                                 $daoPerformance->outPutStartTime($performanceId),
                                             '</option>';
+                                        }catch(Exception $ex){
+                                            echo $ex->getMessage();
+                                        }catch(Error $err){
+                                            echo $err->getMessage();
+                                        }
                                         ?>
                                         
                                     </select>
@@ -123,7 +179,7 @@
                                         <!--DBから席と対応する値段を取得-->
                                         <!--選択した席種とvalueの対応が必要 -->
                                         <?php
-                                            
+                                        try{
                                             $seatValueIds = array();
                                             $seatValueIds =  $daoSeat->getSeatValueIdsByPerformanceId($performanceId);
                                             var_dump($seatValueIds);
@@ -142,7 +198,11 @@
                                                 
                                                 
                                             }
-                                  
+                                        }catch(Exception $ex){
+                                            echo $ex->getMessage();
+                                        }catch(Error $err){
+                                            echo $err->getMessage();
+                                        }
                                         ?>
                                     </select>
                                 </div>

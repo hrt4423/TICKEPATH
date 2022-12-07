@@ -10,23 +10,36 @@
 <body>
     <?php
         session_start();
-        if(isset($_SESSION['clientId'])){
-            echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
-            echo '<a href="https://localhost/TICKEPATH/WEB/logout.php">ログアウト</a>';
-            
-        }else{
-            echo 'ログインしていません<br>';
-            echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
+
+        try{
+            if(isset($_SESSION['clientId'])){
+                echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
+                echo '<a href="https://localhost/TICKEPATH/WEB/logout.php">ログアウト</a>';
+                
+            }else{
+                echo 'ログインしていません<br>';
+                echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
+            }
+        }catch(Exception $ex){
+            echo $ex->getMessage();
+        }catch(Error $err){
+            echo $err->getMessage();
         }
 
-        require_once './DAO/performance.php';
-        require_once './DAO/seat.php';
-        require_once './DAO/booking_detail.php';
-        require_once './DAO/booking.php';
-        $daoPerformance = new DAO_performance;
-        $daoSeat = new DAO_seat;
-        $daoBookingDetail = new DAO_booking_detail;
-        $daoBooking = new DAO_booking;
+        try{
+            require_once './DAO/performance.php';
+            require_once './DAO/seat.php';
+            require_once './DAO/booking_detail.php';
+            require_once './DAO/booking.php';
+            $daoPerformance = new DAO_performance;
+            $daoSeat = new DAO_seat;
+            $daoBookingDetail = new DAO_booking_detail;
+            $daoBooking = new DAO_booking;
+        }catch(Exception $ex){
+            echo $ex->getMessage();
+        }catch(Error $err){
+            echo $err->getMessage();
+        }
     ?>
     <!-- ナビゲーションバー -->
     <nav class="navbar navbar-light  mb-3" style="background-color: #64BCFC;">
@@ -42,27 +55,65 @@
     <div class="container-fluid">
         <div class="row p-2">
             <h2 class="text-center">キャンセルの確認</h2>
-            <?= $_POST['key'];?>
             <h4 class="text-center">以下の申し込みをキャンセルします</h4>
             <?php
-            $bookingIds=array();
-            $bookingIds= $daoBooking->getBookingIdByClientId($_SESSION['clientId']);//BookingID取得 
-            $result = $daoPerformance->getPerformanceTblByid($_POST['key']);
-            $seat = $daoBookingDetail->getSeatIdByBookingId($_POST['key']);
-            $performanceId = $daoSeat->getSeatIdByBookingId($seat);
-            $seatvalueid = $daoSeat->getSeatValueId($seat);
-                ?>
+            try{
+                $bookingIds=array();
+                $bookingIds= $daoBooking->getBookingIdByClientId($_SESSION['clientId']);//BookingID取得 
+                $result = $daoPerformance->getPerformanceTblByid($_POST['key']);
+                $seat = $daoBookingDetail->getSeatIdByBookingId($_POST['key']);
+                $performanceId = $daoSeat->getSeatIdByBookingId($seat);
+                $seatvalueid = $daoSeat->getSeatValueId($seat);
+            }catch(Exception $ex){
+                echo $ex->getMessage();
+            }catch(Error $err){
+                echo $err->getMessage();
+            }
+            
+            ?>
             <div class="container p-4">
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr class="table"style="background-color:#DFDFDF;"><td>公演名</td></tr>
-                        <tr><td><?=$daoPerformance->outPutPerformanceName($performanceId);?></td></tr>
+                        <tr><td><?php
+                        try{
+                            $daoPerformance->outPutPerformanceName($performanceId);
+                        }catch(Exception $ex){
+                            echo $ex->getMessage();
+                        }catch(Error $err){
+                            echo $err->getMessage();
+                        }
+                        ?></td></tr>
                         <tr class="table"style="background-color:#DFDFDF;"><td>会場</td></tr>
-                        <tr><td><?=$daoPerformance->outPutPlace($performanceId);?></td></tr>
+                        <tr><td><?php
+                        try{
+                            $daoPerformance->outPutPlace($performanceId);
+                        }catch(Exception $ex){
+                            echo $ex->getMessage();
+                        }catch(Error $err){
+                            echo $err->getMessage();
+                        }
+                        ?></td></tr>
                         <tr class="table"style="background-color:#DFDFDF;"><td>公演日時</td></tr>
-                        <tr><td><?=$daoPerformance->outPutDate($performanceId);?></td></tr>
+                        <tr><td><?php
+                        try{
+                            $daoPerformance->outPutDate($performanceId);
+                        }catch(Exception $ex){
+                            echo $ex->getMessage();
+                        }catch(Error $err){
+                            echo $err->getMessage();
+                        }
+                        ?></td></tr>
                         <tr class="table"style="background-color:#DFDFDF;"><td>席種・料金</td></tr>
-                        <tr><td>¥<?=$daoSeat->outputSeatPrice($performanceId,$seatvalueid);?></td></tr>
+                        <tr><td>¥<?php
+                        try{
+                            $daoSeat->outputSeatPrice($performanceId,$seatvalueid);
+                        }catch(Exception $ex){
+                            echo $ex->getMessage();
+                        }catch(Error $err){
+                            echo $err->getMessage();
+                        }
+                        ?></td></tr>
                     </thead>
                 </table>
             </div>

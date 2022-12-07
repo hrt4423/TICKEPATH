@@ -24,23 +24,39 @@
     <?php
         session_start();
         
-        if(isset($_SESSION['clientId'])){
-            echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
-            echo '<a href="https://localhost/TICKEPATH/WEB/logout.php">ログアウト</a>';
-            
-        }else{
-            echo 'ログインしていません<br>';
-            echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
-        }   
-        //クラス読み込み
-        require_once './DAO/history.php';
-        require_once './DAO/performance.php';
+        try{
+            if(isset($_SESSION['clientId'])){
+                echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
+                echo '<a href="https://localhost/TICKEPATH/WEB/logout.php">ログアウト</a>';
+                
+            }else{
+                echo 'ログインしていません<br>';
+                echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
+            }
+        }catch(Exception $ex){
+            echo $ex->getMessage();
+        }catch(Error $err){
+            echo $err->getMessage();
+        }
 
-        //インスタンス生成
-        $daoPerformance = new DAO_performance;
-        $daoHistory = new DAO_history;
+        try{
+            require_once './DAO/history.php';
+            require_once './DAO/performance.php';
+            $daoPerformance = new DAO_performance;
+            $daoHistory = new DAO_history;
+        }catch(Exception $ex){
+            echo $ex->getMessage();
+        }catch(Error $err){
+            echo $err->getMessage();
+        }
 
-        $_SESSION['clientId'];
+        try{
+            $_SESSION['clientId'];
+        }catch(Exception $ex){
+            echo $ex->getMessage();
+        }catch(Error $err){
+            echo $err->getMessage();
+        }
     ?>
 
     <!-- ナビゲーションバー -->
@@ -62,49 +78,62 @@
 
             
     <?php
-        $performanceIds = array();
-        $performanceIds = $daoHistory->getHistoryTblById($_SESSION['clientId']);
-        //var_dump($performanceIds);
-        foreach($performanceIds as $performanceId){
-    ?>
-            <div class="card_position"><!--カード位置調整-->
-            <div class="card">
-                <div class="card-body">
-                    <div class="row gx-0">
-                        <div class="col-3" >
-                            <?=$daoPerformance->outPutDate($performanceId['performance_id']);?>
-                        </div>
+        try{
+            $performanceIds = array();
+            $performanceIds = $daoHistory->getHistoryTblById($_SESSION['clientId']);
+            //var_dump($performanceIds);
+        }catch(Exception $ex){
+            echo $ex->getMessage();
+        }catch(Error $err){
+            echo $err->getMessage();
+        }
 
-                        <div class="col-1">
-                            <div id="vertical_line">
-                                <!-- 縦線-->
-                            </div>
-                        </div>
-
-                        <div class="col-8">
-                            <h6 class="card-title">
-                                <!-- アーティスト名表示 -->
-                                <?=$daoPerformance->outPutArtist($performanceId['performance_id']);?>
-                            </h6>
-                            <div>
-                                <!-- 会場表示 -->
-                                <?=$daoPerformance->outPutPlace($performanceId['performance_id']);?>
-                            </div>
-                            <div>
-                                    <!-- 開演時間表示 -->
-                                    開演
-                                    <?=$daoPerformance->outPutStartTime($performanceId['performance_id']);?>
-                                    ～
-                                    <!-- 開場時間表示 -->
-                                    開場
-                                    <?=$daoPerformance->outPutOpenTime($performanceId['performance_id']);?>
-                            </div>
-                        </div>
-                    </div><!--row-->
-                </div><!-- card-body -->
-            </div><!-- card -->
-        </div><!-- カード位置調整 -->
-    <?php
+        try{
+            foreach($performanceIds as $performanceId){
+                ?>
+                        <div class="card_position"><!--カード位置調整-->
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row gx-0">
+                                    <div class="col-3" >
+                                        <?=$daoPerformance->outPutDate($performanceId['performance_id']);?>
+                                    </div>
+            
+                                    <div class="col-1">
+                                        <div id="vertical_line">
+                                            <!-- 縦線-->
+                                        </div>
+                                    </div>
+            
+                                    <div class="col-8">
+                                        <h6 class="card-title">
+                                            <!-- アーティスト名表示 -->
+                                            <?=$daoPerformance->outPutArtist($performanceId['performance_id']);?>
+                                        </h6>
+                                        <div>
+                                            <!-- 会場表示 -->
+                                            <?=$daoPerformance->outPutPlace($performanceId['performance_id']);?>
+                                        </div>
+                                        <div>
+                                                <!-- 開演時間表示 -->
+                                                開演
+                                                <?=$daoPerformance->outPutStartTime($performanceId['performance_id']);?>
+                                                ～
+                                                <!-- 開場時間表示 -->
+                                                開場
+                                                <?=$daoPerformance->outPutOpenTime($performanceId['performance_id']);?>
+                                        </div>
+                                    </div>
+                                </div><!--row-->
+                            </div><!-- card-body -->
+                        </div><!-- card -->
+                    </div><!-- カード位置調整 -->
+                <?php
+                    }
+        }catch(Exception $ex){
+            echo $ex->getMessage();
+        }catch(Error $err){
+            echo $err->getMessage();
         }
     ?>
     <div class="row">
