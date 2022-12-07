@@ -82,9 +82,21 @@
                         <li class="nav-item">
                             <a class="nav-link text-light" href="https://localhost/TICKEPATH/WEB/accessCheckMyPage.php">マイページ</a>
                         </li>
+                        <?php
+                            if(isset($_SESSION['clientId'])){
+                        ?>
                         <li class="nav-item mb-2">
-                            <a class="nav-link text-light" href="#">新規登録orログイン</a>
+                            <a class="nav-link text-light" href="https://localhost/TICKEPATH/WEB/logout.php">ログアウト</a>
                         </li>
+                        <?php
+                            }else{
+                        ?>
+                        <li class="nav-item mb-2">
+                            <a class="nav-link text-light" href="https://localhost/TICKEPATH/WEB/login.php">新規登録orログイン</a>
+                        </li>
+                        <?php
+                            }
+                        ?>
                         <!-- 検索の処理 -->
                         <form action="searchResult.php" method="post">
                             <div class="input-group">
