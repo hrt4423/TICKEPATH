@@ -8,6 +8,7 @@
 </head>
 <body>
     <?php
+    try{
         session_start();
     
         //セッション変数を初期化
@@ -15,6 +16,11 @@
     
         //セッションを破棄
         session_destroy();
+    }catch(Exception $ex){
+        echo $ex->getMessage();
+    }catch(Error $err){
+        echo $err->getMessage();
+    }
     ?>
     
     <p>ログアウトしました</p>

@@ -24,23 +24,38 @@
 
 <body style="background-color: #DFDFDF;">
     <?php
-        
-
-        session_start();
-        
-
+        try{
+            session_start();
+        }catch(Exception $ex){
+            echo $ex->getMessage();
+        }catch(Error $err){
+            echo $err->getMessage();
+        }
         //クラスファイルの読込み
+        try{
         require_once './DAO/performance.php';
         require_once './DAO/booking.php';
         require_once './DAO/booking_detail.php';
         require_once './DAO/seat.php';
         require_once './DAO/favorite.php';
+        }catch(Exception $ex){
+            echo $ex->getMessage();
+        }catch(Error $err){
+            echo $err->getMessage();
+        }
         //インスタンスの生成
+        try{
         $daoPerformance = new DAO_performance;
         $daoBooking = new DAO_booking;
         $daoBookingDetail = new DAO_booking_detail;
         $daoSeat = new DAO_seat;
         $daoFavorit = new DAO_favorite;
+
+        }catch(Exception $ex){
+            echo $ex->getMessage();
+        }catch(Error $err){
+            echo $err->getMessage();
+        }
         //通知フラグ
         $notification_flg = false;
         
@@ -51,6 +66,7 @@
 
 <!--ログイン状態の表示-->
     <?php
+    try{
         if(isset($_SESSION['clientId'])){
             echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
             echo '<a href="https://localhost/TICKEPATH/WEB/logout.php">ログアウト</a>';
@@ -59,6 +75,12 @@
             echo 'ログインしていません<br>';
             echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
         }
+
+    }catch(Exception $ex){
+        echo $ex->getMessage();
+    }catch(Error $err){
+        echo $err->getMessage();
+    }
     ?>
         <!--ログイン状態の表示-->
         
@@ -83,6 +105,7 @@
                             <a class="nav-link text-light" href="https://localhost/TICKEPATH/WEB/accessCheckMyPage.php">マイページ</a>
                         </li>
                         <?php
+                        try{
                             if(isset($_SESSION['clientId'])){
                         ?>
                         <li class="nav-item mb-2">
@@ -96,6 +119,12 @@
                         </li>
                         <?php
                             }
+
+                        }catch(Exception $ex){
+                            echo $ex->getMessage();
+                        }catch(Error $err){
+                            echo $err->getMessage();
+                        }
                         ?>
                         <!-- 検索の処理 -->
                         <form action="searchResult.php" method="post">
@@ -119,19 +148,36 @@
                 */
 
                 //現在の時刻を取得
+            try{
                 $currentDate = new DateTime();
+            }catch(Exception $ex){
+                echo $ex->getMessage();
+            }catch(Error $err){
+                echo $err->getMessage();
+            }
                 
                 //client_idから顧客ごとの予約(booking_id)を取得
                 $bookingIds = array();
+            try{
                 $bookingIds = $daoBooking->getBookingIdByClientId($_SESSION['clientId']);
-
+            }catch(Exception $ex){
+                echo $ex->getMessage();
+            }catch(Error $err){
+                echo $err->getMessage();
+            }
                 if(isset($bookingIds)){
                     //booking_idから公演日を調べる
                     foreach ($bookingIds as $bookingId) {
                         //client_idから予約している公演のperformance_dateを取得
+                    try{
                         $seatId = $daoBookingDetail->getSeatIdByBookingId($bookingId);
                         $performanceId = $daoSeat->getSeatIdByBookingId($seatId);
                         $performanceDataArray = $daoPerformance->getPerformanceTblByid($performanceId);
+                    }catch(Exception $ex){
+                        echo $ex->getMessage();
+                    }catch(Error $err){
+                        echo $err->getMessage();
+                    }
         
                         //公演日を取得
                         foreach ($performanceDataArray as $row) {
@@ -139,19 +185,37 @@
                         }
         
                         //公演日をDateTime型に変換（データ型を揃えるため）
+                    try{
                         $performanceDate = new DateTime($performanceDate);
+                    }catch(Exception $ex){
+                        echo $ex->getMessage();
+                    }catch(Error $err){
+                        echo $err->getMessage();
+                    }
                             
                         //公演日から1週間前の日付を取得
+                    try{
                         $oneWeekBeforeDate = $performanceDate;
                         $oneWeekBeforeDate->sub(new DateInterval('P7D'));
+                    }catch(Exception $ex){
+                        echo $ex->getMessage();
+                    }catch(Error $err){
+                        echo $err->getMessage();
+                    }
                         
                         //公演日が一週間以内か判定
+                    try{
                         if(($oneWeekBeforeDate <= $currentDate) 
                                 && ($currentDate <= $performanceDate->add(new DateInterval('P7D')))
                                 || $currentDate == $performanceDate){
                             $notification_flg = true;
                             break;
                         }
+                    }catch(Exception $ex){
+                        echo $ex->getMessage();
+                    }catch(Error $err){
+                        echo $err->getMessage();
+                    }
                     }
                 }
     
@@ -235,7 +299,13 @@
                         <div class="col-4">
                             <?php 
                                 //日付を表示
+                            try{
                                 $daoPerformance->outPutDate($aimyon);
+                            }catch(Exception $ex){
+                                echo $ex->getMessage();
+                            }catch(Error $err){
+                                echo $err->getMessage();
+                            }
                             ?>
                         </div>
 
@@ -249,22 +319,40 @@
                             <h6 class="card-title">
                                 <?php
                                     //アーティスト名を表示
+                                try{
                                     $daoPerformance->outPutArtist($aimyon);
+                                }catch(Exception $ex){
+                                    echo $ex->getMessage();
+                                }catch(Error $err){
+                                    echo $err->getMessage();
+                                }
                                 ?>
                             </h6>
                             <div>
                                 <?php
                                     //会場を表示
+                                try{
                                     $daoPerformance->outPutPlace($aimyon);
+                                }catch(Exception $ex){
+                                    echo $ex->getMessage();
+                                }catch(Error $err){
+                                    echo $err->getMessage();
+                                }
                                 ?>
                             </div>
                             <div>
                                 <?php
                                     //開演、開場時間を表示
+                                try{
                                     echo '開演：';
                                     $daoPerformance->outPutStartTime($aimyon);
                                     echo '～';
                                     echo '（開場', $daoPerformance->outPutOpenTime($aimyon), '～）';
+                                }catch(Exception $ex){
+                                    echo $ex->getMessage();
+                                }catch(Error $err){
+                                    echo $err->getMessage();
+                                }
                                 ?>
                             </div>
                         </div>
@@ -284,7 +372,13 @@
                     <div class="card1 row gx-0">
                         <div class="col-4">
                         <?php 
+                        try{
                             $daoPerformance->outPutDate($yonedu);
+                        }catch(Exception $ex){
+                            echo $ex->getMessage();
+                        }catch(Error $err){
+                            echo $err->getMessage();
+                        }
                         ?>
                         </div>
 
@@ -297,20 +391,38 @@
                         <div class="col-7">
                             <h6 class="card-title">
                             <?php
+                            try{
                                 $daoPerformance->outPutArtist($yonedu);
+                            }catch(Exception $ex){
+                                echo $ex->getMessage();
+                            }catch(Error $err){
+                                echo $err->getMessage();
+                            }
                             ?>
                             </h6>
                             <div>
                                 <?php
+                                try{
                                     $daoPerformance->outPutPlace($yonedu);
+                                }catch(Exception $ex){
+                                    echo $ex->getMessage();
+                                }catch(Error $err){
+                                    echo $err->getMessage();
+                                }
                                 ?>
                             </div>
                             <div>
                                 <?php
+                                try{
                                     echo '開演：';
                                     $daoPerformance->outPutStartTime($yonedu);
                                     echo '～';
                                     echo '（開場', $daoPerformance->outPutOpenTime($yonedu), '～）';
+                                }catch(Exception $ex){
+                                    echo $ex->getMessage();
+                                }catch(Error $err){
+                                    echo $err->getMessage();
+                                }
                                 ?>
                             </div>
                         </div>
@@ -338,15 +450,28 @@
                 */
 
                 //client_idからartist_idを配列で取得
+            try{
                 $artistIds = array();
                 $artistIds=$daoFavorit->getBookingIdByClientId($_SESSION['clientId']);
+            }catch(Exception $ex){
+                echo $ex->getMessage();
+            }catch(Error $err){
+                echo $err->getMessage();
+            }
 
                 if(isset($artistIds)){
                     //取得したartist_idの公演を表示
                     foreach($artistIds as $artistId){
+                    try{
                         $performanceIds = array();
                         $performanceIds=$daoPerformance->getPerformanceIdsByArtistId($artistId);
+                    }catch(Exception $ex){
+                        echo $ex->getMessage();
+                    }catch(Error $err){
+                        echo $err->getMessage();
+                    }
                         foreach($performanceIds as $performanceId){
+                            try{
                             echo '
                             <form action="performanceDetail.php" method="post" id="home3">
                             <div class="card_position"><!--カード位置調整-->
@@ -388,7 +513,11 @@
                             </div><!-- card -->
                             </div><!-- カード位置調整 -->
                             </form>
-                            ';//end-echo
+                            ';}catch(Exception $ex){
+                                echo $ex->getMessage();
+                            }catch(Error $err){
+                                echo $err->getMessage();
+                            }//end-echo
                         }
                     }
                 }else{
