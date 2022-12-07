@@ -22,7 +22,7 @@
 </head>
 <body style="background-color: #DFDFDF;">
     <?php
-        
+    try{
         session_start();
         if(isset($_SESSION['clientId'])){
             echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
@@ -35,6 +35,11 @@
         
         require_once './DAO/performance.php';
         $daoPerformance = new DAO_performance;
+    }catch(Exception $ex){
+        echo $ex->getMessage();
+    }catch(Error $err){
+        echo $err->getMessage();
+    }
     ?>
 <!-- ナビゲーションバー -->
 <nav class="navbar navbar-light">
@@ -77,21 +82,39 @@
             <!-- 検索した名前を表示 -->
             <?php
             if(isset($_POST['name'])){
+            try{
                 $daoPerformance->search($_POST['name']);
+            }catch(Exception $ex){
+                echo $ex->getMessage();
+            }catch(Error $err){
+                echo $err->getMessage();
+            }
             ?>の検索結果<br>
                 
 
 
             <!-- 検索件数を表示 -->
             <?php
+        try{
             $count = $daoPerformance->performanceCount($_POST['name']);
 
             echo '<small class="text-secondary">全' . $count . "件中 " . $count . '件</small></h2>';
+        }catch(Exception $ex){
+            echo $ex->getMessage();
+        }catch(Error $err){
+            echo $err->getMessage();
+        }
             ?>
 
         </div><!--row-->
         <?php
+    try{
         $result = $daoPerformance->getPerformanceTblByname($_POST['name']);
+    }catch(Exception $ex){
+        echo $ex->getMessage();
+    }catch(Error $err){
+        echo $err->getMessage();
+    }
         foreach($result as $row){
             ?>
             <form action="performanceDetail.php" method="post" id="form1">
@@ -103,7 +126,7 @@
                         <input type="hidden" name="artistname" value="<?=$_POST['name']?>">
                             <div class="row gx-0">
                                     <div class="col-4" >
-                                        <?=$daoPerformance->outPutDate($row['performance_id']); ?>
+                                        <?= $daoPerformance->outPutDate($row['performance_id']);?>
                                     </div>
 
                                     <div class="col-1">
@@ -115,19 +138,19 @@
                                     <div class="col-7">
 
                                         <h6 class="card-title">
-                                            <?=$daoPerformance->outPutArtist($row['performance_id']); ?>
+                                            <?=$daoPerformance->outPutArtist($row['performance_id']);?>
                                         </h6>
                                         <div>
-                                            <?=$daoPerformance->outPutPlace($row['performance_id']); ?>
+                                            <?=$daoPerformance->outPutPlace($row['performance_id']);?>
                                         </div>
                                         <div>
                                         
                                         </div>
                                         <div>
                                             開演：
-                                            <?=$daoPerformance->outPutStartTime($row['performance_id']); ?>
+                                            <?=$daoPerformance->outPutStartTime($row['performance_id']);?>
                                              ～（開場
-                                            <?=$daoPerformance->outPutOpenTime($row['performance_id']); ?>
+                                            <?=$daoPerformance->outPutOpenTime($row['performance_id']);?>
                                              ～）
                                         </div>
                                     </div>
@@ -145,18 +168,19 @@
         <div class="row">
         <h2 class="bg-white col-md-12 pt-3 pb-3 text-center">
             <?php
-        $daoPerformance->search($_POST['artistname']);
+        try{$daoPerformance->search($_POST['artistname']);}catch(Exception $ex){echo $ex->getMessage();}catch(Error $err){echo $err->getMessage();}
             ?>の検索結果<br>
             <!-- 検索件数を表示 -->
             <?php
-            $count = $daoPerformance->performanceCount($_POST['artistname']);
+        try{$count = $daoPerformance->performanceCount($_POST['artistname']);}catch(Exception $ex){echo $ex->getMessage();}catch(Error $err){echo $err->getMessage();}
 
             echo '<small class="text-secondary">全' . $count . "件中 " . $count . '件</small></h2>';
             ?>
 
         </div><!--row-->
         <?php
-        $result = $daoPerformance->getPerformanceTblByname($_POST['artistname']);
+        try{$result = $daoPerformance->getPerformanceTblByname($_POST['artistname']);}catch(Exception $ex){echo $ex->getMessage();}catch(Error $err){echo $err->getMessage();}
+        try{
         foreach($result as $row){
             ?>
             <form action="performanceDetail.php" method="post" id="form1">
@@ -168,7 +192,7 @@
                         <input type="hidden" name="artistname" value="<?=$_POST['artistname']?>">
                             <div class="row gx-0">
                                     <div class="col-4" >
-                                        <?=$daoPerformance->outPutDate($row['performance_id']); ?>
+                                        <?=$daoPerformance->outPutDate($row['performance_id']);?>
                                     </div>
 
                                     <div class="col-1">
@@ -180,19 +204,19 @@
                                     <div class="col-7">
 
                                         <h6 class="card-title">
-                                            <?=$daoPerformance->outPutArtist($row['performance_id']); ?>
+                                            <?=$daoPerformance->outPutArtist($row['performance_id']);?>
                                         </h6>
                                         <div>
-                                            <?=$daoPerformance->outPutPlace($row['performance_id']); ?>
+                                            <?=$daoPerformance->outPutPlace($row['performance_id']);?>
                                         </div>
                                         <div>
                                         
                                         </div>
                                         <div>
                                             開演：
-                                            <?=$daoPerformance->outPutStartTime($row['performance_id']); ?>
+                                            <?=$daoPerformance->outPutStartTime($row['performance_id']);?>
                                              ～（開場
-                                            <?=$daoPerformance->outPutOpenTime($row['performance_id']); ?>
+                                            <?=$daoPerformance->outPutOpenTime($row['performance_id']);?>
                                              ～）
                                         </div>
                                     </div>
@@ -204,6 +228,11 @@
         </form>
         <?php        
         }
+    }catch(Exception $ex){
+        echo $ex->getMessage();
+    }catch(Error $err){
+        echo $err->getMessage();
+    }
     }
         ?>
     </div><!--container-fluid-->

@@ -10,6 +10,7 @@
 </head>
 <body style="background-color: #DFDFDFDF;">
     <?php
+    try{
         session_start();
         if(isset($_SESSION['clientId'])){
             echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
@@ -27,6 +28,11 @@
         
         echo '<br>席種ID：', $_SESSION['seatValueId'];
         echo '<br>チケット枚数：', $_SESSION['ticketNum'];
+    }catch(Exception $ex){
+        echo $ex->getMessage();
+    }catch(Error $err){
+        echo $err->getMessage();
+    }
     ?>
     <div class="container-fluid">
         <div class="row">

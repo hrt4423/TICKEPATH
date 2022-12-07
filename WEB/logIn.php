@@ -23,10 +23,16 @@
 <body>
     <?php
         //ログイン済みであれば（client_idを持つセッション変数に値があれば）、ホームへ遷移
+    try{
         session_start();
         if(isset($_SESSION["client_id"])){
             header('Location: https://localhost/TICKEPATH/WEB/home.php');
         }
+    }catch(Exception $ex){
+        echo $ex->getMessage();
+    }catch(Error $err){
+        echo $err->getMessage();
+    }
     ?>
     <!-- ナビゲーションバー -->
     <nav class="navbar navbar-light">
