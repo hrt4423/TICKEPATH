@@ -17,14 +17,22 @@
 <body>
     <?php
         session_start();
-        if(isset($_SESSION['clientId'])){
-            echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
-            echo '<a href="https://localhost/TICKEPATH/WEB/logout.php">ログアウト</a>';
-            
-        }else{
-            echo 'ログインしていません<br>';
-            echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
+        
+        try{
+            if(isset($_SESSION['clientId'])){
+                echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
+                echo '<a href="https://localhost/TICKEPATH/WEB/logout.php">ログアウト</a>';
+                
+            }else{
+                echo 'ログインしていません<br>';
+                echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
+            }
+        }catch(Exception $ex){
+            echo $ex->getMessage();
+        }catch(Error $err){
+            echo $err->getMessage();
         }
+        
     ?>
     <!-- ナビゲーションバー -->
     <nav class="navbar navbar-light">
@@ -60,6 +68,7 @@
 <!--DBと接続 -->
 <body style="background-color:#DFDFDF;">
     <?php
+    try{
         require_once './DAO/performance.php';
         require_once './DAO/booking.php';
         require_once './DAO/booking_detail.php';
@@ -68,7 +77,11 @@
         $daoBooking =new DAO_booking;
         $daoBookingDetail = new DAO_booking_detail;
         $daoSeat = new DAO_seat;
-
+    }catch(Exception $ex){
+        echo $ex->getMessage();
+    }catch(Error $err){
+        echo $err->getMessage();
+    }
         
     ?>
     <div id="maindiv" style="background-color:#DFDFDF;">
@@ -80,8 +93,9 @@
 
 
             <?php 
-            $bookingIds=array();
-            $bookingIds= $daoBooking->getBookingIdByClientId($_SESSION['clientId']);//BookingID取得 
+            try{
+                $bookingIds=array();
+                $bookingIds= $daoBooking->getBookingIdByClientId($_SESSION['clientId']);//BookingID取得 
                 foreach($bookingIds as $BookingID){
                     $seatId = $daoBookingDetail->getSeatIdByBookingId($BookingID);//席ID取得
                     $performanceId = $daoSeat->getSeatIdByBookingId($seatId);//公演ID取得
@@ -131,7 +145,13 @@
             </div><!-- card -->
         </div><!-- カード位置調整 -->
                 </form>
-                    <?php } ?>
+                    <?php } 
+            }catch(Exception $ex){
+                echo $ex->getMessage();
+            }catch(Error $err){
+                echo $err->getMessage();
+            }
+            ?>
         
 
 	    </div>
