@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -24,20 +25,13 @@
 
 <body style="background-color: #DFDFDF;">
     <?php
-        try{
-            session_start();
-        }catch(Exception $ex){
-            echo $ex->getMessage();
-        }catch(Error $err){
-            echo $err->getMessage();
-        }
         //クラスファイルの読込み
         try{
-        require_once './DAO/performance.php';
-        require_once './DAO/booking.php';
-        require_once './DAO/booking_detail.php';
-        require_once './DAO/seat.php';
-        require_once './DAO/favorite.php';
+            require_once './DAO/performance.php';
+            require_once './DAO/booking.php';
+            require_once './DAO/booking_detail.php';
+            require_once './DAO/seat.php';
+            require_once './DAO/favorite.php';
         }catch(Exception $ex){
             echo $ex->getMessage();
         }catch(Error $err){
@@ -45,11 +39,11 @@
         }
         //インスタンスの生成
         try{
-        $daoPerformance = new DAO_performance;
-        $daoBooking = new DAO_booking;
-        $daoBookingDetail = new DAO_booking_detail;
-        $daoSeat = new DAO_seat;
-        $daoFavorit = new DAO_favorite;
+            $daoPerformance = new DAO_performance;
+            $daoBooking = new DAO_booking;
+            $daoBookingDetail = new DAO_booking_detail;
+            $daoSeat = new DAO_seat;
+            $daoFavorit = new DAO_favorite;
 
         }catch(Exception $ex){
             echo $ex->getMessage();
@@ -66,21 +60,20 @@
 
 <!--ログイン状態の表示-->
     <?php
-    try{
-        if(isset($_SESSION['clientId'])){
-            echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
-            echo '<a href="https://localhost/TICKEPATH/WEB/logout.php">ログアウト</a>';
-            
-        }else{
-            echo 'ログインしていません<br>';
-            echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
+        try{
+            if(isset($_SESSION['clientId'])){
+                echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
+                echo '<a href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/logout.php">ログアウト</a>';
+                
+            }else{
+                echo 'ログインしていません<br>';
+                echo '<a href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/logIn.php">ログイン</a>';
+            }
+        }catch(Exception $ex){
+            echo $ex->getMessage();
+        }catch(Error $err){
+            echo $err->getMessage();
         }
-
-    }catch(Exception $ex){
-        echo $ex->getMessage();
-    }catch(Error $err){
-        echo $err->getMessage();
-    }
     ?>
         <!--ログイン状態の表示-->
         
@@ -88,8 +81,8 @@
         <nav class="navbar navbar-light mb-3">
             <div class="container-fluid">
                 <!-- タイトル -->
-                <a class="navbar-brand" href="https://localhost/TICKEPATH/WEB/home.php">
-                    <img src="../images/黄色ロゴ.png" height="75px">
+                <a class="navbar-brand" href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/home.php">
+                    <img src="http://bold-obi-8187.littlestar.jp/TICKEPATH/IMAGES/黄色ロゴ.png" height="75px">
                 </a>
                 <!-- ハンバーガーメニュー -->
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -99,32 +92,32 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item active">
-                            <a class="nav-link text-light" href="https://localhost/TICKEPATH/WEB/home.php">ホーム</a>
+                            <a class="nav-link text-light" href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/home.php">ホーム</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="https://localhost/TICKEPATH/WEB/accessCheckMyPage.php">マイページ</a>
+                            <a class="nav-link text-light" href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/myPage.php">マイページ</a>
                         </li>
                         <?php
-                        try{
-                            if(isset($_SESSION['clientId'])){
-                        ?>
-                        <li class="nav-item mb-2">
-                            <a class="nav-link text-light" href="https://localhost/TICKEPATH/WEB/logout.php">ログアウト</a>
-                        </li>
-                        <?php
-                            }else{
-                        ?>
-                        <li class="nav-item mb-2">
-                            <a class="nav-link text-light" href="https://localhost/TICKEPATH/WEB/login.php">新規登録orログイン</a>
-                        </li>
-                        <?php
-                            }
+                            try{
+                                if(isset($_SESSION['clientId'])){
+                                    ?>
+                                    <li class="nav-item mb-2">
+                                        <a class="nav-link text-light" href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/logout.php">ログアウト</a>
+                                    </li>
+                                    <?php
+                                }else{
+                                    ?>
+                                    <li class="nav-item mb-2">
+                                        <a class="nav-link text-light" href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/logIn.php">新規登録orログイン</a>
+                                    </li>
+                                    <?php
+                                }
 
-                        }catch(Exception $ex){
-                            echo $ex->getMessage();
-                        }catch(Error $err){
-                            echo $err->getMessage();
-                        }
+                            }catch(Exception $ex){
+                                echo $ex->getMessage();
+                            }catch(Error $err){
+                                echo $err->getMessage();
+                            }
                         ?>
                         <!-- 検索の処理 -->
                         <form action="searchResult.php" method="post">
@@ -148,36 +141,37 @@
                 */
 
                 //現在の時刻を取得
-            try{
-                $currentDate = new DateTime();
-            }catch(Exception $ex){
-                echo $ex->getMessage();
-            }catch(Error $err){
-                echo $err->getMessage();
-            }
+                try{
+                    $currentDate = new DateTime();
+                }catch(Exception $ex){
+                    echo $ex->getMessage();
+                }catch(Error $err){
+                    echo $err->getMessage();
+                }
+                    
+                    //client_idから顧客ごとの予約(booking_id)を取得
+                    $bookingIds = array();
+                try{
+                    $bookingIds = $daoBooking->getBookingIdByClientId($_SESSION['clientId']);
+                }catch(Exception $ex){
+                    echo $ex->getMessage();
+                }catch(Error $err){
+                    echo $err->getMessage();
+                }
                 
-                //client_idから顧客ごとの予約(booking_id)を取得
-                $bookingIds = array();
-            try{
-                $bookingIds = $daoBooking->getBookingIdByClientId($_SESSION['clientId']);
-            }catch(Exception $ex){
-                echo $ex->getMessage();
-            }catch(Error $err){
-                echo $err->getMessage();
-            }
                 if(isset($bookingIds)){
                     //booking_idから公演日を調べる
                     foreach ($bookingIds as $bookingId) {
                         //client_idから予約している公演のperformance_dateを取得
-                    try{
-                        $seatId = $daoBookingDetail->getSeatIdByBookingId($bookingId);
-                        $performanceId = $daoSeat->getSeatIdByBookingId($seatId);
-                        $performanceDataArray = $daoPerformance->getPerformanceTblByid($performanceId);
-                    }catch(Exception $ex){
-                        echo $ex->getMessage();
-                    }catch(Error $err){
-                        echo $err->getMessage();
-                    }
+                        try{
+                            $seatId = $daoBookingDetail->getSeatIdByBookingId($bookingId);
+                            $performanceId = $daoSeat->getSeatIdByBookingId($seatId);
+                            $performanceDataArray = $daoPerformance->getPerformanceTblByid($performanceId);
+                        }catch(Exception $ex){
+                            echo $ex->getMessage();
+                        }catch(Error $err){
+                            echo $err->getMessage();
+                        }
         
                         //公演日を取得
                         foreach ($performanceDataArray as $row) {
@@ -185,42 +179,41 @@
                         }
         
                         //公演日をDateTime型に変換（データ型を揃えるため）
-                    try{
-                        $performanceDate = new DateTime($performanceDate);
-                    }catch(Exception $ex){
-                        echo $ex->getMessage();
-                    }catch(Error $err){
-                        echo $err->getMessage();
-                    }
-                            
+                        try{
+                            $performanceDate = new DateTime($performanceDate);
+                        }catch(Exception $ex){
+                            echo $ex->getMessage();
+                        }catch(Error $err){
+                            echo $err->getMessage();
+                        }
+                                
                         //公演日から1週間前の日付を取得
-                    try{
-                        $oneWeekBeforeDate = $performanceDate;
-                        $oneWeekBeforeDate->sub(new DateInterval('P7D'));
-                    }catch(Exception $ex){
-                        echo $ex->getMessage();
-                    }catch(Error $err){
-                        echo $err->getMessage();
-                    }
+                        try{
+                            $oneWeekBeforeDate = $performanceDate;
+                            $oneWeekBeforeDate->sub(new DateInterval('P7D'));
+                        }catch(Exception $ex){
+                            echo $ex->getMessage();
+                        }catch(Error $err){
+                            echo $err->getMessage();
+                        }
                         
                         //公演日が一週間以内か判定
-                    try{
-                        if(($oneWeekBeforeDate <= $currentDate) 
-                                && ($currentDate <= $performanceDate->add(new DateInterval('P7D')))
-                                || $currentDate == $performanceDate){
-                            $notification_flg = true;
-                            break;
+                        try{
+                            if(($oneWeekBeforeDate <= $currentDate) 
+                                    && ($currentDate <= $performanceDate->add(new DateInterval('P7D')))
+                                    || $currentDate == $performanceDate){
+                                $notification_flg = true;
+                                break;
+                            }
+                        }catch(Exception $ex){
+                            echo $ex->getMessage();
+                        }catch(Error $err){
+                            echo $err->getMessage();
                         }
-                    }catch(Exception $ex){
-                        echo $ex->getMessage();
-                    }catch(Error $err){
-                        echo $err->getMessage();
-                    }
                     }
                 }
-    
-                
-    
+        
+                    
                 //通知フラグがtureなら通知を表示
                 if($notification_flg){
                     echo '
@@ -232,7 +225,7 @@
                                 <!--通知テキスト-->
                                 <span id="alert_message">
                                     <strong>公演が近づいています！
-                                        <a href="https://localhost/TICKEPATH/WEB/bookingInfo.php" class="text-decoration-none">
+                                        <a href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/bookingInfo.php" class="text-decoration-none">
                                             確認する
                                         </a>
                                     </strong>
@@ -289,7 +282,7 @@
             </div>
         </div><!--row-->
 
-        <form action="performanceDetail.php" method="post" id="home1">
+        <form action="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/performanceDetail.php" method="post" id="home1">
         <div class="card_position"><!--カード位置調整-->
             <div class="card">
             <button class="btn btn-white">
@@ -473,7 +466,7 @@
                         foreach($performanceIds as $performanceId){
                             try{
                             echo '
-                            <form action="performanceDetail.php" method="post" id="home3">
+                            <form action="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/performanceDetail.php" method="post" id="home3">
                             <div class="card_position"><!--カード位置調整-->
                             <div class="card">
                             <button class="btn btn-white">
@@ -525,7 +518,7 @@
                 }
             }else{
                 echo 'お気に入りアーティストの公演を表示するには';
-                echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
+                echo '<a href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/logIn.php">ログイン</a>';
                 echo 'してください';
             }
         ?>

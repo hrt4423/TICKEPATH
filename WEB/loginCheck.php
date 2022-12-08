@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="ja">
     <head>
@@ -23,37 +24,13 @@
         <nav class="navbar navbar-light">
                 <div class="container-fluid">
                         <!-- タイトル -->
-                        <a class="navbar-brand" href="https://localhost/TICKEPATH/WEB/home.php">
-                                <img src="../images/黄色ロゴ.png" height="75px">
+                        <a class="navbar-brand" href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/home.php">
+                                <img src="http://bold-obi-8187.littlestar.jp/TICKEPATH/IMAGES/黄色ロゴ.png" height="75px">
                         </a>
-                        <!-- ハンバーガーメニュー -->
-                        </button>
-                        <!-- ナビゲーションメニュー -->
-                        <div class="collapse navbar-collapse" id="navbarNav">
-                                <ul class="navbar-nav">
-                        <li class="nav-item active">
-                                <a class="nav-link text-light" href="https://localhost/TICKEPATH/WEB/home.php">ホーム</a>
-                        </li>
-                        <li class="nav-item">
-                                <a class="nav-link text-light" href="https://localhost/TICKEPATH/WEB/accessCheckMyPage.php">マイページ</a>
-                        </li>
-                        <li class="nav-item mb-2">
-                                <a class="nav-link text-light" href="#">新規登録orログイン</a>
-                        </li>
-                                <!-- 検索の処理 -->
-                                <form action="searchResult.php" method="post">
-                                    <div class="input-group">
-                                    <input type="text" name="name" class="form-control" placeholder="キーワードを入力" required>
-                                    <button type="submit" name="search" class="btn btn-secondary" id="searchbutton" type="button"><i class="bi bi-search"></i></button>
-                                    </div>
-                                </form>
-                                </ul>
-                        </div>
                 </div>
         </nav>
     <div class="card border-dark mt-1">
         <?php
-            session_start();
             require_once './DAO/client.php';
             $daoClient = new DAO_client;
             /*
@@ -78,7 +55,7 @@
                             $_SESSION['familyName'] = $row['family_name'];
                             $_SESSION['emailAddress'] = $row['email_address'];
                             //ホームに遷移
-                            header('location: https://localhost/TICKEPATH/WEB/home.php');
+                            header('location: http://bold-obi-8187.littlestar.jp/TICKEPATH/www/home.php');
                         }else{//パスワードが一致しない
                             echo '<p class="card-title text-center mt-4">パスワードが一致しません</p>';
                         }
@@ -89,12 +66,14 @@
             }
         ?>
         <div class="row">
-                    <div class="offset-lg-4 col-lg-4  offset-sm-4 col-sm-4  mt-2">
+                <div class="offset-lg-4 col-lg-4  offset-sm-4 col-sm-4  mt-2">
                     <div class="d-grid gap-2">
-                            <button class="  btn-sm mb-2 btn text-white border-dark" style="background-color:#64BCFC;" onclick="location.href='https://localhost/TICKEPATH/WEB/logIn.php'">
-                            ログイン画面に戻る</button>
+                            <button class="  btn-sm mb-2 btn text-white border-dark" style="background-color:#64BCFC;" 
+                                onclick="location.href='http://bold-obi-8187.littlestar.jp/TICKEPATH/www/login.php'">
+                                ログイン画面に戻る  
+                            </button>
                     </div>
-                    </div>
+                </div>
         </div>
     </div>
 </body>

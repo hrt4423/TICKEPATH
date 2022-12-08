@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -23,23 +24,22 @@
 <body>
     <?php
         //ログイン済みであれば（client_idを持つセッション変数に値があれば）、ホームへ遷移
-    try{
-        session_start();
-        if(isset($_SESSION["client_id"])){
-            header('Location: https://localhost/TICKEPATH/WEB/home.php');
+        try{
+            if(isset($_SESSION["client_id"])){
+                header('Location: http://bold-obi-8187.littlestar.jp/TICKEPATH/www/home.php');
+            }
+        }catch(Exception $ex){
+            echo $ex->getMessage();
+        }catch(Error $err){
+            echo $err->getMessage();
         }
-    }catch(Exception $ex){
-        echo $ex->getMessage();
-    }catch(Error $err){
-        echo $err->getMessage();
-    }
     ?>
     <!-- ナビゲーションバー -->
     <nav class="navbar navbar-light">
         <div class="container-fluid">
             <!-- タイトル -->
-            <a class="navbar-brand" href="https://localhost/TICKEPATH/WEB/home.php">
-                <img src="../images/黄色ロゴ.png" height="75px">
+            <a class="navbar-brand" href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/home.php">
+                <img src="http://bold-obi-8187.littlestar.jp/TICKEPATH/IMAGES/黄色ロゴ.png" height="75px">
             </a>
         </div>
     </nav>
@@ -56,7 +56,7 @@
         <div class="offset-md-3 col-md-6">
             <h1 class="text-center bg-light mb-5">ログイン</h1>
 
-            <form action="https://localhost/TICKEPATH/WEB/loginCheck.php" method="post" id="login"></form>
+            <form action="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/loginCheck.php" method="post" id="login"></form>
 
             
             <div class="row">
@@ -87,7 +87,7 @@
     </div>
 
     <div class="row">
-        <a href="https://localhost/TICKEPATH/WEB/home.php" class="text-decoration-none">
+        <a href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/home.php" class="text-decoration-none">
             <div class="col-md-12 mt-2">
                 <div class="d-grid gap-2">
                     <button class="btn  btn-sm " style="background-color:#DFDFDF;" type="button">戻る</button>
@@ -97,7 +97,7 @@
     </div>
 
     <div class="row">
-        <a href="https://localhost/TICKEPATH/WEB/signUp.php" class="text-decoration-none">
+        <a href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/signUp.php" class="text-decoration-none">
             <div class="col-md-12 mt-4">
                 <div class="d-grid gap-2">
                     <button class="btn text-white" style="background-color:#68C5F3;" type="button">新規登録</button>
