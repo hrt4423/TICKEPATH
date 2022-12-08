@@ -1,8 +1,8 @@
 <?php
     session_start();
     if(isset($_SESSION['clientId'])){
-        header('Location: https://localhost/TICKEPATH/WEB/myPage.php');
+        header('Location: http://bold-obi-8187.littlestar.jp/TICKEPATH/www/mypage.php');
     }else{
-        header('Location: https://localhost/TICKEPATH/WEB/login.php');
+        header('Location: http://bold-obi-8187.littlestar.jp/TICKEPATH/www/logIn.php');
     }
 ?>
