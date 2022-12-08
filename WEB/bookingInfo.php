@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -12,20 +15,26 @@
     .navbar{
         background-color: #64BCFC;
     }
+    #vertical_line{
+        background-color: #888888;
+        width: 0.5px;
+        height: 100px;
+        margin-left: 8px;
+    }
   </style>
 </head>
 <body>
     <?php
-        session_start();
+        
         
         try{
             if(isset($_SESSION['clientId'])){
                 echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
-                echo '<a href="https://localhost/TICKEPATH/WEB/logout.php">ログアウト</a>';
+                echo '<a href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/logout.php">ログアウト</a>';
                 
             }else{
                 echo 'ログインしていません<br>';
-                echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
+                echo '<a href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/logIn.php">ログイン</a>';
             }
         }catch(Exception $ex){
             echo $ex->getMessage();
@@ -39,7 +48,7 @@
         <div class="container-fluid">
             <!-- タイトル -->
             <a class="navbar-brand" href="#">
-                <img src="../images/黄色ロゴ.png" height="75px">
+                <img src="http://bold-obi-8187.littlestar.jp/TICKEPATH/IMAGES/黄色ロゴ.png" height="75px">
             </a>
             
         </div>
@@ -158,7 +167,7 @@
             
             <div class="d-grid gap-2 mt-3">
                 <button class="btn  text-white" style="background-color:#68C5F3;"
-                onclick="location.href='https://localhost/TICKEPATH/WEB/myPage.php'">
+                onclick="location.href='http://bold-obi-8187.littlestar.jp/TICKEPATH/www/mypage.php'">
                     マイページに戻る    
                 </button>
             </div>

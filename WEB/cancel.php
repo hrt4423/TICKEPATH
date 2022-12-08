@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -9,16 +12,15 @@
 </head>
 <body>
     <?php
-        session_start();
 
         try{
             if(isset($_SESSION['clientId'])){
                 echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
-                echo '<a href="https://localhost/TICKEPATH/WEB/logout.php">ログアウト</a>';
+                echo '<a href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/logout.php">ログアウト</a>';
                 
             }else{
                 echo 'ログインしていません<br>';
-                echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
+                echo '<a href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/logIn.php">ログイン</a>';
             }
         }catch(Exception $ex){
             echo $ex->getMessage();
@@ -45,8 +47,8 @@
     <nav class="navbar navbar-light  mb-3" style="background-color: #64BCFC;">
         <div class="container-fluid">
             <!-- タイトル -->
-            <a class="navbar-brand" href="https://localhost/TICKEPATH/WEB/home.php">
-                <img src="../images/黄色ロゴ.png" height="75px">
+            <a class="navbar-brand" href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/home.php">
+                <img src="http://bold-obi-8187.littlestar.jp/TICKEPATH/IMAGES/黄色ロゴ.png" height="75px">
             </a>
             
         </div>
