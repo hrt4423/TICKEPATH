@@ -63,7 +63,7 @@
                         </li>
                     </a>
 
-                    <a href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/menberInfo.php" class="text-decoration-none">
+                    <a href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/memberInfo.php" class="text-decoration-none">
                         <li class="list-group-item border border-dark">
                             <div class="row">
                                 <div class="col-6">
