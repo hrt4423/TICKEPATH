@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -7,38 +10,38 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">  <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
   <style>
-    .navbar{
-        background-color: #64BCFC;
-    }
-    .homebtn{
-        background-color: #64BCFC;
-    }
+        .navbar{
+            background-color: #64BCFC;
+        }
+        .homebtn{
+            background-color: #64BCFC;
+        }
   </style>
 </head>
 <body style="background-color: #DFDFDF;">
     <?php
-    try{
-        session_start();
-        if(isset($_SESSION['clientId'])){
-            echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
-            echo '<a href="https://localhost/TICKEPATH/WEB/logout.php">ログアウト</a>';
+        try{
             
-        }else{
-            echo 'ログインしていません<br>';
-            echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
+            if(isset($_SESSION['clientId'])){
+                echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
+                echo '<a href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/logout.php">ログアウト</a>';
+                
+            }else{
+                echo 'ログインしていません<br>';
+                echo '<a href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/logIn.php">ログイン</a>';
+            }
+        }catch(Exception $ex){
+            echo $ex->getMessage();
+        }catch(Error $err){
+            echo $err->getMessage();
         }
-    }catch(Exception $ex){
-        echo $ex->getMessage();
-    }catch(Error $err){
-        echo $err->getMessage();
-    }
     ?>
     <!-- ナビゲーションバー -->
     <nav class="navbar navbar-light mb-3">
         <div class="container-fluid">
             <!-- タイトル -->
-            <a class="navbar-brand" href="https://localhost/TICKEPATH/WEB/home.php">
-                <img src="../images/黄色ロゴ.png" height="75px">
+            <a class="navbar-brand" href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/home.php">
+                <img src="http://bold-obi-8187.littlestar.jp/TICKEPATH/IMAGES/黄色ロゴ.png" height="75px">
             </a>
         </div>
     </nav>
@@ -47,7 +50,7 @@
             <div class="col-lg-6">
                 <ul class="list-group">
                     <li class="list-group-item">マイページ</li><br>
-                    <a href="https://localhost/TICKEPATH/WEB/bookingInfo.php" class="text-decoration-none">
+                    <a href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/bookingInfo.php" class="text-decoration-none">
                         <li class="list-group-item border border-dark">
                             <div class="row">
                                 <div class="col-6">
@@ -60,7 +63,7 @@
                         </li>
                     </a>
 
-                    <a href="https://localhost/TICKEPATH/WEB/memberInfo.php" class="text-decoration-none">
+                    <a href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/menberInfo.php" class="text-decoration-none">
                         <li class="list-group-item border border-dark">
                             <div class="row">
                                 <div class="col-6">
@@ -74,7 +77,7 @@
                         </li>
                     </a>
 
-                    <a href="https://localhost/TICKEPATH/WEB/history.php" class="text-decoration-none">
+                    <a href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/history.php" class="text-decoration-none">
                         <li class="list-group-item border border-dark">
                             <div class="row">
                                 <div class="col-6">
@@ -87,7 +90,7 @@
                         </li>
                     </a>
                     
-                    <a href="https://localhost/TICKEPATH/WEB/logout.php" class="text-decoration-none">
+                    <a href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/logout.php" class="text-decoration-none">
                         <li class="list-group-item border border-dark">
                             <div class="row">
                                 <div class="col-6">
@@ -100,7 +103,7 @@
                         </li>
                     </a><br>
                 </ul>
-                <a href="home.php"  class="text-decoration-none">
+                <a href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/home.php"  class="text-decoration-none">
                     <div class="row">
                         <div class="d-grid  gap-2 text-center">
                             <button type="button" class="homebtn btn btn-info btn-sm text-white border-dark">

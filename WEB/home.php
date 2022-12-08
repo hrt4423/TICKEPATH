@@ -95,7 +95,7 @@
                             <a class="nav-link text-light" href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/home.php">ホーム</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/myPage.php">マイページ</a>
+                            <a class="nav-link text-light" href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/mypage.php">マイページ</a>
                         </li>
                         <?php
                             try{
