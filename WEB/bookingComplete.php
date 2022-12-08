@@ -199,18 +199,17 @@
             </div><!-- カード位置　調整 -->
 
             <?php
-            try{
-                //セッション変数(performanceId, seatValueId, ticketNum, bookingId)の初期化
-                $_SESSION['performanceId'] = null;
-                $_SESSION['seatValueId'] = null;
-                $_SESSION['ticketNum'] = null;
-                $_SESSION['bookingId'] = null;
-            }catch(Exception $ex){
-                echo $ex->getMessage();
-            }catch(Error $err){
-                echo $err->getMessage();
-            }
-
+                try{
+                    //セッション変数(performanceId, seatValueId, ticketNum, bookingId)の初期化
+                    $_SESSION['performanceId'] = null;
+                    $_SESSION['seatValueId'] = null;
+                    $_SESSION['ticketNum'] = null;
+                    $_SESSION['bookingId'] = null;
+                }catch(Exception $ex){
+                    echo $ex->getMessage();
+                }catch(Error $err){
+                    echo $err->getMessage();
+                }
             ?>
 
             <div class="text-center mt-3">
@@ -222,16 +221,14 @@
                 <dic class="card mt-3">
                     <div class="card-body">
                         <div class="row">
-                    
-                        <div class="offset-3 col-6 offset-3">
-                            <button  class="btn text-white px-4" style="background-color: #68C5F3;"
-                            onclick="location.href='http://bold-obi-8187.littlestar.jp/TICKEPATH/www/home.php'">
-                                ホームへ
-                            </button>
-                        </div>
+                            <div class="offset-3 col-6 offset-3">
+                                <button  class="btn text-white px-4" style="background-color: #68C5F3;"
+                                onclick="location.href='http://bold-obi-8187.littlestar.jp/TICKEPATH/www/home.php'">
+                                    ホームへ
+                                </button>
+                            </div>
                         </div>
                         
-
                     </div><!--card-body-->
                 </dic><!--card-->
             </div><!--カード位置　調整-->
