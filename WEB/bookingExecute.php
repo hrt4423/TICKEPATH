@@ -58,5 +58,5 @@
         echo $err->getMessage();
     }
 
-    header('Location: https://localhost/TICKEPATH/WEB/bookingComplete.php');
+    header('Location: http://bold-obi-8187.littlestar.jp/TICKEPATH/www/bookingComplete.php');
 ?>
