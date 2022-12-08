@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 try{
     require_once './DAO/booking.php';
     require_once './DAO/seat.php';
@@ -24,7 +24,7 @@ try{
     echo $err->getMessage();
 }
 
-session_start();
+
 
 try{
     $_SESSION['cancelId'] = $_POST['id'];
@@ -34,5 +34,5 @@ try{
     echo $err->getMessage();
 }
 
-header('location: https://localhost/TICKEPATH/WEB/cancelComplete.php');
+header('location: http://bold-obi-8187.littlestar.jp/TICKEPATH/www/cancelComplete.php');
 ?>

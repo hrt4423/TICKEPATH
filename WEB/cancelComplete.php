@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -5,20 +8,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>キャンセル完了画面</title>
-    <link href="../Example/css/bootstrap.min.css" rel="stylesheet" />
+    
+    <!--BootStrapCDN--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <!--アイコン用CDN--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+    
 </head>
 <body>
     <?php
-        session_start();
+        
 
         try{
             if(isset($_SESSION['clientId'])){
                 echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
-                echo '<a href="https://localhost/TICKEPATH/WEB/logout.php">ログアウト</a>';
+                echo '<a href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/logout.php">ログアウト</a>';
                 
             }else{
                 echo 'ログインしていません<br>';
-                echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
+                echo '<a href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/logIn.php">ログイン</a>';
             }
         }catch(Exception $ex){
             echo $ex->getMessage();
@@ -44,8 +50,8 @@
     <nav class="navbar navbar-light  mb-3" style="background-color: #64BCFC;">
         <div class="container-fluid">
             <!-- タイトル -->
-            <a class="navbar-brand" href="https://localhost/TICKEPATH/WEB/home.php">
-                <img src="../images/黄色ロゴ.png" height="75px">
+            <a class="navbar-brand" href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/home.php">
+                <img src="http://bold-obi-8187.littlestar.jp/TICKEPATH/IMAGES/黄色ロゴ.png" height="75px">
             </a>
             
         </div>
@@ -98,6 +104,8 @@
         <a href="mypage.php" class="btn" style="color:#fff; background-color: #64BCFC;" type="button">マイページへ戻る</a>      
     </div>
     </div>
-    <script src="../Example/js/bootstrap.min.js"></script>
+    
+    <!--BootStrapCDN--><script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
 </body>
 </html>
