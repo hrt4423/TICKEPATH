@@ -1,5 +1,8 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,14 +15,14 @@
 </head>
 <body style="background-color: #DFDFDFDF;">
     <?php
-        session_start();
+        
         if(isset($_SESSION['clientId'])){
             echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
-            echo '<a href="https://localhost/TICKEPATH/WEB/logout.php">ログアウト</a>';
+            echo '<a href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/logout.php">ログアウト</a>';
             
         }else{
             echo 'ログインしていません<br>';
-            echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
+            echo '<a href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/logIn.php">ログイン</a>';
         }
         echo '<br>performanceId：', $_SESSION['performanceId'];
 
@@ -77,14 +80,14 @@
             <div class="row">
                 <div class="offset-2 col-4">
                     <button class="btn btn-ligh text-dark" style="background-color: #FFFF;"
-                        onclick="location.href='https://localhost/TICKEPATH/WEB/paymentMethod.php'">
+                        onclick="location.href='http://bold-obi-8187.littlestar.jp/TICKEPATH/www/pyamentMethod.php'">
                             戻る
                     </button>
                 </div>
             
                 <div class="col-6">
                         <button class="btn mx-2 btn-info" style="background-color:#68C5F3;" 
-                            onclick="location.href='https://localhost/TICKEPATH/WEB/confirm.php'"
+                            onclick="location.href='http://bold-obi-8187.littlestar.jp/TICKEPATH/www/confirm.php'"
                             id="button"
                             disabled>
                             次へ

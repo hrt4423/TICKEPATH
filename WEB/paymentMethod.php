@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -11,14 +14,14 @@
 <body style="background-color: #DFDFDFDF;">
     <?php
     try{
-        session_start();
+        
         if(isset($_SESSION['clientId'])){
             echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
-            echo '<a href="https://localhost/TICKEPATH/WEB/logout.php">ログアウト</a>';
+            echo '<a href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/logout.php">ログアウト</a>';
             
         }else{
             echo 'ログインしていません<br>';
-            echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
+            echo '<a href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/logIn.php">ログイン</a>';
         }
         echo '<br>tempPerformanceId：', $_SESSION['performanceId'];
 
@@ -42,7 +45,7 @@
                 <div class="card">
                     <div class="card-body">
     
-                        <form action="https://localhost/TICKEPATH/WEB/userPolicy.php" method="post" class="bg-white" id="payment_method_form"></form>
+                        <form action="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/userPolicy.php" method="post" class="bg-white" id="payment_method_form"></form>
                         <div class="form-check mt-2">
                         <input type="radio" name="payment_method_radio" id="" class="form-check-input">
                         <label for="rd1" class="form-check-label">
@@ -113,7 +116,7 @@
                         <div class="row mt-3">
                             <div class="col-6">
                                 <button class="btn btn-ligh text-dark" style="background-color: #DFDFDF;"
-                                onclick="location.href='https://localhost/TICKEPATH/WEB/booking.php'">
+                                onclick="location.href='http://bold-obi-8187.littlestar.jp/TICKEPATH/www/booking.php'">
                                     戻る
                                 </button>
                             </div>
