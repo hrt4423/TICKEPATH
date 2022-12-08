@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -9,8 +12,6 @@
 <body>
     <?php
     try{
-        session_start();
-    
         //セッション変数を初期化
         $_SESSION = array();
     
@@ -24,7 +25,7 @@
     ?>
     
     <p>ログアウトしました</p>
-    <a href="https://localhost/TICKEPATH/WEB/home.php">ホームへ戻る</a>
+    <a href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/home.php">ホームへ戻る</a>
     
 </body>
 </html>
