@@ -221,7 +221,7 @@
                 <dic class="card mt-3">
                     <div class="card-body">
                         <div class="row">
-                            <div class="offset-3 col-6 offset-3">
+                            <div class="col-12 text-center">
                                 <button  class="btn text-white px-4" style="background-color: #68C5F3;"
                                 onclick="location.href='http://bold-obi-8187.littlestar.jp/TICKEPATH/www/home.php'">
                                     ホームへ
