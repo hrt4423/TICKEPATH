@@ -16,5 +16,5 @@
         echo $err->getMessage();
     }
 
-    header('Location: http://bold-obi-8187.littlestar.jp/TICKEPATH/www/pyamentMethod.php');
+    header('Location: http://bold-obi-8187.littlestar.jp/TICKEPATH/www/paymentMethod.php');
 ?>
