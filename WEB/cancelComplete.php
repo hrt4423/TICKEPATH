@@ -10,21 +10,34 @@
 <body>
     <?php
         session_start();
-        if(isset($_SESSION['clientId'])){
-            echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
-            echo '<a href="https://localhost/TICKEPATH/WEB/logout.php">ログアウト</a>';
-            
-        }else{
-            echo 'ログインしていません<br>';
-            echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
+
+        try{
+            if(isset($_SESSION['clientId'])){
+                echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
+                echo '<a href="https://localhost/TICKEPATH/WEB/logout.php">ログアウト</a>';
+                
+            }else{
+                echo 'ログインしていません<br>';
+                echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
+            }
+        }catch(Exception $ex){
+            echo $ex->getMessage();
+        }catch(Error $err){
+            echo $err->getMessage();
         }
 
-        require_once './DAO/performance.php';
-        require_once './DAO/seat.php';
-        require_once './DAO/booking_detail.php';
-        $daoPerformance = new DAO_performance;
-        $daoSeat = new DAO_seat;
-        $daoBookingDetail = new DAO_booking_detail;
+        try{
+            require_once './DAO/performance.php';
+            require_once './DAO/seat.php';
+            require_once './DAO/booking_detail.php';
+            $daoPerformance = new DAO_performance;
+            $daoSeat = new DAO_seat;
+            $daoBookingDetail = new DAO_booking_detail;
+        }catch(Exception $ex){
+            echo $ex->getMessage();
+        }catch(Error $err){
+            echo $err->getMessage();
+        }
         
     ?>
     <!-- ナビゲーションバー -->
@@ -42,11 +55,19 @@
     <div class="row p-2">
         <h2 class="text-center">チケットをキャンセルしました</h2>
         <?php
+        try{
             $result = $daoPerformance->getPerformanceTblByid($_SESSION['cancelId']);
             $bookingdetaile = $daoBookingDetail->getSeatIdByBookingId($_SESSION['cancelId']);
             $performanceid = $daoSeat->getPerformanceId($bookingdetaile);
-            $seatvalueid = $daoSeat->getSeatValueId($bookingdetaile);        
-        foreach($result as $row){
+            $seatvalueid = $daoSeat->getSeatValueId($bookingdetaile);
+        }catch(Exception $ex){
+            echo $ex->getMessage();
+        }catch(Error $err){
+            echo $err->getMessage();
+        }
+        
+        try{
+            foreach($result as $row){
                 ?>
             <div class="container p-4">
                 <table class="table table-striped table-bordered">
@@ -64,7 +85,13 @@
             </div>
         <?php 
         }
+        }catch(Exception $ex){
+            echo $ex->getMessage();
+        }catch(Error $err){
+            echo $err->getMessage();
+        }
         ?>
+        
         </div>
     </div>
     <div class="d-grid gap-2 col-6 mx-auto">

@@ -8,9 +8,15 @@
 </head>
 <body>
     <?php
+    try{
         $timeStamp = time();
         $currentDate = date("Y-m-d H:i:s", $timeStamp);
         echo $currentDate;
+    }catch(Exception $ex){
+        echo $ex->getMessage();
+    }catch(Error $err){
+        echo $err->getMessage();
+    }
     ?>
     
 </body>

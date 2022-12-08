@@ -17,6 +17,7 @@
 </head>
 <body style="background-color: #DFDFDF;">
     <?php
+    try{
         session_start();
         if(isset($_SESSION['clientId'])){
             echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
@@ -26,6 +27,11 @@
             echo 'ログインしていません<br>';
             echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
         }
+    }catch(Exception $ex){
+        echo $ex->getMessage();
+    }catch(Error $err){
+        echo $err->getMessage();
+    }
     ?>
     <!-- ナビゲーションバー -->
     <nav class="navbar navbar-light mb-3">

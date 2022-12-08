@@ -24,6 +24,7 @@
 <body style="background-color:#DFDFDF;">
     <!--DBと接続 -->
     <?php
+    try{
         session_start();
         if(isset($_SESSION['clientId'])){
             echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
@@ -33,7 +34,13 @@
             echo 'ログインしていません<br>';
             echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
         }
+    }catch(Exception $ex){
+        echo $ex->getMessage();
+    }catch(Error $err){
+        echo $err->getMessage();
+    }
         
+    try{
         require_once './DAO/performance.php';
         require_once './DAO/favorite.php';
         $daoPerformance = new DAO_performance;
@@ -41,11 +48,22 @@
         if(isset($_POST['key'])){
             $_SESSION['performanceId'] = $_POST['key'];
         }
-        
+    }catch(Exception $ex){
+        echo $ex->getMessage();
+    }catch(Error $err){
+        echo $err->getMessage();
+    }
+    
+    try{
         $performanceId=$_SESSION['performanceId'];
         $clientid=$_SESSION['clientId'];
 
         $duplication = $daoFavorite->checkDuplication($clientid, $performanceId);
+    }catch(Exception $ex){
+        echo $ex->getMessage();
+    }catch(Error $err){
+        echo $err->getMessage();
+    }
     ?>
 
     <!-- ナビゲーションバー -->
@@ -62,25 +80,31 @@
         <div class="card border-dark mt-1"><!-- 公演写真カード -->
             <h5 class="card-title text-center mt-4">
                 <?php 
+                try{
                     $daoPerformance->outPutArtist($performanceId);
+                }catch(Exception $ex){
+                    echo $ex->getMessage();
+                }catch(Error $err){
+                    echo $err->getMessage();
+                }
                     //echo $_POST['key'];
                 ?>のチケット情報</h5><!-- アーティスト名 -->
                 <div class="card-body mx-auto">
-                    <img  class="img-fluid" width="400px" height="331px" src="<?php $daoPerformance->getImagePath($performanceId); ?>"><!--写真  -->
+                    <img  class="img-fluid" width="400px" height="331px" src="<?php try{$daoPerformance->getImagePath($performanceId);}catch(Exception $ex){echo $ex->getMessage();}catch(Error $err){echo $err->getMessage();} ?>"><!--写真  -->
                 </div>		
         </div>
 
         <div class="card border-dark mt-1"><!-- 公演詳細カード -->
                 <div class=card-body>
-                    <h8><?php  $daoPerformance->outPutDate($performanceId) ?></h8><br><!--公演日  -->
+                    <h8><?php try{ $daoPerformance->outPutDate($performanceId);}catch(Exception $ex){echo $ex->getMessage();}catch(Error $err){echo $err->getMessage();} ?></h8><br><!--公演日  -->
                     <h8>開演：<?php  $daoPerformance->outPutStartTime($performanceId) ?></h8><br><!--開演時間  -->
-                    <span style="color:#68C5F3;"><h8><?php  $daoPerformance->outPutPlace($performanceId) ?></h8></span><!-- 会場名 -->
+                    <span style="color:#68C5F3;"><h8><?php  try{$daoPerformance->outPutPlace($performanceId);}catch(Exception $ex){echo $ex->getMessage();}catch(Error $err){echo $err->getMessage();} ?></h8></span><!-- 会場名 -->
                 </div>		
         </div>
         <form action="https://localhost/TICKEPATH/WEB/booking.php" method="post" id="form"></form>
         <div class="d-grid gap-2"><!--申込みボタン-->
             <button style="background-color:#68C5F3;border-color:black;color:white" class="btn mt-1" 
-                onclick="location.href='https://localhost/TICKEPATH/WEB/booking.php'">
+                onclick="location.href='https://localhost/TICKEPATH/WEB/bookingLoginCheck.php'">
                 申し込む
             </button>
         </div>
@@ -88,7 +112,7 @@
         <div class="card border-dark mt-3 mb-1">
             <h8 style="color:#0047FF"  class="card-title text-center mt-1">このアーティストをお気に入りに登録する</h8>
             <div class=row>
-                <h6 class="text-center"><?php $daoPerformance->outPutArtist($performanceId);?></h6> 
+                <h6 class="text-center"><?php try{$daoPerformance->outPutArtist($performanceId);}catch(Exception $ex){echo $ex->getMessage();}catch(Error $err){echo $err->getMessage();}?></h6> 
             </div>
         </div>
 
@@ -101,6 +125,7 @@
         </form>
 
         <?php
+        try{
             if($clientid == null){
                 if(isset($_POST['fav'])){
                     header("Location:https://localhost/TICKEPATH/WEB/login.php");
@@ -116,6 +141,12 @@
                     echo '既に登録済みです';
                 }
             }
+        }catch(Exception $ex){
+            echo $ex->getMessage();
+        }catch(Error $err){
+            echo $err->getMessage();
+        }
+            
         ?>
         <?php 
 
