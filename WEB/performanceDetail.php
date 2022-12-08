@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -25,14 +28,15 @@
     <!--DBと接続 -->
     <?php
     try{
-        session_start();
+        
         if(isset($_SESSION['clientId'])){
             echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
-            echo '<a href="https://localhost/TICKEPATH/WEB/logout.php">ログアウト</a>';
+            echo '<a href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/logout.php">ログアウト</a>';
             
         }else{
             echo 'ログインしていません<br>';
-            echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
+            echo '<a href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/logIn.php
+            ">ログイン</a>';
         }
     }catch(Exception $ex){
         echo $ex->getMessage();
@@ -67,16 +71,72 @@
     ?>
 
     <!-- ナビゲーションバー -->
-    <nav class="navbar navbar-light" style="background-color: #64BCFC;">
-        <div class="container-fluid">
-            <!-- タイトル -->
-            <a class="navbar-brand" href="https://localhost/TICKEPATH/WEB/home.php">
-                <img src="../images/黄色ロゴ.png" height="75px">
-            </a>
-        </div>
-    </nav>
+    <nav class="navbar navbar-light mb-3">
+            <div class="container-fluid">
+                <!-- タイトル -->
+                <a class="navbar-brand" href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/home.php">
+                    <img src="http://bold-obi-8187.littlestar.jp/TICKEPATH/IMAGES/黄色ロゴ.png" height="75px">
+                </a>
+                <!-- ハンバーガーメニュー -->
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <!-- ナビゲーションメニュー -->
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link text-light" href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/home.php">ホーム</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/myPage.php">マイページ</a>
+                        </li>
+                        <?php
+                            try{
+                                if(isset($_SESSION['clientId'])){
+                                    ?>
+                                    <li class="nav-item mb-2">
+                                        <a class="nav-link text-light" href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/logout.php">ログアウト</a>
+                                    </li>
+                                    <?php
+                                }else{
+                                    ?>
+                                    <li class="nav-item mb-2">
+                                        <a class="nav-link text-light" href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/logIn.php">新規登録orログイン</a>
+                                    </li>
+                                    <?php
+                                }
 
-    <div class="container-fluid">   
+                            }catch(Exception $ex){
+                                echo $ex->getMessage();
+                            }catch(Error $err){
+                                echo $err->getMessage();
+                            }
+                        ?>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+    <div class="container-fluid">
+        <?php 
+
+            if(isset($_POST['artistname'])){
+                ?>
+
+            <form action="searchResult.php" method="post" class="text-decoration-none">
+                <div class="row">
+                    <div class="col-1 d-grid  gap-2 mt-1 text-center">
+                    <input type="hidden" name="artistname" value="<?=$_POST['artistname']?>">
+                        <input type="submit"  value="戻る" class="btn btn-sm text-white border-dark" 
+                        style="background-color:#68C5F3">
+                    </div>
+                </div>
+            </form>
+            <?php
+            }else{
+
+            }
+        ?>   
         <div class="card border-dark mt-1"><!-- 公演写真カード -->
             <h5 class="card-title text-center mt-4">
                 <?php 
@@ -101,10 +161,10 @@
                     <span style="color:#68C5F3;"><h8><?php  try{$daoPerformance->outPutPlace($performanceId);}catch(Exception $ex){echo $ex->getMessage();}catch(Error $err){echo $err->getMessage();} ?></h8></span><!-- 会場名 -->
                 </div>		
         </div>
-        <form action="https://localhost/TICKEPATH/WEB/booking.php" method="post" id="form"></form>
+        <form action="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/booking.php" method="post" id="form"></form>
         <div class="d-grid gap-2"><!--申込みボタン-->
             <button style="background-color:#68C5F3;border-color:black;color:white" class="btn mt-1" 
-                onclick="location.href='https://localhost/TICKEPATH/WEB/bookingLoginCheck.php'">
+                onclick="location.href='http://bold-obi-8187.littlestar.jp/TICKEPATH/www/bookingLoginCheck.php'">
                 申し込む
             </button>
         </div>
@@ -128,7 +188,7 @@
         try{
             if($clientid == null){
                 if(isset($_POST['fav'])){
-                    header("Location:https://localhost/TICKEPATH/WEB/login.php");
+                    header("Location:http://bold-obi-8187.littlestar.jp/TICKEPATH/www/logIn.php");
                 }
             }
             
@@ -148,24 +208,7 @@
         }
             
         ?>
-        <?php 
-
-            if(isset($_POST['artistname'])){
-                ?>
-
-            <form action="searchResult.php" method="post" class="text-decoration-none">
-                        <div class="row">
-                            <div class="d-grid  gap-2 mt-1 text-center">
-                            <input type="hidden" name="artistname" value="<?=$_POST['artistname']?>">
-                                <input type="submit"  value="検索結果へ戻る" class="homebtn btn btn-info btn-sm text-white border-dark">
-                            </div>
-                        </div>
-            </form>
-            <?php
-            }else{
-
-            }
-            ?>
+        
     </div> 
     <!-- bootstrapのjs読み込み -->
     <script src="js/bootstrap.min.js"></script>

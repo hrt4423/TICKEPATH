@@ -1,3 +1,6 @@
+<?php
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -14,6 +17,12 @@
     .homebtn{
         background-color: #64BCFC;
     }
+    #vertical_line{
+        background-color: #888888;
+        width: 0.5px;
+        height: 100px;
+        margin-left: 8px;
+    }
     </style>
 
     
@@ -23,14 +32,14 @@
 <body style="background-color: #DFDFDF;">
     <?php
     try{
-        session_start();
+        
         if(isset($_SESSION['clientId'])){
             echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
-            echo '<a href="https://localhost/TICKEPATH/WEB/logout.php">ログアウト</a>';
+            echo '<a href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/logout.php">ログアウト</a>';
             
         }else{
             echo 'ログインしていません<br>';
-            echo '<a href="https://localhost/TICKEPATH/WEB/login.php">ログイン</a>';
+            echo '<a href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/logIn.php">ログイン</a>';
         }
         
         require_once './DAO/performance.php';
@@ -41,12 +50,12 @@
         echo $err->getMessage();
     }
     ?>
-<!-- ナビゲーションバー -->
-<nav class="navbar navbar-light">
+    <!-- ナビゲーションバー -->
+    <nav class="navbar navbar-light mb-3">
         <div class="container-fluid">
             <!-- タイトル -->
-            <a class="navbar-brand" href="https://localhost/TICKEPATH/WEB/home.php">
-                <img src="../images/黄色ロゴ.png" height="75px">
+            <a class="navbar-brand" href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/home.php">
+                <img src="http://bold-obi-8187.littlestar.jp/TICKEPATH/IMAGES/黄色ロゴ.png" height="75px">
             </a>
             <!-- ハンバーガーメニュー -->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -56,14 +65,33 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item active">
-                        <a class="nav-link text-light" href="https://localhost/TICKEPATH/WEB/home.php">ホーム</a>
+                        <a class="nav-link text-light" href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/home.php">ホーム</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-light" href="https://localhost/TICKEPATH/WEB/accessCheckMyPage.php">マイページ</a>
+                        <a class="nav-link text-light" href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/myPage.php">マイページ</a>
                     </li>
-                    <li class="nav-item mb-2">
-                        <a class="nav-link text-light" href="#">新規登録orログイン</a>
-                    </li>
+                    <?php
+                        try{
+                            if(isset($_SESSION['clientId'])){
+                                ?>
+                                <li class="nav-item mb-2">
+                                    <a class="nav-link text-light" href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/logout.php">ログアウト</a>
+                                </li>
+                                <?php
+                            }else{
+                                ?>
+                                <li class="nav-item mb-2">
+                                    <a class="nav-link text-light" href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/logIn.php">新規登録orログイン</a>
+                                </li>
+                                <?php
+                            }
+
+                        }catch(Exception $ex){
+                            echo $ex->getMessage();
+                        }catch(Error $err){
+                            echo $err->getMessage();
+                        }
+                    ?>
                     <!-- 検索の処理 -->
                     <form action="searchResult.php" method="post">
                         <div class="input-group">
