@@ -27,23 +27,7 @@
 <body style="background-color:#DFDFDF;">
     <!--DBと接続 -->
     <?php
-    try{
-        
-        if(isset($_SESSION['clientId'])){
-            echo 'ログイン中<br>ID：', $_SESSION['clientId'],'<br>';
-            echo '<a href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/logout.php">ログアウト</a>';
-            
-        }else{
-            echo 'ログインしていません<br>';
-            echo '<a href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/logIn.php
-            ">ログイン</a>';
-        }
-    }catch(Exception $ex){
-        echo $ex->getMessage();
-    }catch(Error $err){
-        echo $err->getMessage();
-    }
-        
+    
     try{
         require_once './DAO/performance.php';
         require_once './DAO/favorite.php';
@@ -64,9 +48,9 @@
 
         $duplication = $daoFavorite->checkDuplication($clientid, $performanceId);
     }catch(Exception $ex){
-        echo $ex->getMessage();
+       
     }catch(Error $err){
-        echo $err->getMessage();
+       
     }
     ?>
 
@@ -88,7 +72,7 @@
                             <a class="nav-link text-light" href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/home.php">ホーム</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/myPage.php">マイページ</a>
+                            <a class="nav-link text-light" href="http://bold-obi-8187.littlestar.jp/TICKEPATH/www/accessCheckMyPage.php">マイページ</a>
                         </li>
                         <?php
                             try{
