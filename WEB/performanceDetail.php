@@ -48,6 +48,11 @@
         if(isset($_POST['key'])){
             $_SESSION['performanceId'] = $_POST['key'];
         }
+
+        if(isset($_POST['artistname'])){
+            $_SESSION['artistname']=$_POST['artistname'];
+        }
+
     }catch(Exception $ex){
         echo $ex->getMessage();
     }catch(Error $err){
@@ -57,6 +62,7 @@
     try{
         $performanceId=$_SESSION['performanceId'];
         $clientid=$_SESSION['clientId'];
+        $artistname=$_SESSION['artistname'];
 
         $duplication = $daoFavorite->checkDuplication($clientid, $performanceId);
     }catch(Exception $ex){
@@ -149,21 +155,28 @@
             
         ?>
         <?php 
-
-            if(isset($_POST['artistname'])){
+            if(isset($artistname)){
                 ?>
 
             <form action="searchResult.php" method="post" class="text-decoration-none">
                         <div class="row">
                             <div class="d-grid  gap-2 mt-1 text-center">
-                            <input type="hidden" name="artistname" value="<?=$_POST['artistname']?>">
-                                <input type="submit"  value="検索結果へ戻る" class="homebtn btn btn-info btn-sm text-white border-dark">
+                            <input type="hidden" name="artistname" value="<?=$artistname?>">
+                                <input type="submit"  value="戻る" class="homebtn btn btn-info btn-sm text-white border-dark">
                             </div>
                         </div>
             </form>
             <?php
             }else{
-
+            ?>
+                <form action="home.php" method="post" class="text-decoration-none">
+                        <div class="row">
+                            <div class="d-grid  gap-2 mt-1 text-center">
+                                <input type="submit"  value="戻る" class="homebtn btn btn-info btn-sm text-white border-dark">
+                            </div>
+                        </div>
+            </form>
+            <?php
             }
             ?>
     </div> 
