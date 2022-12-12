@@ -238,7 +238,7 @@
                         </div>
 
                         <div class="col-6">
-                            <button type="submit" class="btn text-dark m-2" style="background-color: #68C5F3;" form="bookingForm">
+                            <button type="submit" class="btn text-dark m-2 float-end" style="background-color: #68C5F3;" form="bookingForm">
                                 決算方法選択
                             </button>
                         </div>

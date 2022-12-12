@@ -120,7 +120,7 @@
             
                             <div class="col-6">
                                 <a href=""><!--  -->
-                                    <button type="submit" class="btn btn-info text-white" 
+                                    <button type="submit" class="btn btn-info text-white float-end" 
                                         form="payment_method_form">
                                         決済方法を確定
                                     </button>

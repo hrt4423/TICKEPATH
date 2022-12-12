@@ -151,7 +151,7 @@
                         </div>
 
                         <div class="col-6">
-                            <button type="submit" class="btn text-white m-2" style="background-color: #68C5F3;"
+                            <button type="submit" class="btn text-white m-2 float-end" style="background-color: #68C5F3;"
                             onclick="location.href='https://localhost/TICKEPATH/WEB/bookingExecute.php'">
                                 購入
                             </button>
